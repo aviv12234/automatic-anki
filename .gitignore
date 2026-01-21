@@ -23,3 +23,6 @@ venv/
 # --- Secrets (defense in depth) ---
 .env
 config.json
+
+# --- Anki add-on local state / secrets ---
+meta.json
