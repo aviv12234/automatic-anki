@@ -1,0 +1,229 @@
+﻿Folder PATH listing for volume Windows-SSD
+Volume serial number is DC85-15E2
+C:.
+ª   .gitattributes
+ª   .gitignore
+ª   addon_tree.txt
+ª   anki_basic_cards.json
+ª   config.json
+ª   main.py
+ª   meta.json
+ª   openai_cards.py
+ª   pdf_images.py
+ª   pdf_parser.py
+ª   __init__.py
+ª   
++---bin
++---cffi
++---charset_normalizer
++---cryptography
++---fitz
++---pycparser
++---_vendor
+ª   +---pymupdf
+ª       +---pypdf
+ª       ª   ª   constants.py
+ª       ª   ª   errors.py
+ª       ª   ª   filters.py
+ª       ª   ª   pagerange.py
+ª       ª   ª   papersizes.py
+ª       ª   ª   py.typed
+ª       ª   ª   types.py
+ª       ª   ª   xmp.py
+ª       ª   ª   _cmap.py
+ª       ª   ª   _doc_common.py
+ª       ª   ª   _encryption.py
+ª       ª   ª   _font.py
+ª       ª   ª   _page.py
+ª       ª   ª   _page_labels.py
+ª       ª   ª   _protocols.py
+ª       ª   ª   _reader.py
+ª       ª   ª   _utils.py
+ª       ª   ª   _version.py
+ª       ª   ª   _writer.py
+ª       ª   ª   _xobj_image_helpers.py
+ª       ª   ª   __init__.py
+ª       ª   ª   
+ª       ª   +---annotations
+ª       ª   ª   ª   _base.py
+ª       ª   ª   ª   _markup_annotations.py
+ª       ª   ª   ª   _non_markup_annotations.py
+ª       ª   ª   ª   __init__.py
+ª       ª   ª   ª   
+ª       ª   ª   +---__pycache__
+ª       ª   ª           _base.cpython-313.pyc
+ª       ª   ª           _markup_annotations.cpython-313.pyc
+ª       ª   ª           _non_markup_annotations.cpython-313.pyc
+ª       ª   ª           __init__.cpython-313.pyc
+ª       ª   ª           
+ª       ª   +---generic
+ª       ª   ª   ª   _appearance_stream.py
+ª       ª   ª   ª   _base.py
+ª       ª   ª   ª   _data_structures.py
+ª       ª   ª   ª   _files.py
+ª       ª   ª   ª   _fit.py
+ª       ª   ª   ª   _image_inline.py
+ª       ª   ª   ª   _link.py
+ª       ª   ª   ª   _outline.py
+ª       ª   ª   ª   _rectangle.py
+ª       ª   ª   ª   _utils.py
+ª       ª   ª   ª   _viewerpref.py
+ª       ª   ª   ª   __init__.py
+ª       ª   ª   ª   
+ª       ª   ª   +---__pycache__
+ª       ª   ª           _appearance_stream.cpython-313.pyc
+ª       ª   ª           _appearance_stream.cpython-39.opt-2.pyc
+ª       ª   ª           _base.cpython-313.pyc
+ª       ª   ª           _base.cpython-39.opt-2.pyc
+ª       ª   ª           _data_structures.cpython-313.pyc
+ª       ª   ª           _data_structures.cpython-39.opt-2.pyc
+ª       ª   ª           _files.cpython-313.pyc
+ª       ª   ª           _files.cpython-39.opt-2.pyc
+ª       ª   ª           _fit.cpython-313.pyc
+ª       ª   ª           _fit.cpython-39.opt-2.pyc
+ª       ª   ª           _image_inline.cpython-313.pyc
+ª       ª   ª           _image_inline.cpython-39.opt-2.pyc
+ª       ª   ª           _link.cpython-313.pyc
+ª       ª   ª           _link.cpython-39.opt-2.pyc
+ª       ª   ª           _outline.cpython-313.pyc
+ª       ª   ª           _outline.cpython-39.opt-2.pyc
+ª       ª   ª           _rectangle.cpython-313.pyc
+ª       ª   ª           _rectangle.cpython-39.opt-2.pyc
+ª       ª   ª           _utils.cpython-313.pyc
+ª       ª   ª           _utils.cpython-39.opt-2.pyc
+ª       ª   ª           _viewerpref.cpython-313.pyc
+ª       ª   ª           _viewerpref.cpython-39.opt-2.pyc
+ª       ª   ª           __init__.cpython-313.pyc
+ª       ª   ª           __init__.cpython-39.opt-2.pyc
+ª       ª   ª           
+ª       ª   +---_codecs
+ª       ª   ª   ª   adobe_glyphs.py
+ª       ª   ª   ª   core_fontmetrics.py
+ª       ª   ª   ª   pdfdoc.py
+ª       ª   ª   ª   std.py
+ª       ª   ª   ª   symbol.py
+ª       ª   ª   ª   zapfding.py
+ª       ª   ª   ª   _codecs.py
+ª       ª   ª   ª   __init__.py
+ª       ª   ª   ª   
+ª       ª   ª   +---__pycache__
+ª       ª   ª           adobe_glyphs.cpython-313.pyc
+ª       ª   ª           adobe_glyphs.cpython-39.opt-2.pyc
+ª       ª   ª           core_fontmetrics.cpython-313.pyc
+ª       ª   ª           core_fontmetrics.cpython-39.opt-2.pyc
+ª       ª   ª           pdfdoc.cpython-313.pyc
+ª       ª   ª           pdfdoc.cpython-39.opt-2.pyc
+ª       ª   ª           std.cpython-313.pyc
+ª       ª   ª           std.cpython-39.opt-2.pyc
+ª       ª   ª           symbol.cpython-313.pyc
+ª       ª   ª           symbol.cpython-39.opt-2.pyc
+ª       ª   ª           zapfding.cpython-313.pyc
+ª       ª   ª           zapfding.cpython-39.opt-2.pyc
+ª       ª   ª           _codecs.cpython-313.pyc
+ª       ª   ª           _codecs.cpython-39.opt-2.pyc
+ª       ª   ª           __init__.cpython-313.pyc
+ª       ª   ª           __init__.cpython-39.opt-2.pyc
+ª       ª   ª           
+ª       ª   +---_crypt_providers
+ª       ª   ª   ª   _base.py
+ª       ª   ª   ª   _cryptography.py
+ª       ª   ª   ª   _fallback.py
+ª       ª   ª   ª   _pycryptodome.py
+ª       ª   ª   ª   __init__.py
+ª       ª   ª   ª   
+ª       ª   ª   +---__pycache__
+ª       ª   ª           _base.cpython-313.pyc
+ª       ª   ª           _base.cpython-39.opt-2.pyc
+ª       ª   ª           _cryptography.cpython-313.pyc
+ª       ª   ª           _cryptography.cpython-39.opt-2.pyc
+ª       ª   ª           _fallback.cpython-313.pyc
+ª       ª   ª           _fallback.cpython-39.opt-2.pyc
+ª       ª   ª           _pycryptodome.cpython-313.pyc
+ª       ª   ª           _pycryptodome.cpython-39.opt-2.pyc
+ª       ª   ª           __init__.cpython-313.pyc
+ª       ª   ª           __init__.cpython-39.opt-2.pyc
+ª       ª   ª           
+ª       ª   +---_text_extraction
+ª       ª   ª   ª   _text_extractor.py
+ª       ª   ª   ª   __init__.py
+ª       ª   ª   ª   
+ª       ª   ª   +---_layout_mode
+ª       ª   ª   ª   ª   _fixed_width_page.py
+ª       ª   ª   ª   ª   _text_state_manager.py
+ª       ª   ª   ª   ª   _text_state_params.py
+ª       ª   ª   ª   ª   __init__.py
+ª       ª   ª   ª   ª   
+ª       ª   ª   ª   +---__pycache__
+ª       ª   ª   ª           _fixed_width_page.cpython-313.pyc
+ª       ª   ª   ª           _fixed_width_page.cpython-39.opt-2.pyc
+ª       ª   ª   ª           _text_state_manager.cpython-313.pyc
+ª       ª   ª   ª           _text_state_manager.cpython-39.opt-2.pyc
+ª       ª   ª   ª           _text_state_params.cpython-313.pyc
+ª       ª   ª   ª           _text_state_params.cpython-39.opt-2.pyc
+ª       ª   ª   ª           __init__.cpython-313.pyc
+ª       ª   ª   ª           __init__.cpython-39.opt-2.pyc
+ª       ª   ª   ª           
+ª       ª   ª   +---__pycache__
+ª       ª   ª           _text_extractor.cpython-313.pyc
+ª       ª   ª           _text_extractor.cpython-39.opt-2.pyc
+ª       ª   ª           __init__.cpython-313.pyc
+ª       ª   ª           __init__.cpython-39.opt-2.pyc
+ª       ª   ª           
+ª       ª   +---__pycache__
+ª       ª           constants.cpython-313.pyc
+ª       ª           constants.cpython-39.opt-2.pyc
+ª       ª           errors.cpython-313.pyc
+ª       ª           errors.cpython-39.opt-2.pyc
+ª       ª           filters.cpython-313.pyc
+ª       ª           filters.cpython-39.opt-2.pyc
+ª       ª           pagerange.cpython-313.pyc
+ª       ª           pagerange.cpython-39.opt-2.pyc
+ª       ª           papersizes.cpython-313.pyc
+ª       ª           papersizes.cpython-39.opt-2.pyc
+ª       ª           types.cpython-313.pyc
+ª       ª           types.cpython-39.opt-2.pyc
+ª       ª           xmp.cpython-313.pyc
+ª       ª           xmp.cpython-39.opt-2.pyc
+ª       ª           _cmap.cpython-313.pyc
+ª       ª           _cmap.cpython-39.opt-2.pyc
+ª       ª           _doc_common.cpython-313.pyc
+ª       ª           _doc_common.cpython-39.opt-2.pyc
+ª       ª           _encryption.cpython-313.pyc
+ª       ª           _encryption.cpython-39.opt-2.pyc
+ª       ª           _font.cpython-313.pyc
+ª       ª           _font.cpython-39.opt-2.pyc
+ª       ª           _page.cpython-313.pyc
+ª       ª           _page.cpython-39.opt-2.pyc
+ª       ª           _page_labels.cpython-313.pyc
+ª       ª           _page_labels.cpython-39.opt-2.pyc
+ª       ª           _protocols.cpython-313.pyc
+ª       ª           _protocols.cpython-39.opt-2.pyc
+ª       ª           _reader.cpython-313.pyc
+ª       ª           _reader.cpython-39.opt-2.pyc
+ª       ª           _utils.cpython-313.pyc
+ª       ª           _utils.cpython-39.opt-2.pyc
+ª       ª           _version.cpython-313.pyc
+ª       ª           _version.cpython-39.opt-2.pyc
+ª       ª           _writer.cpython-313.pyc
+ª       ª           _writer.cpython-39.opt-2.pyc
+ª       ª           _xobj_image_helpers.cpython-313.pyc
+ª       ª           _xobj_image_helpers.cpython-39.opt-2.pyc
+ª       ª           __init__.cpython-313.pyc
+ª       ª           __init__.cpython-39.opt-2.pyc
+ª       ª           
+ª       +---pypdf-6.6.0.dist-info
+ª           ª   INSTALLER
+ª           ª   METADATA
+ª           ª   RECORD
+ª           ª   REQUESTED
+ª           ª   WHEEL
+ª           ª   
+ª           +---licenses
+ª                   LICENSE
+ª                   
++---__pycache__
+        main.cpython-39.opt-2.pyc
+        openai_cards.cpython-39.opt-2.pyc
+        pdf_parser.cpython-39.opt-2.pyc
+        __init__.cpython-39.opt-2.pyc
+        

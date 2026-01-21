@@ -1,0 +1,25 @@
+
+# --- Anki / runtime ---
+pdf2cards_debug.log
+*.log
+
+# --- Python ---
+__pycache__/
+*.pyc
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+
+# --- Temporary / editor ---
+*.tmp
+*.swp
+*.bak
+
+# --- Virtual envs (if any) ---
+.venv/
+venv/
+
+# --- Secrets (defense in depth) ---
+.env
+config.json

@@ -1,0 +1,469 @@
+{
+  "source_pdf": "1.NERVOUS SYSTEM.pdf",
+  "card_count": 84,
+  "cards": [
+    {
+      "front": "What is the course offered at the University of Cagliari?",
+      "back": "Course in Neurophysiology",
+      "source_page": 1
+    },
+    {
+      "front": "Who is the instructor for the Neurophysiology course?",
+      "back": "Dr. Mariano Mastinu",
+      "source_page": 1
+    },
+    {
+      "front": "What department is the Neurophysiology course part of?",
+      "back": "Department of Biomedical Science",
+      "source_page": 1
+    },
+    {
+      "front": "In which section is the Physiology course located?",
+      "back": "Physiology section",
+      "source_page": 1
+    },
+    {
+      "front": "Where is the University of Cagliari located?",
+      "back": "Cittadella Universitaria",
+      "source_page": 1
+    },
+    {
+      "front": "What is the email address of Dr. Mariano Mastinu?",
+      "back": "mariano.mastinu@unica.it",
+      "source_page": 1
+    },
+    {
+      "front": "What is the human brain composed of?",
+      "back": "More than 80 billion individual nerve cells.",
+      "tags": [],
+      "source_page": 2
+    },
+    {
+      "front": "What are neural circuits?",
+      "back": "Interconnected systems of nerve cells that construct perceptions, fix attention, guide decisions, and implement actions.",
+      "tags": [],
+      "source_page": 2
+    },
+    {
+      "front": "What must be understood to comprehend behavior?",
+      "back": "Both the innate and environmental determinants of behavior.",
+      "tags": [],
+      "source_page": 2
+    },
+    {
+      "front": "What are the structural components of individual nerve cells?",
+      "back": "The structural components include the cell body, dendrites, and axon.",
+      "source_page": 3
+    },
+    {
+      "front": "What mechanisms do neurons use to produce signals?",
+      "back": "Neurons produce signals through electrical impulses and neurotransmitter release.",
+      "source_page": 3
+    },
+    {
+      "front": "What do the patterns of connection between nerve cells and their targets refer to?",
+      "back": "They refer to the synaptic connections between neurons and effectors such as muscles and glands.",
+      "source_page": 3
+    },
+    {
+      "front": "How are different patterns of interconnection related to behavior?",
+      "back": "Different patterns of interconnection are associated with various types of behavior.",
+      "source_page": 3
+    },
+    {
+      "front": "How can neurons and their connections be modified?",
+      "back": "They can be modified by experience, through processes such as learning and adaptation.",
+      "source_page": 3
+    },
+    {
+      "front": "What is the Neuron Theory?",
+      "back": "A theory that includes dynamic polarization and specificity of connections.",
+      "source_page": 5
+    },
+    {
+      "front": "What does dynamic polarization refer to in the Neuron Theory?",
+      "back": "The concept that neurons have distinct input and output regions.",
+      "source_page": 5
+    },
+    {
+      "front": "What does specificity of connections mean in the Neuron Theory?",
+      "back": "The idea that neurons form precise connections with specific target cells.",
+      "source_page": 5
+    },
+    {
+      "front": "Who are Golgi and Ramon y Cajal?",
+      "back": "Two key figures in the study of neurophysiology and the development of neuron theory.",
+      "source_page": 5
+    },
+    {
+      "front": "What is a diffuse nervous network?",
+      "back": "A type of nervous system organization that lacks a centralized structure.",
+      "source_page": 5
+    },
+    {
+      "front": "What type of cells have a single process emanating from the cell?",
+      "back": "Unipolar cells",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "What is characteristic of unipolar cells?",
+      "back": "They are characteristic of the invertebrate nervous system.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "What are the two types of processes in bipolar cells?",
+      "back": "A dendrite that receives electrical signals and an axon that transmits signals.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "What do pseudo-unipolar cells carry?",
+      "back": "Somatosensory information to the spinal cord.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "How do pseudo-unipolar cells develop from bipolar cells?",
+      "back": "The two processes of the embryonic bipolar cell fuse and emerge as a single process with two segments.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "What is the function of both segments in pseudo-unipolar cells?",
+      "back": "Both segments function as axons.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "Where does one segment of a pseudo-unipolar cell extend to?",
+      "back": "Peripheral skin or muscle.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "Where does the other segment of a pseudo-unipolar cell extend to?",
+      "back": "The central spinal cord.",
+      "tags": [],
+      "source_page": 7
+    },
+    {
+      "front": "What type of neuron has a single axon and many dendrites?",
+      "back": "Multipolar cells",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "What is the most common type of neuron in the mammalian nervous system?",
+      "back": "Multipolar cells",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "What do spinal motor neurons innervate?",
+      "back": "Skeletal muscle fibers",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "Describe the shape of pyramidal cells.",
+      "back": "They have a roughly triangular cell body.",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "Where are pyramidal cells found?",
+      "back": "In the hippocampus and throughout the cerebral cortex.",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "What characterizes Purkinje cells of the cerebellum?",
+      "back": "A rich and extensive dendritic tree that accommodates many synaptic inputs.",
+      "tags": [],
+      "source_page": 8
+    },
+    {
+      "front": "How is signaling organized in nerve cells?",
+      "back": "Signaling is organized in the same way in all nerve cells.",
+      "source_page": 9
+    },
+    {
+      "front": "What is the speed of fast axonal transport?",
+      "back": "400 mm/day",
+      "source_page": 11
+    },
+    {
+      "front": "What is the speed of slow axonal transport?",
+      "back": "1 mm/day",
+      "source_page": 11
+    },
+    {
+      "front": "What do Schwann cells provide in the peripheral nervous system?",
+      "back": "Myelin sheaths for axons.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "How long is the myelin sheath formed by a single Schwann cell?",
+      "back": "Approximately 1 mm long.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What is the mechanism by which Schwann cells form myelin sheaths?",
+      "back": "The inner tongue of the Schwann cell wraps around the axon several times.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What is the characteristic shape of astrocytes?",
+      "back": "Star-like shape.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What function do astrocytes serve due to their contact with capillaries and neurons?",
+      "back": "Nutritive function.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What role do astrocytes play in the brain?",
+      "back": "Maintaining the blood–brain barrier.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What do oligodendrocytes provide in the white matter of the brain?",
+      "back": "Myelin sheaths that insulate axons.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "How many axons can a single oligodendrocyte wrap?",
+      "back": "Many axons.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What do perineural oligodendrocytes surround in the gray matter?",
+      "back": "Cell bodies of neurons.",
+      "tags": [],
+      "source_page": 12
+    },
+    {
+      "front": "What do oligodendrocytes provide in the white matter of the brain?",
+      "back": "Myelin sheaths that insulate axons.",
+      "source_page": 13
+    },
+    {
+      "front": "How many axons can a single oligodendrocyte wrap?",
+      "back": "Many axons.",
+      "source_page": 13
+    },
+    {
+      "front": "What do perineural oligodendrocytes surround in the gray matter?",
+      "back": "The cell bodies of neurons.",
+      "source_page": 13
+    },
+    {
+      "front": "What do oligodendrocytes express that allows them to respond to inflammatory signals?",
+      "back": "Receptors.",
+      "source_page": 13
+    },
+    {
+      "front": "What is one function of oligodendrocytes related to extracellular fluid?",
+      "back": "Metabolic regulation.",
+      "source_page": 13
+    },
+    {
+      "front": "What do Schwann cells provide for axons in the peripheral nervous system?",
+      "back": "Myelin sheaths",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "How many Schwann cells are positioned along a single axon?",
+      "back": "Several",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "What is the approximate length of the myelin sheath formed by each Schwann cell?",
+      "back": "1 mm",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "What structure is formed by the inner tongue of the Schwann cell?",
+      "back": "Myelin sheath",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "How does the Schwann cell wrap around the axon?",
+      "back": "It wraps the axon in layers of membrane.",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "What are the gaps between myelin sheaths called?",
+      "back": "Nodes of Ranvier",
+      "tags": [],
+      "source_page": 14
+    },
+    {
+      "front": "What is the composition of myelin?",
+      "back": "Myelin consists of 70% lipid and 30% protein.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What are the two major proteins found in CNS myelin?",
+      "back": "Myelin basic protein and proteolipid protein.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What is the role of myelin basic protein?",
+      "back": "It provides structural stability for the sheath and is situated on the cytoplasmic surface of compact myelin.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What type of protein is proteolipid protein?",
+      "back": "It is a hydrophobic integral membrane protein.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What is the primary function of myelin?",
+      "back": "To provide structural stability for the sheath.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What is the lipid composition of myelin?",
+      "back": "Myelin has high concentrations of cholesterol and phospholipid.",
+      "tags": [],
+      "source_page": 15
+    },
+    {
+      "front": "What is the shape of astrocytes?",
+      "back": "Star-like shape",
+      "tags": [],
+      "source_page": 16
+    },
+    {
+      "front": "What is a key characteristic of astrocytes?",
+      "back": "Broad end-feet on their processes",
+      "tags": [],
+      "source_page": 16
+    },
+    {
+      "front": "What do the end-feet of astrocytes contact?",
+      "back": "Capillaries and neurons",
+      "tags": [],
+      "source_page": 16
+    },
+    {
+      "front": "What is one function of astrocytes?",
+      "back": "Nutritive function",
+      "tags": [],
+      "source_page": 16
+    },
+    {
+      "front": "What role do astrocytes play in the blood–brain barrier?",
+      "back": "Maintaining the blood–brain barrier",
+      "tags": [],
+      "source_page": 16
+    },
+    {
+      "front": "What is the role of glial cells in providing physical scaffolding?",
+      "back": "They provide physical scaffolding for neurons and fill extracellular space, maintaining the architecture of neural networks.",
+      "source_page": 17
+    },
+    {
+      "front": "How do glial cells regulate the Blood–Brain Barrier (BBB)?",
+      "back": "Endfeet ensheath blood vessels and signal endothelial cells to form tight junctions, regulating permeability and protecting the CNS from toxins and pathogens.",
+      "source_page": 17
+    },
+    {
+      "front": "What is potassium spatial buffering?",
+      "back": "It is the process by which glial cells buffer extracellular K⁺ to prevent neuronal hyperexcitability.",
+      "source_page": 17
+    },
+    {
+      "front": "How do glial cells contribute to neurotransmitter homeostasis?",
+      "back": "They uptake neurotransmitters, especially glutamate and GABA, via transporters to prevent excitotoxicity and fine-tune synaptic transmission.",
+      "source_page": 17
+    },
+    {
+      "front": "What is the role of glial cells in energy metabolism?",
+      "back": "They couple neuronal activity to metabolic supply by storing glycogen and providing lactate.",
+      "source_page": 17
+    },
+    {
+      "front": "What forms the tripartite synapse?",
+      "back": "Presynaptic neuron, postsynaptic neuron, and astrocytic process.",
+      "source_page": 18
+    },
+    {
+      "front": "What is the role of glial cells in synaptic regulation?",
+      "back": "They modulate synaptic strength and plasticity.",
+      "source_page": 18
+    },
+    {
+      "front": "What is neurovascular coupling?",
+      "back": "The process by which glial cells sense neuronal activity and signal to blood vessels to adjust local blood flow.",
+      "source_page": 18
+    },
+    {
+      "front": "What do glial cells release to act as CNS immune modulators?",
+      "back": "Cytokines and chemokines.",
+      "source_page": 18
+    },
+    {
+      "front": "What happens to astrocytes during injury or disease?",
+      "back": "They become reactive, a condition known as astrogliosis.",
+      "source_page": 18
+    },
+    {
+      "front": "What is the developmental role of glial cells?",
+      "back": "They guide migrating neurons and growing axons, influencing synapse formation, pruning, and maturation.",
+      "source_page": 18
+    },
+    {
+      "front": "What disorders are associated with dysregulation of astrocyte function?",
+      "back": "Epilepsy, neurodegenerative diseases (Alzheimer’s, Parkinson’s), stroke, multiple sclerosis, and psychiatric disorders.",
+      "source_page": 18
+    },
+    {
+      "front": "What is a nerve?",
+      "back": "An enclosed bundle of nerve fibers (axons).",
+      "source_page": 19
+    },
+    {
+      "front": "What do nerves convey?",
+      "back": "Information in the form of electrochemical impulses.",
+      "source_page": 19
+    },
+    {
+      "front": "What are the three classifications of nerves based on function?",
+      "back": "Afferent, efferent, or mixed nerves.",
+      "source_page": 20
+    },
+    {
+      "front": "What are the two classifications of nerves based on location?",
+      "back": "Cranial nerves and spinal nerves.",
+      "source_page": 20
+    },
+    {
+      "front": "What is excitability in neurophysiology?",
+      "back": "Excitability is the cell property that allows it to actively respond to stimulation by rapid changes in membrane potential produced by ion fluxes across the plasma membrane.",
+      "source_page": 21
+    }
+  ]
+}
