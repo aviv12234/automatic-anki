@@ -10,6 +10,85 @@ OPENAI_MODEL   = "gpt-4o-mini"
 TEMPERATURE    = 0.2
 
 
+# --- Vision occlusion suggester (minimal, rectangles only) -------------------
+import base64
+from typing import Dict, Any
+# Reuse your existing OPENAI_API_URL / OPENAI_MODEL constants.
+OPENAI_VISION_MODEL = OPENAI_MODEL  # "gpt-4o-mini"
+
+SYSTEM_PROMPT_OCCLUSION = """
+You are a vision assistant that detects small, high-yield text labels in a study image
+(diagrams, charts, anatomy, tables). Return 1–16 rectangular regions that tightly bound
+individual labels or short phrases (NOT whole sentences).
+
+Return JSON ONLY with this exact schema (no extra keys):
+{
+  "masks": [
+    {"x": 100, "y": 230, "w": 220, "h": 60}
+  ]
+}
+
+Rules:
+- x,y = top-left; w,h = width,height; all integers.
+- Coordinates MUST be within the image bounds (0..width-1, 0..height-1).
+- Avoid huge boxes; prefer tight boxes around text/labels.
+- Do not overlap excessively; skip duplicates.
+- If nothing appropriate is found, return { "masks": [] }.
+""".strip()
+
+def suggest_occlusions_from_image(
+    image_bytes: bytes, api_key: str, max_masks: int = 16, temperature: float = 0.1
+) -> Dict[str, Any]:
+    """
+    Ask the LLM to propose rectangular occlusions (no labels).
+    Returns {"masks": [ {x:int, y:int, w:int, h:int}, ... ]}.
+    """
+    b64 = base64.b64encode(image_bytes).decode("ascii")
+    user_content = [
+        {"type": "text", "text": f"Detect up to {max_masks} tight label rectangles."},
+        {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}"}}
+    ]
+    resp = requests.post(
+        OPENAI_API_URL,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": OPENAI_VISION_MODEL,
+            "messages": [
+                {"role": "system", "content": SYSTEM_PROMPT_OCCLUSION},
+                {"role": "user", "content": user_content},
+            ],
+            "temperature": temperature,
+            "response_format": {"type": "json_object"},
+        },
+        timeout=120,
+    )
+    resp.raise_for_status()
+    content = resp.json()["choices"][0]["message"]["content"]
+    try:
+        data = json.loads(content)
+        masks = data.get("masks", [])
+        if not isinstance(masks, list):
+            return {"masks": []}
+        out = []
+        for m in masks[:max_masks]:
+            try:
+                out.append({
+                    "x": int(m.get("x", 0)),
+                    "y": int(m.get("y", 0)),
+                    "w": int(m.get("w", 0)),
+                    "h": int(m.get("h", 0)),
+                })
+            except Exception:
+                continue
+        # filter invalid
+        return {"masks": [m for m in out if m["w"] > 0 and m["h"] > 0]}
+    except json.JSONDecodeError:
+        return {"masks": []}
+
+
 # openai_cards.py
 # (only showing the parts to change)
 
