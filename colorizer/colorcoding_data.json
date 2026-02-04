@@ -1,0 +1,8512 @@
+[
+  {
+    "word": "FrontalLobe",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "ParietalLobe",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "TemporalLobe",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "OccipitalLobe",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "InsularCortex",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "LimbicLobe",
+    "group": "CerebralLobes",
+    "color": "#FFD8C2"
+  },
+  {
+    "word": "PrecentralGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "PostcentralGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "SuperiorFrontalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "MiddleFrontalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "InferiorFrontalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "AngularGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "SupramarginalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "SuperiorTemporalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "MiddleTemporalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "InferiorTemporalGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "CingulateGyrus",
+    "group": "Gyri",
+    "color": "#FFE1C7"
+  },
+  {
+    "word": "CentralSulcus",
+    "group": "Sulci",
+    "color": "#FFEACB"
+  },
+  {
+    "word": "LateralSulcus",
+    "group": "Sulci",
+    "color": "#FFEACB"
+  },
+  {
+    "word": "ParietoOccipitalSulcus",
+    "group": "Sulci",
+    "color": "#FFEACB"
+  },
+  {
+    "word": "CalcarineSulcus",
+    "group": "Sulci",
+    "color": "#FFEACB"
+  },
+  {
+    "word": "CingulateSulcus",
+    "group": "Sulci",
+    "color": "#FFEACB"
+  },
+  {
+    "word": "ArcuateFasciculus",
+    "group": "AssociationFibers",
+    "color": "#FFF2C4"
+  },
+  {
+    "word": "SuperiorLongitudinalFasciculus",
+    "group": "AssociationFibers",
+    "color": "#FFF2C4"
+  },
+  {
+    "word": "InferiorLongitudinalFasciculus",
+    "group": "AssociationFibers",
+    "color": "#FFF2C4"
+  },
+  {
+    "word": "UncinateFasciculus",
+    "group": "AssociationFibers",
+    "color": "#FFF2C4"
+  },
+  {
+    "word": "CingulumBundle",
+    "group": "AssociationFibers",
+    "color": "#FFF2C4"
+  },
+  {
+    "word": "CorpusCallosumGenu",
+    "group": "CommissuralFibers",
+    "color": "#F9F7B9"
+  },
+  {
+    "word": "CorpusCallosumBody",
+    "group": "CommissuralFibers",
+    "color": "#F9F7B9"
+  },
+  {
+    "word": "CorpusCallosumSplenium",
+    "group": "CommissuralFibers",
+    "color": "#F9F7B9"
+  },
+  {
+    "word": "AnteriorCommissure",
+    "group": "CommissuralFibers",
+    "color": "#F9F7B9"
+  },
+  {
+    "word": "HippocampalCommissure",
+    "group": "CommissuralFibers",
+    "color": "#F9F7B9"
+  },
+  {
+    "word": "InternalCapsuleAnteriorLimb",
+    "group": "ProjectionFibers",
+    "color": "#EAF7BF"
+  },
+  {
+    "word": "InternalCapsuleGenu",
+    "group": "ProjectionFibers",
+    "color": "#EAF7BF"
+  },
+  {
+    "word": "InternalCapsulePosteriorLimb",
+    "group": "ProjectionFibers",
+    "color": "#EAF7BF"
+  },
+  {
+    "word": "CoronaRadiata",
+    "group": "ProjectionFibers",
+    "color": "#EAF7BF"
+  },
+  {
+    "word": "CerebralPeduncle",
+    "group": "ProjectionFibers",
+    "color": "#EAF7BF"
+  },
+  {
+    "word": "DentateGyrus",
+    "group": "HippocampalFormation",
+    "color": "#DDF6C7"
+  },
+  {
+    "word": "CornuAmmonisCA1",
+    "group": "HippocampalFormation",
+    "color": "#DDF6C7"
+  },
+  {
+    "word": "CornuAmmonisCA3",
+    "group": "HippocampalFormation",
+    "color": "#DDF6C7"
+  },
+  {
+    "word": "Subiculum",
+    "group": "HippocampalFormation",
+    "color": "#DDF6C7"
+  },
+  {
+    "word": "FimbriaFornix",
+    "group": "HippocampalFormation",
+    "color": "#DDF6C7"
+  },
+  {
+    "word": "BasolateralAmygdala",
+    "group": "AmygdaloidComplex",
+    "color": "#CEF3D6"
+  },
+  {
+    "word": "CentromedialAmygdala",
+    "group": "AmygdaloidComplex",
+    "color": "#CEF3D6"
+  },
+  {
+    "word": "CorticalAmygdala",
+    "group": "AmygdaloidComplex",
+    "color": "#CEF3D6"
+  },
+  {
+    "word": "SupraopticNucleus",
+    "group": "HypothalamicNuclei",
+    "color": "#C6EFE3"
+  },
+  {
+    "word": "ParaventricularNucleus",
+    "group": "HypothalamicNuclei",
+    "color": "#C6EFE3"
+  },
+  {
+    "word": "ArcuateNucleus",
+    "group": "HypothalamicNuclei",
+    "color": "#C6EFE3"
+  },
+  {
+    "word": "VentromedialNucleus",
+    "group": "HypothalamicNuclei",
+    "color": "#C6EFE3"
+  },
+  {
+    "word": "LateralHypothalamicArea",
+    "group": "HypothalamicNuclei",
+    "color": "#C6EFE3"
+  },
+  {
+    "word": "RostralPontineRF",
+    "group": "ReticularFormation",
+    "color": "#C7EAF2"
+  },
+  {
+    "word": "CaudalPontineRF",
+    "group": "ReticularFormation",
+    "color": "#C7EAF2"
+  },
+  {
+    "word": "MedullaryRF",
+    "group": "ReticularFormation",
+    "color": "#C7EAF2"
+  },
+  {
+    "word": "LocusCoeruleus",
+    "group": "ReticularFormation",
+    "color": "#C7EAF2"
+  },
+  {
+    "word": "RapheNuclei",
+    "group": "ReticularFormation",
+    "color": "#C7EAF2"
+  },
+  {
+    "word": "MedialLemniscus",
+    "group": "BrainstemTracts",
+    "color": "#CBE2FA"
+  },
+  {
+    "word": "SpinalLemniscus",
+    "group": "BrainstemTracts",
+    "color": "#CBE2FA"
+  },
+  {
+    "word": "TrigeminalLemniscus",
+    "group": "BrainstemTracts",
+    "color": "#CBE2FA"
+  },
+  {
+    "word": "TectospinalTract",
+    "group": "BrainstemTracts",
+    "color": "#CBE2FA"
+  },
+  {
+    "word": "RubrosinalTract",
+    "group": "BrainstemTracts",
+    "color": "#CBE2FA"
+  },
+  {
+    "word": "VentralPosterolateralNucleus",
+    "group": "ThalamicNuclei",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "VentralPosteromedialNucleus",
+    "group": "ThalamicNuclei",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "AnteriorThalamicNuclei",
+    "group": "ThalamicNuclei",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "MediodorsalNucleus",
+    "group": "ThalamicNuclei",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "PulvinarNucleus",
+    "group": "ThalamicNuclei",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "AnteriorLobe",
+    "group": "CerebellarLobules",
+    "color": "#E3D6FE"
+  },
+  {
+    "word": "PosteriorLobe",
+    "group": "CerebellarLobules",
+    "color": "#E3D6FE"
+  },
+  {
+    "word": "FlocculonodularLobe",
+    "group": "CerebellarLobules",
+    "color": "#E3D6FE"
+  },
+  {
+    "word": "Vermis",
+    "group": "CerebellarLobules",
+    "color": "#E3D6FE"
+  },
+  {
+    "word": "DentateNucleus",
+    "group": "CerebellarNuclei",
+    "color": "#EED6F7"
+  },
+  {
+    "word": "InterposedNuclei",
+    "group": "CerebellarNuclei",
+    "color": "#EED6F7"
+  },
+  {
+    "word": "FastigialNucleus",
+    "group": "CerebellarNuclei",
+    "color": "#EED6F7"
+  },
+  {
+    "word": "LateralVentricle",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "ThirdVentricle",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "FourthVentricle",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "InterventricularForamenOfMonro",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "CerebralAqueduct",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "MedianApertureOfMagendie",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "LateralApertureOfLuschka",
+    "group": "VentricularSystem",
+    "color": "#F6D4E8"
+  },
+  {
+    "word": "EpiduralSpace",
+    "group": "MeningealSpaces",
+    "color": "#F8D3DA"
+  },
+  {
+    "word": "SubduralSpace",
+    "group": "MeningealSpaces",
+    "color": "#F8D3DA"
+  },
+  {
+    "word": "SubarachnoidSpace",
+    "group": "MeningealSpaces",
+    "color": "#F8D3DA"
+  },
+  {
+    "word": "SuperiorSagittalSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "InferiorSagittalSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "StraightSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "TransverseSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "SigmoidSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "CavernousSinus",
+    "group": "DuralSinuses",
+    "color": "#F4C8CD"
+  },
+  {
+    "word": "MCAterritory",
+    "group": "VascularTerritories",
+    "color": "#F9D8CC"
+  },
+  {
+    "word": "ACAterritory",
+    "group": "VascularTerritories",
+    "color": "#F9D8CC"
+  },
+  {
+    "word": "PCAterritory",
+    "group": "VascularTerritories",
+    "color": "#F9D8CC"
+  },
+  {
+    "word": "LenticulostriateBranches",
+    "group": "VascularTerritories",
+    "color": "#F9D8CC"
+  },
+  {
+    "word": "Retina",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "OpticNerve",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "OpticChiasm",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "OpticTract",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "LateralGeniculateNucleus",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "OpticRadiations",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "CalcarineCortex",
+    "group": "VisualPathway",
+    "color": "#D6E6FD"
+  },
+  {
+    "word": "Utricle",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "Saccule",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "SemicircularCanals",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "ScarpaGanglion",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "VestibularNuclei",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "MedialLongitudinalFasciculus",
+    "group": "VestibularPathway",
+    "color": "#D0F1EB"
+  },
+  {
+    "word": "DorsalRootGanglionNeuron",
+    "group": "SomatosensoryPathway",
+    "color": "#E8F3C8"
+  },
+  {
+    "word": "DorsalColumnMedialLemniscus",
+    "group": "SomatosensoryPathway",
+    "color": "#E8F3C8"
+  },
+  {
+    "word": "SpinothalamicSystem",
+    "group": "SomatosensoryPathway",
+    "color": "#E8F3C8"
+  },
+  {
+    "word": "VPLRelay",
+    "group": "SomatosensoryPathway",
+    "color": "#E8F3C8"
+  },
+  {
+    "word": "PrimarySomatosensoryCortexS1",
+    "group": "SomatosensoryPathway",
+    "color": "#E8F3C8"
+  },
+  {
+    "word": "EdingerWestphalToCiliaryGanglion",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "SuperiorSalivatoryToPterygopalatine",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "InferiorSalivatoryToOtic",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "DorsalMotorVagusToIntramural",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "IMLToSympatheticChain",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "SplanchnicToPrevertebralGanglia",
+    "group": "AutonomicPathways",
+    "color": "#EBD9F8"
+  },
+  {
+    "word": "RexedLaminaI",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaII",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaIII",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaIV",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaV",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaVI",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaVII",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaVIII",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaIX",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "RexedLaminaX",
+    "group": "RexedLaminae",
+    "color": "#F1E6C8"
+  },
+  {
+    "word": "AnteriorGrayHorn",
+    "group": "SpinalGrayColumns",
+    "color": "#EADDD0"
+  },
+  {
+    "word": "LateralGrayHorn",
+    "group": "SpinalGrayColumns",
+    "color": "#EADDD0"
+  },
+  {
+    "word": "PosteriorGrayHorn",
+    "group": "SpinalGrayColumns",
+    "color": "#EADDD0"
+  },
+  {
+    "word": "AnteriorFuniculus",
+    "group": "SpinalWhiteFuniculi",
+    "color": "#DDE8E8"
+  },
+  {
+    "word": "LateralFuniculus",
+    "group": "SpinalWhiteFuniculi",
+    "color": "#DDE8E8"
+  },
+  {
+    "word": "PosteriorFuniculus",
+    "group": "SpinalWhiteFuniculi",
+    "color": "#DDE8E8"
+  },
+  {
+    "word": "s",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "Enalapril",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "Lisinopril",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "Prilocain",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "Prilocaine",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "Ramipril",
+    "group": "ACEInhibitors",
+    "color": "#E5BCBC"
+  },
+  {
+    "word": "AlphaMethyldopa",
+    "group": "ARAgonisten",
+    "color": "#E5BDBC"
+  },
+  {
+    "word": "Clonidin",
+    "group": "ARAgonisten",
+    "color": "#E5BDBC"
+  },
+  {
+    "word": "Mirtazapin",
+    "group": "ARAntagonist",
+    "color": "#E5BDBC"
+  },
+  {
+    "word": "Phenoxybenzamin",
+    "group": "ARAntagonisten",
+    "color": "#E5BEBC"
+  },
+  {
+    "word": "Yohimbin",
+    "group": "ARAntagonisten",
+    "color": "#E5BEBC"
+  },
+  {
+    "word": "Candesartan",
+    "group": "ARBs",
+    "color": "#E5BFBC"
+  },
+  {
+    "word": "Losartan",
+    "group": "ARBs",
+    "color": "#E5BFBC"
+  },
+  {
+    "word": "Valsartan",
+    "group": "ARBs",
+    "color": "#E5BFBC"
+  },
+  {
+    "word": "Epinephrin",
+    "group": "Adrenalin",
+    "color": "#E5C0BC"
+  },
+  {
+    "word": "Epinephrine",
+    "group": "Adrenaline",
+    "color": "#E5C0BC"
+  },
+  {
+    "word": "Phenoxybenzamine",
+    "group": "AlphaAdrenergicReceptorAntagonists",
+    "color": "#E5C1BC"
+  },
+  {
+    "word": "Yohimbine",
+    "group": "AlphaAdrenergicReceptorAntagonists",
+    "color": "#E5C1BC"
+  },
+  {
+    "word": "Mirtazapine",
+    "group": "AlphaAntagonist",
+    "color": "#E5C2BC"
+  },
+  {
+    "word": "Alfuzosin",
+    "group": "AlphaBlockers",
+    "color": "#E5C3BC"
+  },
+  {
+    "word": "Doxazosin",
+    "group": "AlphaBlockers",
+    "color": "#E5C3BC"
+  },
+  {
+    "word": "Prazosin",
+    "group": "AlphaBlockers",
+    "color": "#E5C3BC"
+  },
+  {
+    "word": "Terazosin",
+    "group": "AlphaBlockers",
+    "color": "#E5C3BC"
+  },
+  {
+    "word": "Acarbose",
+    "group": "AlphaGlucosidaseInhibitors",
+    "color": "#E5C3BC"
+  },
+  {
+    "word": "Phentolamine",
+    "group": "AlphaReceptorBlocker",
+    "color": "#E5C4BC"
+  },
+  {
+    "word": "Gentamicin",
+    "group": "Aminoglycosides",
+    "color": "#E5C5BC"
+  },
+  {
+    "word": "Gentamycin",
+    "group": "Aminoglycosides",
+    "color": "#E5C5BC"
+  },
+  {
+    "word": "Streptomycin",
+    "group": "Aminoglycosides",
+    "color": "#E5C5BC"
+  },
+  {
+    "word": "Tobramycin",
+    "group": "Aminoglycosides",
+    "color": "#E5C5BC"
+  },
+  {
+    "word": "Aminoglykosid",
+    "group": "Aminoglykoside",
+    "color": "#E5C5BC"
+  },
+  {
+    "word": "Paracetamol",
+    "group": "Analgesics",
+    "color": "#E5C6BC"
+  },
+  {
+    "word": "Etomidate",
+    "group": "Anesthetics",
+    "color": "#E5C7BC"
+  },
+  {
+    "word": "Ketamine",
+    "group": "Anesthetics",
+    "color": "#E5C7BC"
+  },
+  {
+    "word": "Colesevelam",
+    "group": "AnionExchangeResins",
+    "color": "#E5C8BC"
+  },
+  {
+    "word": "Colestyramine",
+    "group": "AnionExchangeResins",
+    "color": "#E5C8BC"
+  },
+  {
+    "word": "Colestyramin",
+    "group": "Anionenaustauscherharze",
+    "color": "#E5C8BC"
+  },
+  {
+    "word": "Ansamycin",
+    "group": "Ansamycine",
+    "color": "#E5C9BC"
+  },
+  {
+    "word": "Rifampicin",
+    "group": "Ansamycins",
+    "color": "#E5CABC"
+  },
+  {
+    "word": "Rifaximin",
+    "group": "Ansamycins",
+    "color": "#E5CABC"
+  },
+  {
+    "word": "Etomidat",
+    "group": "Ansthetika",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Ketamin",
+    "group": "Ansthetika",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Albendazol",
+    "group": "Anthelmintics",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Mebendazole",
+    "group": "Anthelmintics",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Niclosamide",
+    "group": "Anthelmintics",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Praziquantel",
+    "group": "Anthelmintics",
+    "color": "#E5CBBC"
+  },
+  {
+    "word": "Adenosin",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Ajmalin",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Ajmaline",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Amiodaron",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Amiodarone",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Dronedaron",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Dronedarone",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Flecainid",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Procainamide",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Propafenon",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "Propafenone",
+    "group": "Antiarrhythmics",
+    "color": "#E5CCBC"
+  },
+  {
+    "word": "ActinomycinD",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Bleomycin",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Chloramphenicol",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Colistin",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "FusidicAcid",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Fusidinsäure",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Glykopeptidantibiotika",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Mitomycin",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Paromomycin",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Rifabutin",
+    "group": "Antibiotics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Biperiden",
+    "group": "Anticholinergics",
+    "color": "#E5CDBC"
+  },
+  {
+    "word": "Bivalirudin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Certoparin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Dabigatran",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Dalteparin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Danaparoid",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Desirudin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Enoxaparin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Fondaparinux",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Heparin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Lepirudin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "LMWH",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "NMH",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Protamine",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Tinzaparin",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "UFH",
+    "group": "Anticoagulants",
+    "color": "#E5CEBC"
+  },
+  {
+    "word": "Donepezil",
+    "group": "AntidementiaAgents",
+    "color": "#E5CFBC"
+  },
+  {
+    "word": "Galantamine",
+    "group": "AntidementiaAgents",
+    "color": "#E5CFBC"
+  },
+  {
+    "word": "Rivastigmine",
+    "group": "AntidementiaAgents",
+    "color": "#E5CFBC"
+  },
+  {
+    "word": "Galantamin",
+    "group": "Antidementiva",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "Rivastigmin",
+    "group": "Antidementiva",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "Methylenblau",
+    "group": "Antidotes",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "MethyleneBlue",
+    "group": "Antidotes",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "Natriumthiosulfat",
+    "group": "Antidotes",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "SodiumThiosulfate",
+    "group": "Antidotes",
+    "color": "#E5D0BC"
+  },
+  {
+    "word": "Aprotinin",
+    "group": "Antifibrinolytics",
+    "color": "#E5D1BC"
+  },
+  {
+    "word": "TranexamicAcid",
+    "group": "Antifibrinolytics",
+    "color": "#E5D1BC"
+  },
+  {
+    "word": "Tranexamsäure",
+    "group": "Antifibrinolytika",
+    "color": "#E5D2BC"
+  },
+  {
+    "word": "Allylamine",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Allylamines",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Amorolfin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Amorolfine",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "AmphotericinB",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Anidulafungin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Bifonazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Bifonazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Caspofungin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Ciclopirox",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Clotrimazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Clotrimazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Echinocandins",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Fluconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Fluconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Griseofulvin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Griseovulvin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "HydroxypyridoneDerivatives",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Imidazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Imidazoles",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Itraconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Itraconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Ketoconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Ketoconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Metronidazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Metronidazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Micafungin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Miconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Miconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Nitroimidazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Nystatin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "PolyenAntimykotika",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "PolyeneAntifungals",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Posaconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Posaconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Terbinafin",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Terbinafine",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Triazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Triazoles",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Voriconazol",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Voriconazole",
+    "group": "Antifungals",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Allopurinol",
+    "group": "AntigoutAgents",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Colchicin",
+    "group": "AntigoutAgents",
+    "color": "#E5D3BC"
+  },
+  {
+    "word": "Antihistamines",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Azelastin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Cetirizin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Clemastin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Dimenhydrinat",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Dimetinden",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Diphenhydramin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Fexofenadin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Loratadin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Meclizine",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Meclozin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Promethazin",
+    "group": "Antihistamines",
+    "color": "#E5D4BC"
+  },
+  {
+    "word": "Protamin",
+    "group": "AntikoagulanzAntagonisten",
+    "color": "#E5D5BC"
+  },
+  {
+    "word": "Capecitabin",
+    "group": "Antimetabolite",
+    "color": "#E5D6BC"
+  },
+  {
+    "word": "Cladribin",
+    "group": "Antimetabolite",
+    "color": "#E5D6BC"
+  },
+  {
+    "word": "Hydroxycarbamid",
+    "group": "Antimetabolite",
+    "color": "#E5D6BC"
+  },
+  {
+    "word": "Methotrexat",
+    "group": "AntimetaboliteFolsureAntagonisten",
+    "color": "#E5D6BC"
+  },
+  {
+    "word": "Azathioprin",
+    "group": "AntimetabolitePurinAntagonisten",
+    "color": "#E5D7BC"
+  },
+  {
+    "word": "Fludarabin",
+    "group": "AntimetabolitePurinAntagonisten",
+    "color": "#E5D7BC"
+  },
+  {
+    "word": "Mercaptopurin",
+    "group": "AntimetabolitePurinAntagonisten",
+    "color": "#E5D7BC"
+  },
+  {
+    "word": "Cytarabin",
+    "group": "AntimetabolitePyrimidinAntagonisten",
+    "color": "#E5D8BC"
+  },
+  {
+    "word": "Gemcitabin",
+    "group": "AntimetabolitePyrimidinAntagonisten",
+    "color": "#E5D8BC"
+  },
+  {
+    "word": "HydroxyureaHydroxycarbamid",
+    "group": "AntimetaboliteRibonukleotidreduktaseHemmer",
+    "color": "#E5D8BC"
+  },
+  {
+    "word": "Capecitabine",
+    "group": "Antimetabolites",
+    "color": "#E5D9BC"
+  },
+  {
+    "word": "Cladribine",
+    "group": "Antimetabolites",
+    "color": "#E5D9BC"
+  },
+  {
+    "word": "Hydroxycarbamide",
+    "group": "Antimetabolites",
+    "color": "#E5D9BC"
+  },
+  {
+    "word": "Methotrexate",
+    "group": "Antimetabolites",
+    "color": "#E5D9BC"
+  },
+  {
+    "word": "Pentostatin",
+    "group": "Antimetabolites",
+    "color": "#E5D9BC"
+  },
+  {
+    "word": "Pemetrexed",
+    "group": "AntimetabolitesFolateAntagonists",
+    "color": "#E5DABC"
+  },
+  {
+    "word": "Azathioprine",
+    "group": "AntimetabolitesPurineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "Fludarabine",
+    "group": "AntimetabolitesPurineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "Mercaptopurine",
+    "group": "AntimetabolitesPurineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "Cytarabine",
+    "group": "AntimetabolitesPyrimidineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "FU",
+    "group": "AntimetabolitesPyrimidineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "Gemcitabine",
+    "group": "AntimetabolitesPyrimidineAntagonists",
+    "color": "#E5DBBC"
+  },
+  {
+    "word": "Hydroxyurea",
+    "group": "AntimetabolitesRibonucleotideReductaseInhibitors",
+    "color": "#E5DCBC"
+  },
+  {
+    "word": "Azelainsäure",
+    "group": "AntimikrobielleWirkstoffe",
+    "color": "#E5DDBC"
+  },
+  {
+    "word": "Podophyllotoxin",
+    "group": "Antimitotics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Ivermectin",
+    "group": "Antiparasitics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Mebendazol",
+    "group": "Antiparasitics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Niclosamid",
+    "group": "Antiparasitics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Pyrimethamin",
+    "group": "Antiparasitics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Pyrimethamine",
+    "group": "Antiparasitics",
+    "color": "#E5DEBC"
+  },
+  {
+    "word": "Cangrelor",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Clopidogrel",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Prasugrel",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Ticagrelor",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Ticlopidin",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Ticlopidine",
+    "group": "Antiplatelets",
+    "color": "#E5DFBC"
+  },
+  {
+    "word": "Amisulpride",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Aripiprazole",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Benperidol",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Chlorpromazine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Chlorprothixene",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Clozapine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Flupentixol",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Fluphenazine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Fluspirilene",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Haloperidol",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Levomepromazine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Melperone",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Olanzapine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Perphenazine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Pipamperone",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Quetiapine",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Risperidone",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Ziprasidone",
+    "group": "Antipsychotics",
+    "color": "#E5E0BC"
+  },
+  {
+    "word": "Fomivirsen",
+    "group": "AntisenseOligonucleotide",
+    "color": "#E5E1BC"
+  },
+  {
+    "word": "Nusinersen",
+    "group": "AntisenseOligonucleotides",
+    "color": "#E5E1BC"
+  },
+  {
+    "word": "Chlorhexidine",
+    "group": "Antiseptics",
+    "color": "#E5E2BC"
+  },
+  {
+    "word": "Octenidin",
+    "group": "Antiseptics",
+    "color": "#E5E2BC"
+  },
+  {
+    "word": "Chlorhexidin",
+    "group": "Antiseptika",
+    "color": "#E5E3BC"
+  },
+  {
+    "word": "Reserpine",
+    "group": "Antisympathotonics",
+    "color": "#E5E3BC"
+  },
+  {
+    "word": "Reserpin",
+    "group": "Antisympathotonika",
+    "color": "#E5E4BC"
+  },
+  {
+    "word": "Ethambutol",
+    "group": "Antituberculosis",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Isoniazid",
+    "group": "Antituberculosis",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Pyrazinamid",
+    "group": "Antituberculosis",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Pyrazinamide",
+    "group": "Antituberculosis",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Glecaprevir",
+    "group": "AntiviralDrugsAgainstHepatitisC",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Grazoprevir",
+    "group": "AntiviralDrugsAgainstHepatitisC",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Paritaprevir",
+    "group": "AntiviralDrugsAgainstHepatitisC",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Simeprevir",
+    "group": "AntiviralDrugsAgainstHepatitisC",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Voxilaprevir",
+    "group": "AntiviralDrugsAgainstHepatitisC",
+    "color": "#E5E5BC"
+  },
+  {
+    "word": "Amisulprid",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Aripiprazol",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Clozapin",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Olanzapin",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Quetiapin",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Risperidon",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "Ziprasidon",
+    "group": "AtypischeAntipsychotika",
+    "color": "#E4E5BC"
+  },
+  {
+    "word": "PrimaryAuditoryCortex",
+    "group": "AuditoryAreas",
+    "color": "#E3E5BC"
+  },
+  {
+    "word": "Cochlea",
+    "group": "AuditoryPathway",
+    "color": "#E3E5BC"
+  },
+  {
+    "word": "LateralLemniscus",
+    "group": "AuditoryPathway",
+    "color": "#E3E5BC"
+  },
+  {
+    "word": "OrganOfCorti",
+    "group": "AuditoryPathway",
+    "color": "#E3E5BC"
+  },
+  {
+    "word": "Phenobarbital",
+    "group": "Barbiturates",
+    "color": "#E2E5BC"
+  },
+  {
+    "word": "CaudateNucleus",
+    "group": "BasalGanglia",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "GlobusPallidus",
+    "group": "BasalGanglia",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Putamen",
+    "group": "BasalGanglia",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "SubstantiaNigra",
+    "group": "BasalGanglia",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "SubthalamicNucleus",
+    "group": "BasalGanglia",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Clonazepam",
+    "group": "Benzodiazepines",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Diazepam",
+    "group": "Benzodiazepines",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Lorazepam",
+    "group": "Benzodiazepines",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Midazolam",
+    "group": "Benzodiazepines",
+    "color": "#E1E5BC"
+  },
+  {
+    "word": "Indacaterol",
+    "group": "BetaAgonists",
+    "color": "#E0E5BC"
+  },
+  {
+    "word": "Avibactam",
+    "group": "BetaLactamaseInhibitors",
+    "color": "#DFE5BC"
+  },
+  {
+    "word": "ClavulanicAcid",
+    "group": "BetaLactamaseInhibitors",
+    "color": "#DFE5BC"
+  },
+  {
+    "word": "Sulbactam",
+    "group": "BetaLactamaseInhibitors",
+    "color": "#DFE5BC"
+  },
+  {
+    "word": "Tazobactam",
+    "group": "BetaLactamaseInhibitors",
+    "color": "#DFE5BC"
+  },
+  {
+    "word": "Formoterol",
+    "group": "BetaSympathomimeticsLong",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Salmeterol",
+    "group": "BetaSympathomimeticsLong",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Fenoterol",
+    "group": "BetaSympathomimeticsShort",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Reproterol",
+    "group": "BetaSympathomimeticsShort",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Salbutamol",
+    "group": "BetaSympathomimeticsShort",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Terbutaline",
+    "group": "BetaSympathomimeticsShort",
+    "color": "#DEE5BC"
+  },
+  {
+    "word": "Metformin",
+    "group": "Biguanides",
+    "color": "#DDE5BC"
+  },
+  {
+    "word": "LAsparaginase",
+    "group": "Biomarkers",
+    "color": "#DCE5BC"
+  },
+  {
+    "word": "LDH",
+    "group": "Biomarkers",
+    "color": "#DCE5BC"
+  },
+  {
+    "word": "LIduronidase",
+    "group": "Biomarkers",
+    "color": "#DCE5BC"
+  },
+  {
+    "word": "Procalcitonin",
+    "group": "Biomarkers",
+    "color": "#DCE5BC"
+  },
+  {
+    "word": "Alendronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Bisphosphonat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Clodronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Ibandronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Pamidronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Pamidronsäure",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Risedronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Tiludronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Zoledronat",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Zoledronsäure",
+    "group": "Bisphosphonate",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Alendronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Bisphosphonate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Clodronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Ibandronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Pamidronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Risedronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Tiludronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "Zoledronate",
+    "group": "Bisphosphonates",
+    "color": "#DBE5BC"
+  },
+  {
+    "word": "FreshFrozenPlasma",
+    "group": "BloodProducts",
+    "color": "#DAE5BC"
+  },
+  {
+    "word": "Colliculus",
+    "group": "BrainstemAnatomy",
+    "color": "#D9E5BC"
+  },
+  {
+    "word": "PeriaqueductalGray",
+    "group": "BrainstemAnatomy",
+    "color": "#D9E5BC"
+  },
+  {
+    "word": "Pontine",
+    "group": "BrainstemAnatomy",
+    "color": "#D9E5BC"
+  },
+  {
+    "word": "Nucleus",
+    "group": "BrainstemNuclei",
+    "color": "#D8E5BC"
+  },
+  {
+    "word": "Olivary",
+    "group": "BrainstemNuclei",
+    "color": "#D8E5BC"
+  },
+  {
+    "word": "Syndrome",
+    "group": "BrainstemSyndromes",
+    "color": "#D8E5BC"
+  },
+  {
+    "word": "BrodmannArea",
+    "group": "BrodmannAreas",
+    "color": "#D7E5BC"
+  },
+  {
+    "word": "Abatacept",
+    "group": "CDCDInteractionInhibitor",
+    "color": "#D6E5BC"
+  },
+  {
+    "word": "Muromonab",
+    "group": "CDInhibitor",
+    "color": "#D6E5BC"
+  },
+  {
+    "word": "Elexacaftor",
+    "group": "CFTRModulators",
+    "color": "#D5E5BC"
+  },
+  {
+    "word": "Ivacaftor",
+    "group": "CFTRModulators",
+    "color": "#D5E5BC"
+  },
+  {
+    "word": "Lumacaftor",
+    "group": "CFTRModulators",
+    "color": "#D5E5BC"
+  },
+  {
+    "word": "Tezacaftor",
+    "group": "CFTRModulators",
+    "color": "#D5E5BC"
+  },
+  {
+    "word": "Entacapon",
+    "group": "COMTHemmer",
+    "color": "#D4E5BC"
+  },
+  {
+    "word": "Opicapon",
+    "group": "COMTHemmer",
+    "color": "#D4E5BC"
+  },
+  {
+    "word": "Tolcapon",
+    "group": "COMTHemmer",
+    "color": "#D4E5BC"
+  },
+  {
+    "word": "Entacapone",
+    "group": "COMTInhibitors",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "Opicapone",
+    "group": "COMTInhibitors",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "Tolcapone",
+    "group": "COMTInhibitors",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "Aqueduct",
+    "group": "CSFPathways",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "ChoroidPlexus",
+    "group": "CSFPathways",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "ForamenOf",
+    "group": "CSFPathways",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "Ventricle",
+    "group": "CSFPathways",
+    "color": "#D3E5BC"
+  },
+  {
+    "word": "Amlodipin",
+    "group": "CaAntagonistenNifedipinTyp",
+    "color": "#D2E5BC"
+  },
+  {
+    "word": "Lercanidipin",
+    "group": "CaAntagonistenNifedipinTyp",
+    "color": "#D2E5BC"
+  },
+  {
+    "word": "Nifedipin",
+    "group": "CaAntagonistenNifedipinTyp",
+    "color": "#D2E5BC"
+  },
+  {
+    "word": "Nimodipin",
+    "group": "CaAntagonistenNifedipinTyp",
+    "color": "#D2E5BC"
+  },
+  {
+    "word": "Nitrendipin",
+    "group": "CaAntagonistenNifedipinTyp",
+    "color": "#D2E5BC"
+  },
+  {
+    "word": "Amlodipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Budipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Diltiazem",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Gallopamil",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Lercanidipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Nifedipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Nimodipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Nitrendipine",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Verapamil",
+    "group": "CalciumChannelBlockers",
+    "color": "#D1E5BC"
+  },
+  {
+    "word": "Carbapenem",
+    "group": "Carbapenems",
+    "color": "#D0E5BC"
+  },
+  {
+    "word": "Ertapenem",
+    "group": "Carbapenems",
+    "color": "#D0E5BC"
+  },
+  {
+    "word": "Imipenem",
+    "group": "Carbapenems",
+    "color": "#D0E5BC"
+  },
+  {
+    "word": "Meropenem",
+    "group": "Carbapenems",
+    "color": "#D0E5BC"
+  },
+  {
+    "word": "Acetazolamid",
+    "group": "Carboanhydrasehemmer",
+    "color": "#D0E5BC"
+  },
+  {
+    "word": "Acetazolamide",
+    "group": "CarbonicAnhydraseInhibitors",
+    "color": "#CFE5BC"
+  },
+  {
+    "word": "Digitalis",
+    "group": "CardiacGlycosides",
+    "color": "#CEE5BC"
+  },
+  {
+    "word": "Digitoxin",
+    "group": "CardiacGlycosides",
+    "color": "#CEE5BC"
+  },
+  {
+    "word": "Digoxin",
+    "group": "CardiacGlycosides",
+    "color": "#CEE5BC"
+  },
+  {
+    "word": "Atenolol",
+    "group": "CardioselectiveBetaBlockers",
+    "color": "#CDE5BC"
+  },
+  {
+    "word": "Bisoprolol",
+    "group": "CardioselectiveBetaBlockers",
+    "color": "#CDE5BC"
+  },
+  {
+    "word": "Metoprolol",
+    "group": "CardioselectiveBetaBlockers",
+    "color": "#CDE5BC"
+  },
+  {
+    "word": "Nebivolol",
+    "group": "CardioselectiveBetaBlockers",
+    "color": "#CDE5BC"
+  },
+  {
+    "word": "Tizanidine",
+    "group": "CentralMuscleRelaxant",
+    "color": "#CDE5BC"
+  },
+  {
+    "word": "Cefalexin",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefazolin",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefepim",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefepime",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefixim",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefixime",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefotaxim",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefotaxime",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefotiam",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftarolin",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftaroline",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftazidim",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftazidime",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftibuten",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftobiprol",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftobiprole",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftolozan",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftriaxon",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Ceftriaxone",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefuroxim",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cefuroxime",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cephalexin",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "Cephalosporin",
+    "group": "Cephalosporins",
+    "color": "#CCE5BC"
+  },
+  {
+    "word": "CerebellarArtery",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "CerebralArtery",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "CircleOfWillis",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "CommunicatingArtery",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "Lenticulostriate",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "Territory",
+    "group": "CerebralArteries",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "CerebralVein",
+    "group": "CerebralVeins",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "VeinOf",
+    "group": "CerebralVeins",
+    "color": "#CBE5BC"
+  },
+  {
+    "word": "Penicillamin",
+    "group": "Chelatbildner",
+    "color": "#CAE5BC"
+  },
+  {
+    "word": "Deferoxamin",
+    "group": "ChelatingAgents",
+    "color": "#C9E5BC"
+  },
+  {
+    "word": "Penicillamine",
+    "group": "ChelatingAgents",
+    "color": "#C9E5BC"
+  },
+  {
+    "word": "Ursodeoxycholsäure",
+    "group": "Choleretika",
+    "color": "#C8E5BC"
+  },
+  {
+    "word": "Ezetimib",
+    "group": "CholesterolAbsorptionInhibitor",
+    "color": "#C8E5BC"
+  },
+  {
+    "word": "Ezetimibe",
+    "group": "CholesterolAbsorptionInhibitor",
+    "color": "#C8E5BC"
+  },
+  {
+    "word": "CranialNerve",
+    "group": "CranialNerves",
+    "color": "#C7E5BC"
+  },
+  {
+    "word": "Daptomycin",
+    "group": "CyclicLipopeptides",
+    "color": "#C6E5BC"
+  },
+  {
+    "word": "Aciclovir",
+    "group": "DNAPolymeraseInhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Foscarnet",
+    "group": "DNAPolymeraseInhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Ganciclovir",
+    "group": "DNAPolymeraseInhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Valaciclovir",
+    "group": "DNAPolymeraseInhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Saxagliptin",
+    "group": "DPP4Inhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Sitagliptin",
+    "group": "DPP4Inhibitors",
+    "color": "#C5E5BC"
+  },
+  {
+    "word": "Benzoylperoxid",
+    "group": "DermatologischeMittel",
+    "color": "#C4E5BC"
+  },
+  {
+    "word": "Dermatome",
+    "group": "Dermatomes",
+    "color": "#C3E5BC"
+  },
+  {
+    "word": "Leflunomid",
+    "group": "DihydroorotatdehydrogenaseInhibitor",
+    "color": "#C3E5BC"
+  },
+  {
+    "word": "Leflunomide",
+    "group": "DihydroorotateDehydrogenaseInhibitor",
+    "color": "#C2E5BC"
+  },
+  {
+    "word": "Bethanechol",
+    "group": "DirectParasympathomimetics",
+    "color": "#C1E5BC"
+  },
+  {
+    "word": "Carbachol",
+    "group": "DirectParasympathomimetics",
+    "color": "#C1E5BC"
+  },
+  {
+    "word": "Pilocarpin",
+    "group": "DirectParasympathomimetics",
+    "color": "#C1E5BC"
+  },
+  {
+    "word": "Pilocarpine",
+    "group": "DirectParasympathomimetics",
+    "color": "#C1E5BC"
+  },
+  {
+    "word": "Aliskiren",
+    "group": "DirectReninInhibitors",
+    "color": "#C0E5BC"
+  },
+  {
+    "word": "Dopamine",
+    "group": "DirectSympathomimeticsDopamineReceptorAgonist",
+    "color": "#C0E5BC"
+  },
+  {
+    "word": "Phenylephrine",
+    "group": "DirectSympathomimeticsalphaAdrenergicReceptorAgonistslocalacting",
+    "color": "#BFE5BC"
+  },
+  {
+    "word": "Xylometazoline",
+    "group": "DirectSympathomimeticsalphaAdrenergicReceptorAgonistslocalacting",
+    "color": "#BFE5BC"
+  },
+  {
+    "word": "Dobutamine",
+    "group": "DirectSympathomimeticsalphaandbetaAdrenergicReceptorAgonists",
+    "color": "#BEE5BC"
+  },
+  {
+    "word": "Norepinephrine",
+    "group": "DirectSympathomimeticsalphaandbetaAdrenergicReceptorAgonists",
+    "color": "#BEE5BC"
+  },
+  {
+    "word": "Dopamin",
+    "group": "DirekteSympathomimetikaDXRAgonist",
+    "color": "#BDE5BC"
+  },
+  {
+    "word": "Phenylephrin",
+    "group": "DirekteSympathomimetikaalphaARAgonistenlokalwirkend",
+    "color": "#BDE5BC"
+  },
+  {
+    "word": "Xylometazolin",
+    "group": "DirekteSympathomimetikaalphaARAgonistenlokalwirkend",
+    "color": "#BDE5BC"
+  },
+  {
+    "word": "Adrenalin",
+    "group": "DirekteSympathomimetikaalphaXARXARAgonisten",
+    "color": "#BCE5BC"
+  },
+  {
+    "word": "Dobutamin",
+    "group": "DirekteSympathomimetikaalphaXARXARAgonisten",
+    "color": "#BCE5BC"
+  },
+  {
+    "word": "Noradrenalin",
+    "group": "DirekteSympathomimetikaalphaXARXARAgonisten",
+    "color": "#BCE5BC"
+  },
+  {
+    "word": "Amilorid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Amiloride",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Bumetanid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Bumetanide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Chlortalidon",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Chlorthalidone",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Eplerenon",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Eplerenone",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "EtacrynicAcid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Etacrynsäure",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Etozolin",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Etozoline",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Furosemid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Furosemide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Glycerin",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Hydrochlorothiazid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Hydrochlorothiazide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Mannit",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Mannitol",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Piretanid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Piretanide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Sorbit",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Sorbitol",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Spironolacton",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Spironolactone",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Torasemid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Torsemide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Triamteren",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Triamterene",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Xipamid",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Xipamide",
+    "group": "Diuretics",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Domperidon",
+    "group": "DopaminRezeptorAntagonistenProkinetika",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Metoclopramid",
+    "group": "DopaminRezeptorAntagonistenProkinetika",
+    "color": "#BCE5BD"
+  },
+  {
+    "word": "Apomorphin",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Apomorphine",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Bromocriptin",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Bromocriptine",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Cabergolin",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Cabergoline",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Piribedil",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Pramipexol",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Pramipexole",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Quinagolid",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Quinagolide",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Ropinirol",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Ropinirole",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Rotigotin",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Rotigotine",
+    "group": "DopamineAgonists",
+    "color": "#BCE5BE"
+  },
+  {
+    "word": "Benserazide",
+    "group": "DopaminePrecursors",
+    "color": "#BCE5BF"
+  },
+  {
+    "word": "Carbidopa",
+    "group": "DopaminePrecursors",
+    "color": "#BCE5BF"
+  },
+  {
+    "word": "LDopa",
+    "group": "DopaminePrecursors",
+    "color": "#BCE5BF"
+  },
+  {
+    "word": "Domperidone",
+    "group": "DopamineReceptorAntagonistsProkinetics",
+    "color": "#BCE5C0"
+  },
+  {
+    "word": "Metoclopramide",
+    "group": "DopamineReceptorAntagonistsProkinetics",
+    "color": "#BCE5C0"
+  },
+  {
+    "word": "Benserazid",
+    "group": "Dopaminvorstufen",
+    "color": "#BCE5C0"
+  },
+  {
+    "word": "Echinokandine",
+    "group": "Echinokandine",
+    "color": "#BCE5C1"
+  },
+  {
+    "word": "Ambrisentan",
+    "group": "EndothelinReceptorAntagonists",
+    "color": "#BCE5C2"
+  },
+  {
+    "word": "Bosentan",
+    "group": "EndothelinReceptorAntagonists",
+    "color": "#BCE5C2"
+  },
+  {
+    "word": "Macitentan",
+    "group": "EndothelinReceptorAntagonists",
+    "color": "#BCE5C2"
+  },
+  {
+    "word": "EPO",
+    "group": "Erythropoietin",
+    "color": "#BCE5C3"
+  },
+  {
+    "word": "Estrogen",
+    "group": "Estrogens",
+    "color": "#BCE5C3"
+  },
+  {
+    "word": "Estrogens",
+    "group": "Estrogens",
+    "color": "#BCE5C3"
+  },
+  {
+    "word": "Ethinylestradiol",
+    "group": "Estrogens",
+    "color": "#BCE5C3"
+  },
+  {
+    "word": "FacialNerve",
+    "group": "FacialNerveBranches",
+    "color": "#BCE5C4"
+  },
+  {
+    "word": "Bezafibrat",
+    "group": "Fibrates",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Bezafibrate",
+    "group": "Fibrates",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Fenofibrat",
+    "group": "Fibrates",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Fenofibrate",
+    "group": "Fibrates",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Gemfibrozil",
+    "group": "Fibrates",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Clemastine",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Dimenhydrinate",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Dimetindene",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Diphenhydramine",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Meclozine",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Promethazine",
+    "group": "FirstGenerationHAntagonists",
+    "color": "#BCE5C5"
+  },
+  {
+    "word": "Fluorchinolon",
+    "group": "Fluorchinolone",
+    "color": "#BCE5C6"
+  },
+  {
+    "word": "Fluorchinolone",
+    "group": "Fluorchinolone",
+    "color": "#BCE5C6"
+  },
+  {
+    "word": "Ciprofloxacin",
+    "group": "Fluoroquinolones",
+    "color": "#BCE5C7"
+  },
+  {
+    "word": "Levofloxacin",
+    "group": "Fluoroquinolones",
+    "color": "#BCE5C7"
+  },
+  {
+    "word": "Moxifloxacin",
+    "group": "Fluoroquinolones",
+    "color": "#BCE5C7"
+  },
+  {
+    "word": "Norfloxacin",
+    "group": "Fluoroquinolones",
+    "color": "#BCE5C7"
+  },
+  {
+    "word": "Ofloxacin",
+    "group": "Fluoroquinolones",
+    "color": "#BCE5C7"
+  },
+  {
+    "word": "Fosfomycin",
+    "group": "Fosfomycin",
+    "color": "#BCE5C8"
+  },
+  {
+    "word": "DefaultModeNetwork",
+    "group": "FunctionalNetworks",
+    "color": "#BCE5C8"
+  },
+  {
+    "word": "SalienceNetwork",
+    "group": "FunctionalNetworks",
+    "color": "#BCE5C8"
+  },
+  {
+    "word": "Albiglutide",
+    "group": "GLP1RAgonists",
+    "color": "#BCE5C9"
+  },
+  {
+    "word": "Exenatide",
+    "group": "GLP1RAgonists",
+    "color": "#BCE5C9"
+  },
+  {
+    "word": "Liraglutide",
+    "group": "GLP1RAgonists",
+    "color": "#BCE5C9"
+  },
+  {
+    "word": "Albiglutid",
+    "group": "GLPRAgonisten",
+    "color": "#BCE5CA"
+  },
+  {
+    "word": "Liraglutid",
+    "group": "GLPRAgonisten",
+    "color": "#BCE5CA"
+  },
+  {
+    "word": "Astrocyte",
+    "group": "GlialCells",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "EpendymalCell",
+    "group": "GlialCells",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "Microglia",
+    "group": "GlialCells",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "Oligodendrocyte",
+    "group": "GlialCells",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "Nateglinid",
+    "group": "Glinide",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "Repaglinid",
+    "group": "Glinide",
+    "color": "#BCE5CB"
+  },
+  {
+    "word": "Nateglinide",
+    "group": "Glinides",
+    "color": "#BCE5CC"
+  },
+  {
+    "word": "Repaglinide",
+    "group": "Glinides",
+    "color": "#BCE5CC"
+  },
+  {
+    "word": "Pioglitazon",
+    "group": "Glitazone",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Beclometason",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Betamethason",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Betamethasone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Budesonid",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Budesonide",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Clobetasolpropionat",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "ClobetasolPropionate",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Corticosteroid",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Cortisol",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Cortison",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Cortisone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Dexamethason",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Dexamethasone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Fludrocortison",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Fludrocortisone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Fluticason",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Fluticasone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Glucocorticoide",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Glucocorticoids",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Hydrocortison",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Hydrocortisone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "MethylPrednisolon",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Methylprednisolone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Prednisolon",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Prednisolone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Prednison",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Prednisone",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Triamcinolon",
+    "group": "Glucocorticoids",
+    "color": "#BCE5CD"
+  },
+  {
+    "word": "Teicoplanin",
+    "group": "GlycopeptideAntibiotics",
+    "color": "#BCE5CE"
+  },
+  {
+    "word": "Vancomycin",
+    "group": "GlycopeptideAntibiotics",
+    "color": "#BCE5CE"
+  },
+  {
+    "word": "Eptifibatide",
+    "group": "GlycoproteinIIbIIIaAntagonistsIVApplication",
+    "color": "#BCE5CF"
+  },
+  {
+    "word": "Tirofiban",
+    "group": "GlycoproteinIIbIIIaAntagonistsIVApplication",
+    "color": "#BCE5CF"
+  },
+  {
+    "word": "Glycylcyclin",
+    "group": "Glycylcyclin",
+    "color": "#BCE5D0"
+  },
+  {
+    "word": "Tigecyclin",
+    "group": "Glycylcyclin",
+    "color": "#BCE5D0"
+  },
+  {
+    "word": "Tigecycline",
+    "group": "Glycylcycline",
+    "color": "#BCE5D0"
+  },
+  {
+    "word": "Eptifibatid",
+    "group": "GlykoproteinIIbIIIaAntagonistenivApplikation",
+    "color": "#BCE5D1"
+  },
+  {
+    "word": "Clomiphene",
+    "group": "GnRHAntagonists",
+    "color": "#BCE5D2"
+  },
+  {
+    "word": "Clomifen",
+    "group": "GonadotropinReleasingHormonAntagonisten",
+    "color": "#BCE5D3"
+  },
+  {
+    "word": "GnRH",
+    "group": "GonadotropinReleasingHormoneAgonists",
+    "color": "#BCE5D3"
+  },
+  {
+    "word": "FSH",
+    "group": "Gonadotropins",
+    "color": "#BCE5D4"
+  },
+  {
+    "word": "HCG",
+    "group": "Gonadotropins",
+    "color": "#BCE5D4"
+  },
+  {
+    "word": "LH",
+    "group": "Gonadotropins",
+    "color": "#BCE5D4"
+  },
+  {
+    "word": "Filgrastim",
+    "group": "GrowthFactors",
+    "color": "#BCE5D5"
+  },
+  {
+    "word": "GCSF",
+    "group": "GrowthFactors",
+    "color": "#BCE5D5"
+  },
+  {
+    "word": "Riociguat",
+    "group": "GuanylateCyclaseStimulators",
+    "color": "#BCE5D6"
+  },
+  {
+    "word": "SolitaryTract",
+    "group": "GustatoryPathway",
+    "color": "#BCE5D6"
+  },
+  {
+    "word": "TasteBud",
+    "group": "GustatoryPathway",
+    "color": "#BCE5D6"
+  },
+  {
+    "word": "Cimetidine",
+    "group": "HAntagonists",
+    "color": "#BCE5D7"
+  },
+  {
+    "word": "Ranitidine",
+    "group": "HAntagonists",
+    "color": "#BCE5D7"
+  },
+  {
+    "word": "Panobinostat",
+    "group": "HDACInhibitors",
+    "color": "#BCE5D8"
+  },
+  {
+    "word": "Cimetidin",
+    "group": "HRAntagonisten",
+    "color": "#BCE5D8"
+  },
+  {
+    "word": "Ranitidin",
+    "group": "HRAntagonisten",
+    "color": "#BCE5D8"
+  },
+  {
+    "word": "Herniation",
+    "group": "Herniation",
+    "color": "#BCE5D9"
+  },
+  {
+    "word": "Fluphenazin",
+    "group": "HochpotenteAntipsychotika",
+    "color": "#BCE5DA"
+  },
+  {
+    "word": "Fluspirilen",
+    "group": "HochpotenteAntipsychotika",
+    "color": "#BCE5DA"
+  },
+  {
+    "word": "Perphenazin",
+    "group": "HochpotenteAntipsychotika",
+    "color": "#BCE5DA"
+  },
+  {
+    "word": "Glucagon",
+    "group": "Hormones",
+    "color": "#BCE5DB"
+  },
+  {
+    "word": "Hydroxypyridonderivate",
+    "group": "Hydroxypyridonderivate",
+    "color": "#BCE5DB"
+  },
+  {
+    "word": "Moxonidine",
+    "group": "ImidazolineReceptorAgonist",
+    "color": "#BCE5DC"
+  },
+  {
+    "word": "Moxonidin",
+    "group": "ImidazolrezeptorAgonist",
+    "color": "#BCE5DD"
+  },
+  {
+    "word": "absorption",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Alemtuzumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "amylase",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Anakinra",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Baricitinib",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Basiliximab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "BenzoylPeroxide",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "bile",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Canakinumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "chyme",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Ciclosporin",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "CiclosporinA",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "digestion",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Everolimus",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Fingolimod",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "gastrin",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Ipilimumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "lipase",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "MycophenolateMofetil",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Natalizumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Nivolumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Obinutuzumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Ofatumumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Omalizumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Pembrolizumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "pepsin",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "peristalsis",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Relatlimab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Rituximab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "secretin",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Secukinumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Sirolimus",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Tacrolimus",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Temsirolimus",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Tocilizumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Tofacitinib",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Trigeminal",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Ustekinumab",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "V",
+    "group": "Immunology",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Imiquimod",
+    "group": "Immunomodulators",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "Thalidomid",
+    "group": "Immunomodulators",
+    "color": "#BCE5DE"
+  },
+  {
+    "word": "MycophenolatMofetil",
+    "group": "Immunsuppressiva",
+    "color": "#BCE5DF"
+  },
+  {
+    "word": "Distigmine",
+    "group": "IndirectParasympathomimetics",
+    "color": "#BCE5E0"
+  },
+  {
+    "word": "Edrophonium",
+    "group": "IndirectParasympathomimetics",
+    "color": "#BCE5E0"
+  },
+  {
+    "word": "Neostigmine",
+    "group": "IndirectParasympathomimetics",
+    "color": "#BCE5E0"
+  },
+  {
+    "word": "Physostigmine",
+    "group": "IndirectParasympathomimetics",
+    "color": "#BCE5E0"
+  },
+  {
+    "word": "Pyridostigmine",
+    "group": "IndirectParasympathomimetics",
+    "color": "#BCE5E0"
+  },
+  {
+    "word": "Ephedrine",
+    "group": "IndirectSympathomimetics",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Methylphenidate",
+    "group": "IndirectSympathomimetics",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Pseudoephedrine",
+    "group": "IndirectSympathomimetics",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Distigmin",
+    "group": "IndirekteParasympathomimetika",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Neostigmin",
+    "group": "IndirekteParasympathomimetika",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Physostigmin",
+    "group": "IndirekteParasympathomimetika",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Pyridostigmin",
+    "group": "IndirekteParasympathomimetika",
+    "color": "#BCE5E1"
+  },
+  {
+    "word": "Ephedrin",
+    "group": "IndirekteSympathomimetika",
+    "color": "#BCE5E2"
+  },
+  {
+    "word": "Methylphenidat",
+    "group": "IndirekteSympathomimetika",
+    "color": "#BCE5E2"
+  },
+  {
+    "word": "Pseudoephedrin",
+    "group": "IndirekteSympathomimetika",
+    "color": "#BCE5E2"
+  },
+  {
+    "word": "CombinationInsulins",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "Insulin",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinAspart",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinDegludec",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinDetemir",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinGlargin",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinGlargine",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinGlulisin",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinGlulisine",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InsulinLispro",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "Kombinationsinsuline",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "Normalinsulin",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "NPHInsuline",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "NPHInsulins",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "RegularInsulin",
+    "group": "Insulins",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InterferonAlpha",
+    "group": "Interferons",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "InterferonBeta",
+    "group": "Interferons",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "PEGInterferonAlpha",
+    "group": "Interferons",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "Ropeginterferon",
+    "group": "Interferons",
+    "color": "#BCE5E3"
+  },
+  {
+    "word": "Iodid",
+    "group": "Iodid",
+    "color": "#BCE5E4"
+  },
+  {
+    "word": "Iodide",
+    "group": "Iodide",
+    "color": "#BCE5E5"
+  },
+  {
+    "word": "Eisencarboxymaltose",
+    "group": "IronSupplements",
+    "color": "#BCE5E5"
+  },
+  {
+    "word": "Insecticide",
+    "group": "IrreversibleAcetylcholinesteraseInhibition",
+    "color": "#BCE4E5"
+  },
+  {
+    "word": "AcetylsalicylicAcid",
+    "group": "IrreversibleCOXInhibitor",
+    "color": "#BCE3E5"
+  },
+  {
+    "word": "Insektizid",
+    "group": "IrreversibleHemmungDerAcetylcholinesterase",
+    "color": "#BCE3E5"
+  },
+  {
+    "word": "AcetylsalicylsäureASS",
+    "group": "IrreversiblerCOXInhibitor",
+    "color": "#BCE2E5"
+  },
+  {
+    "word": "Clavulansäure",
+    "group": "LactamaseInhibitoren",
+    "color": "#BCE1E5"
+  },
+  {
+    "word": "BrocasArea",
+    "group": "LanguageAreas",
+    "color": "#BCE1E5"
+  },
+  {
+    "word": "WernickesArea",
+    "group": "LanguageAreas",
+    "color": "#BCE1E5"
+  },
+  {
+    "word": "Lactulose",
+    "group": "Laxatives",
+    "color": "#BCE0E5"
+  },
+  {
+    "word": "Mesalazine",
+    "group": "LeukotrieneAndProstaglandinSynthesisInhibitor",
+    "color": "#BCDFE5"
+  },
+  {
+    "word": "Mesalazin",
+    "group": "LeukotrienundProstaglandinSynthesehemmer",
+    "color": "#BCDEE5"
+  },
+  {
+    "word": "Amygdala",
+    "group": "LimbicSystem",
+    "color": "#BCDEE5"
+  },
+  {
+    "word": "Fornix",
+    "group": "LimbicSystem",
+    "color": "#BCDEE5"
+  },
+  {
+    "word": "Hippocampus",
+    "group": "LimbicSystem",
+    "color": "#BCDEE5"
+  },
+  {
+    "word": "Lincosamid",
+    "group": "Lincosamide",
+    "color": "#BCDDE5"
+  },
+  {
+    "word": "Clindamycin",
+    "group": "Lincosamides",
+    "color": "#BCDCE5"
+  },
+  {
+    "word": "Lithium",
+    "group": "Lithium",
+    "color": "#BCDBE5"
+  },
+  {
+    "word": "Ornithinaspartat",
+    "group": "LiverTherapeutics",
+    "color": "#BCDBE5"
+  },
+  {
+    "word": "OrnithineAspartate",
+    "group": "LiverTherapeutics",
+    "color": "#BCDBE5"
+  },
+  {
+    "word": "Polidocanol",
+    "group": "LocalAnesthetics",
+    "color": "#BCDAE5"
+  },
+  {
+    "word": "Rasagilin",
+    "group": "MAOBHemmer",
+    "color": "#BCD9E5"
+  },
+  {
+    "word": "Selegilin",
+    "group": "MAOBHemmer",
+    "color": "#BCD9E5"
+  },
+  {
+    "word": "Rasagiline",
+    "group": "MAOBInhibitors",
+    "color": "#BCD8E5"
+  },
+  {
+    "word": "Selegiline",
+    "group": "MAOBInhibitors",
+    "color": "#BCD8E5"
+  },
+  {
+    "word": "Moclobemid",
+    "group": "MAOH",
+    "color": "#BCD8E5"
+  },
+  {
+    "word": "Tranylcypromin",
+    "group": "MAOH",
+    "color": "#BCD8E5"
+  },
+  {
+    "word": "Moclobemide",
+    "group": "MAOIs",
+    "color": "#BCD7E5"
+  },
+  {
+    "word": "Tranylcypromine",
+    "group": "MAOIs",
+    "color": "#BCD7E5"
+  },
+  {
+    "word": "Azithromycin",
+    "group": "Macrolides",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Clarithromycin",
+    "group": "Macrolides",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Erythromycin",
+    "group": "Macrolides",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Fidaxomicin",
+    "group": "Macrolides",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Roxithromycin",
+    "group": "Macrolides",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Makrolid",
+    "group": "Makrolide",
+    "color": "#BCD6E5"
+  },
+  {
+    "word": "Agomelatin",
+    "group": "MelatoninAnaloga",
+    "color": "#BCD5E5"
+  },
+  {
+    "word": "Agomelatine",
+    "group": "MelatoninAnalogues",
+    "color": "#BCD4E5"
+  },
+  {
+    "word": "Arachnoid",
+    "group": "MeningesAndSinuses",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "DuraMater",
+    "group": "MeningesAndSinuses",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "PiaMater",
+    "group": "MeningesAndSinuses",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "Sinus",
+    "group": "MeningesAndSinuses",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "ZincSulfate",
+    "group": "Minerals",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "Zink",
+    "group": "Minerals",
+    "color": "#BCD3E5"
+  },
+  {
+    "word": "Zinksulfat",
+    "group": "Mineralstoffe",
+    "color": "#BCD2E5"
+  },
+  {
+    "word": "Chlorpromazin",
+    "group": "MittelpotenteAntipsychotika",
+    "color": "#BCD1E5"
+  },
+  {
+    "word": "Abciximab",
+    "group": "MonoclonalAntibodies",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "Eculizumab",
+    "group": "MonoclonalAntibodies",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "Mepolizumab",
+    "group": "MonoclonalAntibodies",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "Reslizumab",
+    "group": "MonoclonalAntibodies",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "FrontalEyeFields",
+    "group": "MotorAreas",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "PremotorCortex",
+    "group": "MotorAreas",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "PrimaryMotorCortex",
+    "group": "MotorAreas",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "SupplementaryMotorArea",
+    "group": "MotorAreas",
+    "color": "#BCD0E5"
+  },
+  {
+    "word": "DornaseAlpha",
+    "group": "Mucolytics",
+    "color": "#BCCFE5"
+  },
+  {
+    "word": "Succinylcholine",
+    "group": "MuscleRelaxants",
+    "color": "#BCCEE5"
+  },
+  {
+    "word": "Succinylcholin",
+    "group": "Muskelrelaxanzien",
+    "color": "#BCCDE5"
+  },
+  {
+    "word": "Bupropion",
+    "group": "NDRIs",
+    "color": "#BCCDE5"
+  },
+  {
+    "word": "Amantadin",
+    "group": "NMDAAntagonisten",
+    "color": "#BCCCE5"
+  },
+  {
+    "word": "Budipin",
+    "group": "NMDAAntagonisten",
+    "color": "#BCCCE5"
+  },
+  {
+    "word": "Amantadine",
+    "group": "NMDAAntagonists",
+    "color": "#BCCBE5"
+  },
+  {
+    "word": "Aspirin",
+    "group": "NSAIDs",
+    "color": "#BCCBE5"
+  },
+  {
+    "word": "Ibuprofen",
+    "group": "NSAIDs",
+    "color": "#BCCBE5"
+  },
+  {
+    "word": "Naproxen",
+    "group": "NSAIDs",
+    "color": "#BCCBE5"
+  },
+  {
+    "word": "Daclatasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Elbasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Ledipasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "NSAInhibitors",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Ombitasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Pibrentasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Velpatasvir",
+    "group": "NSAInhibitors",
+    "color": "#BCCAE5"
+  },
+  {
+    "word": "Dasabuvir",
+    "group": "NSBInhibitors",
+    "color": "#BCC9E5"
+  },
+  {
+    "word": "NSBInhibitors",
+    "group": "NSBInhibitors",
+    "color": "#BCC9E5"
+  },
+  {
+    "word": "Sofosbuvir",
+    "group": "NSBInhibitors",
+    "color": "#BCC9E5"
+  },
+  {
+    "word": "Amitriptylin",
+    "group": "NSMRI",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Clomipramin",
+    "group": "NSMRI",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Imipramin",
+    "group": "NSMRI",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Nortriptylin",
+    "group": "NSMRI",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Trimipramin",
+    "group": "NSMRI",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Boceprevir",
+    "group": "NSProteaseInhibitors",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "NSProteaseInhibitors",
+    "group": "NSProteaseInhibitors",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Telaprevir",
+    "group": "NSProteaseInhibitors",
+    "color": "#BCC8E5"
+  },
+  {
+    "word": "Lacosamid",
+    "group": "NeuereAnfallssuppressiva",
+    "color": "#BCC7E5"
+  },
+  {
+    "word": "Lamotrigin",
+    "group": "NeuereAnfallssuppressiva",
+    "color": "#BCC7E5"
+  },
+  {
+    "word": "Topiramat",
+    "group": "NeuereAnfallssuppressiva",
+    "color": "#BCC7E5"
+  },
+  {
+    "word": "Oseltamivir",
+    "group": "NeuraminidaseInhibitors",
+    "color": "#BCC6E5"
+  },
+  {
+    "word": "Zanamivir",
+    "group": "NeuraminidaseInhibitors",
+    "color": "#BCC6E5"
+  },
+  {
+    "word": "Axon",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "CortexLayer",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "Dendrite",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "Myelin",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "Neuron",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "NodeOfRanvier",
+    "group": "Neurohistology",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "Aprepitant",
+    "group": "NeurokininReceptorAntagonists",
+    "color": "#BCC5E5"
+  },
+  {
+    "word": "Adrenergic",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "DopamineReceptor",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "GABAReceptor",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "GlutamateReceptor",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "GlycineReceptor",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "Muscarinic",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "Nicotinic",
+    "group": "Neuroreceptors",
+    "color": "#BCC4E5"
+  },
+  {
+    "word": "Acetylcholine",
+    "group": "Neurotransmitters",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "GABA",
+    "group": "Neurotransmitters",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Glutamate",
+    "group": "Neurotransmitters",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Histamine",
+    "group": "Neurotransmitters",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Serotonin",
+    "group": "Neurotransmitters",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Gabapentin",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Lacosamide",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Lamotrigine",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Levetiracetam",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Pregabalin",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Topiramate",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Vigabatrin",
+    "group": "NewerAnticonvulsants",
+    "color": "#BCC3E5"
+  },
+  {
+    "word": "Varenicline",
+    "group": "NicotinicReceptorAgonists",
+    "color": "#BCC2E5"
+  },
+  {
+    "word": "Chlorprothixen",
+    "group": "NiederpotenteAntipsychotika",
+    "color": "#BCC1E5"
+  },
+  {
+    "word": "Levomepromazin",
+    "group": "NiederpotenteAntipsychotika",
+    "color": "#BCC1E5"
+  },
+  {
+    "word": "Melperon",
+    "group": "NiederpotenteAntipsychotika",
+    "color": "#BCC1E5"
+  },
+  {
+    "word": "Pipamperon",
+    "group": "NiederpotenteAntipsychotika",
+    "color": "#BCC1E5"
+  },
+  {
+    "word": "Vareniclin",
+    "group": "NikotinrezeptorAgonisten",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Glyceroltrinitrat",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "GlycerolTrinitrate",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Isosorbiddinitrat",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "IsosorbideDinitrate",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "IsosorbideMononitrate",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Isosorbidmononitrat",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Molsidomin",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Molsidomine",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Nitrat",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Nitrate",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Nitroglycerin",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Pentaerithrityltetranitrat",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "PentaerythritylTetranitrate",
+    "group": "Nitrates",
+    "color": "#BCC0E5"
+  },
+  {
+    "word": "Diclofenac",
+    "group": "NonSteroidalAntiinflammatoryDrugs",
+    "color": "#BCBFE5"
+  },
+  {
+    "word": "Indometacin",
+    "group": "NonSteroidalAntiinflammatoryDrugs",
+    "color": "#BCBFE5"
+  },
+  {
+    "word": "NSAR",
+    "group": "NonSteroidalAntiinflammatoryDrugs",
+    "color": "#BCBFE5"
+  },
+  {
+    "word": "Carvedilol",
+    "group": "NonselectiveBetaBlockers",
+    "color": "#BCBEE5"
+  },
+  {
+    "word": "Propranolol",
+    "group": "NonselectiveBetaBlockers",
+    "color": "#BCBEE5"
+  },
+  {
+    "word": "Sotalol",
+    "group": "NonselectiveBetaBlockers",
+    "color": "#BCBEE5"
+  },
+  {
+    "word": "Timolol",
+    "group": "NonselectiveBetaBlockers",
+    "color": "#BCBEE5"
+  },
+  {
+    "word": "Theophylline",
+    "group": "NonspecificPhosphodiesteraseInhibitors",
+    "color": "#BCBDE5"
+  },
+  {
+    "word": "Lamivudin",
+    "group": "NsRTI",
+    "color": "#BCBDE5"
+  },
+  {
+    "word": "NsRTI",
+    "group": "NsRTI",
+    "color": "#BCBDE5"
+  },
+  {
+    "word": "Telbivudin",
+    "group": "NsRTI",
+    "color": "#BCBDE5"
+  },
+  {
+    "word": "Entecavir",
+    "group": "NsRTIs",
+    "color": "#BCBCE5"
+  },
+  {
+    "word": "Lamivudine",
+    "group": "NsRTIs",
+    "color": "#BCBCE5"
+  },
+  {
+    "word": "NsRTIs",
+    "group": "NsRTIs",
+    "color": "#BCBCE5"
+  },
+  {
+    "word": "Telbivudine",
+    "group": "NsRTIs",
+    "color": "#BCBCE5"
+  },
+  {
+    "word": "NtRTI",
+    "group": "NtRTI",
+    "color": "#BDBCE5"
+  },
+  {
+    "word": "Adefovir",
+    "group": "NtRTIs",
+    "color": "#BDBCE5"
+  },
+  {
+    "word": "NtRTIs",
+    "group": "NtRTIs",
+    "color": "#BDBCE5"
+  },
+  {
+    "word": "Tenofovir",
+    "group": "NtRTIs",
+    "color": "#BDBCE5"
+  },
+  {
+    "word": "Ribavirin",
+    "group": "NucleosideAnalogRNAPolymeraseInhibitor",
+    "color": "#BEBCE5"
+  },
+  {
+    "word": "Olfactory",
+    "group": "OlfactorySystem",
+    "color": "#BFBCE5"
+  },
+  {
+    "word": "PiriformCortex",
+    "group": "OlfactorySystem",
+    "color": "#BFBCE5"
+  },
+  {
+    "word": "Adriamycin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Arsentrioxid",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Bendamustin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Bendamustine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Bortezomib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Busulfan",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Carboplatin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Carfilzomib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Ceritinib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Cetuximab",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Chlorambucil",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Cisplatin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Crizotinib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Cyclophosphamid",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Cyclophosphamide",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Dacarbazin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Dacarbazine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Daunorubicin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Docetaxel",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Doxorubicin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Epirubicin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Etoposid",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Etoposide",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Fluoruracil",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Gefitinib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Idarubicin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Ifosfamid",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Ifosfamide",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Irinotecan",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Leucovorin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Melphalan",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Mitotane",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Olaparib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Osimertinib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Oxaliplatin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Paclitaxel",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Palbociclib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Procarbazin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Procarbazine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Temozolomid",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Temozolomide",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Topotecan",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Trastuzumab",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vemurafenib",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vinblastin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vinblastine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vincristin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vincristine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vinorelbin",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Vinorelbine",
+    "group": "Oncology",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Buprenorphin",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Buprenorphine",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Levomethadon",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Levomethadone",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Methadon",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Methadone",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Morphin",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Morphine",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Naltrexon",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Opioid",
+    "group": "OpioidAnalgesics",
+    "color": "#C0BCE5"
+  },
+  {
+    "word": "Apixaban",
+    "group": "OralDirectFactorXaInhibitors",
+    "color": "#C1BCE5"
+  },
+  {
+    "word": "Edoxaban",
+    "group": "OralDirectFactorXaInhibitors",
+    "color": "#C1BCE5"
+  },
+  {
+    "word": "Rivaroxaban",
+    "group": "OralDirectFactorXaInhibitors",
+    "color": "#C1BCE5"
+  },
+  {
+    "word": "Oxazolidinon",
+    "group": "Oxazolidinone",
+    "color": "#C2BCE5"
+  },
+  {
+    "word": "Linezolid",
+    "group": "Oxazolidinones",
+    "color": "#C3BCE5"
+  },
+  {
+    "word": "Alirocumab",
+    "group": "PCSK9Inhibitors",
+    "color": "#C3BCE5"
+  },
+  {
+    "word": "Evolocumab",
+    "group": "PCSK9Inhibitors",
+    "color": "#C3BCE5"
+  },
+  {
+    "word": "Sildenafil",
+    "group": "PDE5Inhibitors",
+    "color": "#C4BCE5"
+  },
+  {
+    "word": "Tadalafil",
+    "group": "PDE5Inhibitors",
+    "color": "#C4BCE5"
+  },
+  {
+    "word": "Vardenafil",
+    "group": "PDE5Inhibitors",
+    "color": "#C4BCE5"
+  },
+  {
+    "word": "Idelalisib",
+    "group": "PI3KInhibitors",
+    "color": "#C5BCE5"
+  },
+  {
+    "word": "Butylscopolamine",
+    "group": "ParasympatholyticsQuaternaryAmines",
+    "color": "#C5BCE5"
+  },
+  {
+    "word": "IpratropiumBromide",
+    "group": "ParasympatholyticsQuaternaryAmines",
+    "color": "#C5BCE5"
+  },
+  {
+    "word": "TiotropiumBromide",
+    "group": "ParasympatholyticsQuaternaryAmines",
+    "color": "#C5BCE5"
+  },
+  {
+    "word": "Atropine",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Darifenacin",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Oxybutynin",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Scopolamine",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Tolterodine",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Tropicamide",
+    "group": "ParasympatholyticsTertiaryAmines",
+    "color": "#C6BCE5"
+  },
+  {
+    "word": "Butylscopolamin",
+    "group": "ParasympatholytikaQuartaereAmine",
+    "color": "#C7BCE5"
+  },
+  {
+    "word": "Ipratropiumbromid",
+    "group": "ParasympatholytikaQuartaereAmine",
+    "color": "#C7BCE5"
+  },
+  {
+    "word": "Tiotropiumbromid",
+    "group": "ParasympatholytikaQuartaereAmine",
+    "color": "#C7BCE5"
+  },
+  {
+    "word": "Atropin",
+    "group": "ParasympatholytikaTertiaereAmine",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Scopolamin",
+    "group": "ParasympatholytikaTertiaereAmine",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Tolterodin",
+    "group": "ParasympatholytikaTertiaereAmine",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Tropicamid",
+    "group": "ParasympatholytikaTertiaereAmine",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Acylaminopenicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Aminopenicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Aminopenicilline",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Aminopenicillins",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Amoxicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "AmoxicillinClavulanicAcid",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "AmoxicillinClavulansäure",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Ampicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "AmpicillinSulbactam",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Dicloxacillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Flucloxacillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Isoxazolylpenicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Methicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Mezlocillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Oxacillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Penicillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Penicilline",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Penicillins",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Piperacillin",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "PiperacillinTazobactam",
+    "group": "Penicillins",
+    "color": "#C8BCE5"
+  },
+  {
+    "word": "Enoximon",
+    "group": "PhosphodiesteraseIIIHemmer",
+    "color": "#C9BCE5"
+  },
+  {
+    "word": "Milrinon",
+    "group": "PhosphodiesteraseIIIHemmer",
+    "color": "#C9BCE5"
+  },
+  {
+    "word": "Enoximone",
+    "group": "PhosphodiesteraseIIIInhibitors",
+    "color": "#CABCE5"
+  },
+  {
+    "word": "Milrinone",
+    "group": "PhosphodiesteraseIIIInhibitors",
+    "color": "#CABCE5"
+  },
+  {
+    "word": "Roflumilast",
+    "group": "PhosphodiesteraseIVInhibitors",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Garlic",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "HawthornExtract",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "HorseChestnut",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Johanniskraut",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Knoblauch",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Maeusedornwurzel",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Mäusedornwurzel",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Rosskastanie",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "StJohnsWort",
+    "group": "Phytotherapeutics",
+    "color": "#CBBCE5"
+  },
+  {
+    "word": "Albumin",
+    "group": "PlasmaProteins",
+    "color": "#CCBCE5"
+  },
+  {
+    "word": "Sulfasalazine",
+    "group": "ProdrugMetabolizedToSulfapyridineAndASA",
+    "color": "#CDBCE5"
+  },
+  {
+    "word": "Sulfasalazin",
+    "group": "ProdrugmetabolisiertzuSulfapyridinundASA",
+    "color": "#CDBCE5"
+  },
+  {
+    "word": "Selexipag",
+    "group": "ProstacyclinAnalogs",
+    "color": "#CEBCE5"
+  },
+  {
+    "word": "Iloprost",
+    "group": "Prostaglandins",
+    "color": "#CFBCE5"
+  },
+  {
+    "word": "ProstaglandinE",
+    "group": "Prostaglandins",
+    "color": "#CFBCE5"
+  },
+  {
+    "word": "Esomeprazole",
+    "group": "ProtonPumpInhibitors",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Omeprazole",
+    "group": "ProtonPumpInhibitors",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Pantoprazole",
+    "group": "ProtonPumpInhibitors",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "PPI",
+    "group": "ProtonPumpInhibitors",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Esomeprazol",
+    "group": "Protonenpumpenhemmer",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Omeprazol",
+    "group": "Protonenpumpenhemmer",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Pantoprazol",
+    "group": "Protonenpumpenhemmer",
+    "color": "#D0BCE5"
+  },
+  {
+    "word": "Pegloticase",
+    "group": "RecombinantUricase",
+    "color": "#D1BCE5"
+  },
+  {
+    "word": "Adapalen",
+    "group": "Retinoids",
+    "color": "#D2BCE5"
+  },
+  {
+    "word": "Adapalene",
+    "group": "Retinoids",
+    "color": "#D2BCE5"
+  },
+  {
+    "word": "Isotretinoin",
+    "group": "Retinoids",
+    "color": "#D2BCE5"
+  },
+  {
+    "word": "Retinoiden",
+    "group": "Retinoids",
+    "color": "#D2BCE5"
+  },
+  {
+    "word": "Retinoids",
+    "group": "Retinoids",
+    "color": "#D2BCE5"
+  },
+  {
+    "word": "Dapagliflozin",
+    "group": "SGLT2Inhibitors",
+    "color": "#D3BCE5"
+  },
+  {
+    "word": "Empagliflozin",
+    "group": "SGLT2Inhibitors",
+    "color": "#D3BCE5"
+  },
+  {
+    "word": "Ertugliflozin",
+    "group": "SGLT2Inhibitors",
+    "color": "#D3BCE5"
+  },
+  {
+    "word": "Risdiplam",
+    "group": "SMNSpliceModulators",
+    "color": "#D3BCE5"
+  },
+  {
+    "word": "Duloxetin",
+    "group": "SNRIs",
+    "color": "#D4BCE5"
+  },
+  {
+    "word": "Duloxetine",
+    "group": "SNRIs",
+    "color": "#D4BCE5"
+  },
+  {
+    "word": "Milnacipran",
+    "group": "SNRIs",
+    "color": "#D4BCE5"
+  },
+  {
+    "word": "Venlafaxin",
+    "group": "SNRIs",
+    "color": "#D4BCE5"
+  },
+  {
+    "word": "Venlafaxine",
+    "group": "SNRIs",
+    "color": "#D4BCE5"
+  },
+  {
+    "word": "Citalopram",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Escitalopram",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Fluoxetin",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Fluoxetine",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Fluvoxamin",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Fluvoxamine",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Paroxetin",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Paroxetine",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Sertralin",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Sertraline",
+    "group": "SSRIs",
+    "color": "#D5BCE5"
+  },
+  {
+    "word": "Azelastine",
+    "group": "SecondGenerationHAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Cetirizine",
+    "group": "SecondGenerationHAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Fexofenadine",
+    "group": "SecondGenerationHAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Loratadine",
+    "group": "SecondGenerationHAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Granisetron",
+    "group": "SerotoninReceptorAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Ondansetron",
+    "group": "SerotoninReceptorAntagonists",
+    "color": "#D6BCE5"
+  },
+  {
+    "word": "Progestogen",
+    "group": "SexHormones",
+    "color": "#D7BCE5"
+  },
+  {
+    "word": "Gestagen",
+    "group": "Sexualhormone",
+    "color": "#D8BCE5"
+  },
+  {
+    "word": "Canal",
+    "group": "SkullForamina",
+    "color": "#D8BCE5"
+  },
+  {
+    "word": "Fissure",
+    "group": "SkullForamina",
+    "color": "#D8BCE5"
+  },
+  {
+    "word": "Foramen",
+    "group": "SkullForamina",
+    "color": "#D8BCE5"
+  },
+  {
+    "word": "Ethanol",
+    "group": "Solvents",
+    "color": "#D9BCE5"
+  },
+  {
+    "word": "PrimarySomatosensoryCortex",
+    "group": "SomatosensoryAreas",
+    "color": "#DABCE5"
+  },
+  {
+    "word": "Lanreotid",
+    "group": "SomatostatinAnalogs",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "Lanreotide",
+    "group": "SomatostatinAnalogs",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "Octreotid",
+    "group": "SomatostatinAnalogs",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "Somatostatin",
+    "group": "SomatostatinAnalogs",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "DorsalRoot",
+    "group": "SpinalNerveRoots",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "DorsalRootGanglion",
+    "group": "SpinalNerveRoots",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "NerveRoot",
+    "group": "SpinalNerveRoots",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "VentralRoot",
+    "group": "SpinalNerveRoots",
+    "color": "#DBBCE5"
+  },
+  {
+    "word": "SpinalSegment",
+    "group": "SpinalSegments",
+    "color": "#DCBCE5"
+  },
+  {
+    "word": "CorticospinalTract",
+    "group": "SpinalTracts",
+    "color": "#DDBCE5"
+  },
+  {
+    "word": "DorsalColumn",
+    "group": "SpinalTracts",
+    "color": "#DDBCE5"
+  },
+  {
+    "word": "Lemniscus",
+    "group": "SpinalTracts",
+    "color": "#DDBCE5"
+  },
+  {
+    "word": "SpinocerebellarTract",
+    "group": "SpinalTracts",
+    "color": "#DDBCE5"
+  },
+  {
+    "word": "SpinothalamicTract",
+    "group": "SpinalTracts",
+    "color": "#DDBCE5"
+  },
+  {
+    "word": "Atorvastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Fluvastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Lovastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Pravastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Rosuvastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Simvastatin",
+    "group": "Statins",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "DHEA",
+    "group": "Steroids",
+    "color": "#DEBCE5"
+  },
+  {
+    "word": "Cholesterol",
+    "group": "Sterols",
+    "color": "#DFBCE5"
+  },
+  {
+    "word": "Cotrimoxazol",
+    "group": "SulfonamidDihydrofolatreduktaseHemmer",
+    "color": "#E0BCE5"
+  },
+  {
+    "word": "Sulfadiazin",
+    "group": "Sulfonamide",
+    "color": "#E1BCE5"
+  },
+  {
+    "word": "Cotrimoxazole",
+    "group": "SulfonamideDihydrofolateReductaseInhibitor",
+    "color": "#E1BCE5"
+  },
+  {
+    "word": "Sulfadiazine",
+    "group": "Sulfonamides",
+    "color": "#E2BCE5"
+  },
+  {
+    "word": "Glibenclamid",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Glibenclamide",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Glimepirid",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Glimepiride",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Tolbutamid",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Tolbutamide",
+    "group": "Sulfonylureas",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Orciprenaline",
+    "group": "Sympathomimetics",
+    "color": "#E3BCE5"
+  },
+  {
+    "word": "Orciprenalin",
+    "group": "Sympathomimetika",
+    "color": "#E4BCE5"
+  },
+  {
+    "word": "Terbutalin",
+    "group": "SympathomimetikaKurz",
+    "color": "#E5BCE5"
+  },
+  {
+    "word": "Argatroban",
+    "group": "SyntheticLArginineDerivative",
+    "color": "#E5BCE5"
+  },
+  {
+    "word": "Amitriptyline",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Clomipramine",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Doxepin",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Imipramine",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Nortriptyline",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Trimipramine",
+    "group": "TCAs",
+    "color": "#E5BCE4"
+  },
+  {
+    "word": "Adalimumab",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Certolizumab",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Etanercept",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Golimumab",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Infliximab",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "TNFAlpha",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "TNFAlphaAntagonists",
+    "group": "TNFInhibitors",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Doxycyclin",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Doxycycline",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Minocyclin",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Minocycline",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Tetracyclin",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "Tetracycline",
+    "group": "Tetracyclines",
+    "color": "#E5BCE3"
+  },
+  {
+    "word": "GeniculateNucleus",
+    "group": "ThalamicNuclei",
+    "color": "#E5BCE2"
+  },
+  {
+    "word": "Pioglitazone",
+    "group": "Thiazolidinediones",
+    "color": "#E5BCE1"
+  },
+  {
+    "word": "rtPA",
+    "group": "Thrombolytics",
+    "color": "#E5BCE1"
+  },
+  {
+    "word": "Perchlorat",
+    "group": "Thyreostatika",
+    "color": "#E5BCE0"
+  },
+  {
+    "word": "Carbimazol",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Carbimazole",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "LThyroxin",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "LThyroxine",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Natriumperchlorat",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Perchlorate",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Propylthiouracil",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "SodiumPerchlorate",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Thiamazol",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Thiamazole",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Thiouracil",
+    "group": "ThyroidAgents",
+    "color": "#E5BCDF"
+  },
+  {
+    "word": "Carbamazepine",
+    "group": "TypicalAntiepileptics",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Ethosuximide",
+    "group": "TypicalAntiepileptics",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Phenytoin",
+    "group": "TypicalAntiepileptics",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Valproate",
+    "group": "TypicalAntiepileptics",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Carbamazepin",
+    "group": "TypischeAntiepileptika",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Ethosuximid",
+    "group": "TypischeAntiepileptika",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Valproat",
+    "group": "TypischeAntiepileptika",
+    "color": "#E5BCDE"
+  },
+  {
+    "word": "Afatinib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Erlotinib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Ibrutinib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Imatinib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Nintedanib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Pazopanib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Sorafenib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Sunitinib",
+    "group": "TyrosineKinaseInhibitors",
+    "color": "#E5BCDD"
+  },
+  {
+    "word": "Lenalidomide",
+    "group": "UbiquitinationStimulators",
+    "color": "#E5BCDC"
+  },
+  {
+    "word": "Lenalidomid",
+    "group": "UbiquitinierungsStimulatoren",
+    "color": "#E5BCDB"
+  },
+  {
+    "word": "GlatiramerAcetate",
+    "group": "UnclearMechanismOfActionBindingToMHCII",
+    "color": "#E5BCDB"
+  },
+  {
+    "word": "Dimethylfumarate",
+    "group": "UnclearMechanismOfActionHCAReceptorBlocker",
+    "color": "#E5BCDA"
+  },
+  {
+    "word": "Chloroquine",
+    "group": "UnclearMechanismOfActionTollLikeReceptorInhibitor",
+    "color": "#E5BCD9"
+  },
+  {
+    "word": "Hydroxychloroquine",
+    "group": "UnclearMechanismOfActionTollLikeReceptorInhibitor",
+    "color": "#E5BCD9"
+  },
+  {
+    "word": "Glatirameracetat",
+    "group": "UnklarerWirkmechanismusBindunganMHCII",
+    "color": "#E5BCD8"
+  },
+  {
+    "word": "Dimethylfumarat",
+    "group": "UnklarerWirkmechanismusHCARezeptorBlocker",
+    "color": "#E5BCD8"
+  },
+  {
+    "word": "Chloroquin",
+    "group": "UnklarerWirkmechanismusTolllikeRezeptorInhibitor",
+    "color": "#E5BCD7"
+  },
+  {
+    "word": "Hydroxychloroquin",
+    "group": "UnklarerWirkmechanismusTolllikeRezeptorInhibitor",
+    "color": "#E5BCD7"
+  },
+  {
+    "word": "Theophyllin",
+    "group": "UnspezifischePhosphodiesteraseHemmer",
+    "color": "#E5BCD6"
+  },
+  {
+    "word": "Rasburicase",
+    "group": "Uricostatics",
+    "color": "#E5BCD6"
+  },
+  {
+    "word": "Probenecid",
+    "group": "Uricosurics",
+    "color": "#E5BCD5"
+  },
+  {
+    "word": "Aflibercept",
+    "group": "VEGFInhibitors",
+    "color": "#E5BCD4"
+  },
+  {
+    "word": "Bevacizumab",
+    "group": "VEGFInhibitors",
+    "color": "#E5BCD4"
+  },
+  {
+    "word": "Ramucirumab",
+    "group": "VEGFInhibitors",
+    "color": "#E5BCD4"
+  },
+  {
+    "word": "Diazoxid",
+    "group": "Vasodilatatoren",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Dihydralazin",
+    "group": "Vasodilatatoren",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Diazoxide",
+    "group": "Vasodilators",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Dihydralazine",
+    "group": "Vasodilators",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Hydralazine",
+    "group": "Vasodilators",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Minoxidil",
+    "group": "Vasodilators",
+    "color": "#E5BCD3"
+  },
+  {
+    "word": "Desmopressin",
+    "group": "VasopressinAgents",
+    "color": "#E5BCD2"
+  },
+  {
+    "word": "Terlipressin",
+    "group": "VasopressinAgents",
+    "color": "#E5BCD2"
+  },
+  {
+    "word": "Tolvaptan",
+    "group": "VasopressinAgents",
+    "color": "#E5BCD2"
+  },
+  {
+    "word": "Midodrin",
+    "group": "Vasopressors",
+    "color": "#E5BCD1"
+  },
+  {
+    "word": "Midodrine",
+    "group": "Vasopressors",
+    "color": "#E5BCD1"
+  },
+  {
+    "word": "Crista",
+    "group": "VestibularSystem",
+    "color": "#E5BCD0"
+  },
+  {
+    "word": "Macula",
+    "group": "VestibularSystem",
+    "color": "#E5BCD0"
+  },
+  {
+    "word": "SemicircularCanal",
+    "group": "VestibularSystem",
+    "color": "#E5BCD0"
+  },
+  {
+    "word": "PrimaryVisualCortex",
+    "group": "VisualAreas",
+    "color": "#E5BCD0"
+  },
+  {
+    "word": "Hydroxycobalamin",
+    "group": "VitaminB",
+    "color": "#E5BCCF"
+  },
+  {
+    "word": "FolinicAcid",
+    "group": "VitaminBComplex",
+    "color": "#E5BCCE"
+  },
+  {
+    "word": "Folinsäure",
+    "group": "VitaminBKomplex",
+    "color": "#E5BCCD"
+  },
+  {
+    "word": "Phenprocoumon",
+    "group": "VitaminKAntagonistsCoumarins",
+    "color": "#E5BCCD"
+  },
+  {
+    "word": "Warfarin",
+    "group": "VitaminKAntagonistsCoumarins",
+    "color": "#E5BCCD"
+  },
+  {
+    "word": "Cingulum",
+    "group": "WhiteMatterBundles",
+    "color": "#E5BCCC"
+  },
+  {
+    "word": "Commissure",
+    "group": "WhiteMatterBundles",
+    "color": "#E5BCCC"
+  },
+  {
+    "word": "CorpusCallosum",
+    "group": "WhiteMatterBundles",
+    "color": "#E5BCCC"
+  },
+  {
+    "word": "Fasciculus",
+    "group": "WhiteMatterBundles",
+    "color": "#E5BCCC"
+  },
+  {
+    "word": "OpticRadiation",
+    "group": "WhiteMatterBundles",
+    "color": "#E5BCCC"
+  },
+  {
+    "word": "Tizanidin",
+    "group": "ZentralesMuskelrelaxans",
+    "color": "#E5BCCB"
+  },
+  {
+    "word": "Mitotan",
+    "group": "Zytostatika",
+    "color": "#E5BCCB"
+  },
+  {
+    "word": "AD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "ALS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "ANS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "AP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "BAEP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "BBB",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CBD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CBF",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CBV",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CIDP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CJD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CMRO",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CN",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CNS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CRPS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CSF",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CT",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "CVA",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "DRG",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "EDH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "EEG",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "EMG",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "EPSP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "fMRI",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "FTD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "GBS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "HD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "ICH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "ICP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "IPSP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "LMN",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "MEP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "MG",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "MRI",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "MS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "MSA",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "NPH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PET",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PNH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PNS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PSNS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "PSP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SAH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SCD",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SCI",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SDH",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SEP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SMA",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SN",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "SNS",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "TBI",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "TIA",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "UMN",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "VEP",
+    "group": "abbreviations",
+    "color": "#E5BCCA"
+  },
+  {
+    "word": "Clonidine",
+    "group": "alphaAdrenergicReceptorAgonists",
+    "color": "#E5BCC9"
+  },
+  {
+    "word": "Methyldopa",
+    "group": "alphaAdrenergicReceptorAgonists",
+    "color": "#E5BCC9"
+  },
+  {
+    "word": "Indoramin",
+    "group": "alphaAdrenergicReceptorAntagonists",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "Tamsulosin",
+    "group": "alphaAdrenergicReceptorAntagonists",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "Urapidil",
+    "group": "alphaAdrenergicReceptorAntagonists",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "afferent",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "akinesia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "artery",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "association",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "ataxia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "auditory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "axoneme",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "axonotmesis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "balance",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "bradykinesia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "capsule",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "cerebellum",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "choroid",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "circle",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "cistern",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "cisterna",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "column",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "commissural",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "conduction",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "coordination",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "cortex",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "decussation",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "depolarization",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "dura",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "efferent",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "emotion",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "falx",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "funiculus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "ganglia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "gliogenesis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "gliotransmission",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "granulation",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "gustatory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "gyrus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "hilum",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "horn",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "hyperpolarization",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "hyperreflexia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "hyporeflexia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "hypothalamus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "integration",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "lamina",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "language",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "luschka",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "magendie",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "medulla",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "memory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "midbrain",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "monro",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "motor",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "neurogenesis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "neurolemma",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "neuroplasticity",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "neuropraxia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "neurotmesis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "optic",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "pain",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "peduncle",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "pia",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "plexus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "pons",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "posture",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "potentiation",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "projection",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "radiation",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "reflex",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "refractory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "root",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "saltatory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "sensory",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "spinal",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "stria",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "sulcus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "summation",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "synaptogenesis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "tentorium",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "thalamus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "threshold",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "tone",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "tract",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "tractus",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "vein",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "vestibular",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "visual",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "willis",
+    "group": "anatomy",
+    "color": "#E5BCC8"
+  },
+  {
+    "word": "adrenaline",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "autonomic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "baroreceptor",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "bradycardia",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "cardioacceleratory",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "cardioinhibitory",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "chemoreceptor",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "cholinergic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "enteric",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "ganglion",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "miosis",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "mydriasis",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "noradrenaline",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "orthostatic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "parasympathetic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "postganglionic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "preganglionic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "pupil",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "sympathetic",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "tachycardia",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "vasomotor",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "vasovagal",
+    "group": "autonomic",
+    "color": "#E5BCC7"
+  },
+  {
+    "word": "afterload",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "atrium",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "bloodpressure",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "cardiac",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "cardiacoutput",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "heartcycle",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "preload",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "strokevolume",
+    "group": "cardio",
+    "color": "#E5BCC6"
+  },
+  {
+    "word": "ADP",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "ATP",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "cytoplasm",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "cytoskeleton",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "endoplasmic",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "lysosome",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "mitochondria",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "ribosome",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "signaltransduction",
+    "group": "cell",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "basket",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "ependymal",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "glia",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "golgi",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "granule",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "interneuron",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "neuroglia",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "neuronal",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "neuropil",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "nissl",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "node",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "purkinje",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "pyramidal",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "ranvier",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "satellite",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "schwann",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "soma",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "stellate",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "synapse",
+    "group": "cells",
+    "color": "#E5BCC5"
+  },
+  {
+    "word": "acidosis",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "alkalosis",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "edema",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "hyperkalemia",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "hypokalemia",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "shock",
+    "group": "clinical",
+    "color": "#E5BCC4"
+  },
+  {
+    "word": "ACTH",
+    "group": "endocrine",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "growthhormone",
+    "group": "endocrine",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "testosterone",
+    "group": "endocrine",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "thyroxine",
+    "group": "endocrine",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "TSH",
+    "group": "endocrine",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "buffer",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "equilibrium",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "feedback",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "homeostasis",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "osmosis",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "permeability",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "thermoregulation",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "transport",
+    "group": "general",
+    "color": "#E5BCC3"
+  },
+  {
+    "word": "adc",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "angiography",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "bold",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "contrast",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "diffusion",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "dwi",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "echo",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "flair",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "gradient",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "gre",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "mra",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "mrv",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "neurosonography",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "perfusion",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "spect",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "spin",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "swi",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "t",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "tensor",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "tractography",
+    "group": "imaging",
+    "color": "#E5BCC2"
+  },
+  {
+    "word": "actin",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "crossbridge",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "excitationcontraction",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "isometric",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "motorunit",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "myosin",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "sarcomere",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "slidingfilament",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "tropomyosin",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "troponin",
+    "group": "muscle",
+    "color": "#E5BCC1"
+  },
+  {
+    "word": "membranepotential",
+    "group": "neuro",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "spinothalamic",
+    "group": "neuro",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "aspartate",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "cgrp",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "dynorphin",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "endorphin",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "enkephalin",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "neuropeptide",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "nitric",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "oxide",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "substance",
+    "group": "neurotransmitters",
+    "color": "#E5BCC0"
+  },
+  {
+    "word": "abscess",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "aneurysm",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "anoxia",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "astrocytoma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "athetosis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "atrophy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "chorea",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "degeneration",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "demyelination",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "dystonia",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "embolism",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "encephalitis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "ependymoma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "epilepsy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "glioblastoma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "glioma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "gliosis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "headache",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "hemorrhage",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "hydrocephalus",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "hypoxia",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "infarct",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "infection",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "inflammation",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "lesion",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "medulloblastoma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "meningioma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "meningitis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "migraine",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "myelopathy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "myoclonus",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "neuritis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "neurofibroma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "neuropathy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "oligodendroglioma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "paralysis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "paresis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "plexopathy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "radiculopathy",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "rigidity",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "schwannoma",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "seizure",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "spasticity",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "status",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "stroke",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "thrombosis",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "tremor",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "tumor",
+    "group": "pathology",
+    "color": "#E5BCBF"
+  },
+  {
+    "word": "akt",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "ampa",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "egfr",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "gabaa",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "gababb",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "gabac",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "glycine",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "kainate",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "mglur",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "nmda",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "pik",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "trk",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "vegf",
+    "group": "receptors",
+    "color": "#E5BCBE"
+  },
+  {
+    "word": "ADH",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "aldosterone",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "clearance",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "filtration",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "glomerulus",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "nephron",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "RAAS",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "reabsorption",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "secretion",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "tubule",
+    "group": "renal",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "alveolus",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "bronchiole",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "compliance",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "gasexchange",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "hyperventilation",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "hypoventilation",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "partialpressure",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "respiration",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "tidalvolume",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "vitalcapacity",
+    "group": "respiratory",
+    "color": "#E5BCBD"
+  },
+  {
+    "word": "ParsTriangularis",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "ParsOpercularis",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "ParsOrbitalis",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "SuperiorParietalLobule",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "InferiorParietalLobule",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "Precuneus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "ParacentralLobule",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "LingualGyrus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "CuneusGyrus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "FusiformGyrus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "ParahippocampalGyrus",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "Uncus",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "CollateralSulcus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "OccipitotemporalSulcus",
+    "group": "CerebralCortex",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "PosteriorParietalAssociationCortex",
+    "group": "AssociationCortex",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "VisualAssociationCortex",
+    "group": "AssociationCortex",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "DorsolateralPrefrontalCortex",
+    "group": "AssociationCortex",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "OrbitofrontalCortex",
+    "group": "AssociationCortex",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "VentromedialPrefrontalCortex",
+    "group": "AssociationCortex",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "AnteriorCingulateCortex",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "PosteriorCingulateCortex",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "BrocaArea",
+    "group": "FunctionalAreas",
+    "color": "#FFEDD0"
+  },
+  {
+    "word": "WernickeArea",
+    "group": "FunctionalAreas",
+    "color": "#FFEDD0"
+  },
+  {
+    "word": "CaudateHead",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "CaudateBody",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "CaudateTail",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "GlobusPallidusInternus",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "GlobusPallidusExternus",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "SubstantiaNigraParsCompacta",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "SubstantiaNigraParsReticulata",
+    "group": "BasalGanglia",
+    "color": "#E8D4FF"
+  },
+  {
+    "word": "AnteriorNucleusOfThalamus",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "VentralAnteriorNucleus",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "VentralLateralNucleus",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "CentromedianNucleus",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "MedialGeniculateNucleus",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "AnteriorPulvinar",
+    "group": "Thalamus",
+    "color": "#D6D7FE"
+  },
+  {
+    "word": "RedNucleus",
+    "group": "Midbrain",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "OculomotorNucleus",
+    "group": "Midbrain",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "TrochlearNucleus",
+    "group": "Midbrain",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "EdingerWestphalNucleus",
+    "group": "Midbrain",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "FacialNucleus",
+    "group": "Pons",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "AbducensNucleus",
+    "group": "Pons",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "TrigeminalMotorNucleus",
+    "group": "Pons",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "PrincipleSensoryTrigeminalNucleus",
+    "group": "Pons",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "CochlearNuclei",
+    "group": "Pons",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "HypoglossalNucleus",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "DorsalMotorNucleusOfVagus",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "NucleusAmbiguus",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "SolitaryNucleus",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "SpinalAccessoryNucleus",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "InferiorOlive",
+    "group": "Medulla",
+    "color": "#FFD6D6"
+  },
+  {
+    "word": "SuperiorCerebellarPeduncle",
+    "group": "Cerebellum",
+    "color": "#E1F7D5"
+  },
+  {
+    "word": "MiddleCerebellarPeduncle",
+    "group": "Cerebellum",
+    "color": "#E1F7D5"
+  },
+  {
+    "word": "InferiorCerebellarPeduncle",
+    "group": "Cerebellum",
+    "color": "#E1F7D5"
+  },
+  {
+    "word": "EmboliformNucleus",
+    "group": "Cerebellum",
+    "color": "#E1F7D5"
+  },
+  {
+    "word": "GloboseNucleus",
+    "group": "Cerebellum",
+    "color": "#E1F7D5"
+  },
+  {
+    "word": "GenuOfInternalCapsule",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "CorticobulbarTract",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "CorticopontineTract",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "PosteriorColumn",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "FasciculusCuneatus",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "FasciculusGracilis",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "AnterolateralSystem",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "RubrospinalTract",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "ReticulospinalTract",
+    "group": "WhiteMatter",
+    "color": "#FFF2BC"
+  },
+  {
+    "word": "MammillaryBody",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "AmygdalaBasolateralNucleus",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "AmygdalaCentralNucleus",
+    "group": "LimbicSystem",
+    "color": "#DCFCCF"
+  },
+  {
+    "word": "AnteriorSpinalArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "PosteriorSpinalArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "PosteriorInferiorCerebellarArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "AnteriorInferiorCerebellarArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "BasilarArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "SuperiorCerebellarArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "PosteriorCerebralArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "MiddleCerebralArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "AnteriorCerebralArtery",
+    "group": "Cerebrovascular",
+    "color": "#FFCACA"
+  },
+  {
+    "word": "SubstantiaGelatinosa",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LissauerTract",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "DorsalNucleusOfClarke",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "IntermediolateralCellColumn",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "AnteriorWhiteCommissure",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaI",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaII",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaIII",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaIV",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaV",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaVI",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaVII",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaVIII",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaIX",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "LaminaX",
+    "group": "SpinalCord",
+    "color": "#FFEFE0"
+  },
+  {
+    "word": "VoltageGated",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "LeakChannel",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "Conductance",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "Permeability",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "EquilibriumPotential",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "Nernst",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "Goldman",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "InactivationGate",
+    "group": "neurophysiology",
+    "color": "#B2E4DF"
+  },
+  {
+    "word": "Depolarization",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "Repolarization",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "Hyperpolarization",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "ThresholdPotential",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "Afterhyperpolarization",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "Refractory",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "Saltatory",
+    "group": "neurophysiology",
+    "color": "#F7D7AE"
+  },
+  {
+    "word": "SynapticVesicle",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "SNARE",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Synaptotagmin",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Quantal",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Summation",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Potentiation",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Depression",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Hebbian",
+    "group": "neurophysiology",
+    "color": "#D7C9F7"
+  },
+  {
+    "word": "Mechanoreceptor",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Proprioceptor",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Nociceptor",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Baroreceptor",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Phototransduction",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Rhodopsin",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "Opsin",
+    "group": "neurophysiology",
+    "color": "#CFECC5"
+  },
+  {
+    "word": "MotorUnit",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "SpindleFiber",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "GolgiTendon",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "Feedforward",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "FeedbackControl",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "Corticospinal",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "BasalGanglia",
+    "group": "neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "Purkinje",
+    "group": "neurophysiology",
+    "color": "#F6CEC3"
+  },
+  {
+    "word": "MossyFiber",
+    "group": "neurophysiology",
+    "color": "#F6CEC3"
+  },
+  {
+    "word": "ClimbingFiber",
+    "group": "neurophysiology",
+    "color": "#F6CEC3"
+  },
+  {
+    "word": "DeepNuclei",
+    "group": "neurophysiology",
+    "color": "#F6CEC3"
+  },
+  {
+    "word": "Vestibulocerebellar",
+    "group": "neurophysiology",
+    "color": "#F6CEC3"
+  },
+  {
+    "word": "Transduction",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "Transmission",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "Modulation",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "Perception",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "Hyperalgesia",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "Allodynia",
+    "group": "neurophysiology",
+    "color": "#F4C4CF"
+  },
+  {
+    "word": "DeltaWave",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  },
+  {
+    "word": "ThetaWave",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  },
+  {
+    "word": "AlphaWave",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  },
+  {
+    "word": "BetaWave",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  },
+  {
+    "word": "GammaOscillation",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  },
+  {
+    "word": "ReticularActivating",
+    "group": "neurophysiology",
+    "color": "#C8DFF9"
+  }
+]
