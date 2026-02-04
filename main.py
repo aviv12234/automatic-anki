@@ -1612,6 +1612,7 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
             def _extend_colors_bg(nids):
                 # BACKGROUND THREAD (API + pure Python only)
                 try:
+                    cfg = _get_config()
                     if not cfg.get("ai_extend_color_table", True):
                         return
 
@@ -1622,17 +1623,23 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
                     if not api_key:
                         return
 
-                    # Build study text from generated cards (already in memory)
+                    # Build study text from generated cards
                     text_blob = []
                     for front, back, _ in cards:
-                        text_blob.append(front)
-                        text_blob.append(back)
+                        if front:
+                            text_blob.append(front)
+                        if back:
+                            text_blob.append(back)
 
-                    source_text = "\n".join(text_blob)[:12000]
+                    source_text = "\n".join(text_blob)[:12000]  # safe & fast
 
                     existing = get_entries_for_editor()
-                    existing_words = {e["word"].lower() for e in existing}
+                    existing_words = {
+                        (e.get("word") or "").strip().lower()
+                        for e in existing
+                    }
 
+                    # ✅ Append-only AI call
                     new_entries = generate_color_table_entries(
                         source_text=source_text,
                         existing_entries=existing,
@@ -1641,29 +1648,33 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
                     )
 
                     if not new_entries:
+                        _dbg(f"AI color-table: no new entries for deck '{deck_name}'")
                         return
 
                     merged = existing[:]
-                    added_entries = []
+                    added = []
 
                     for e in new_entries:
                         w = (e.get("word") or "").strip().lower()
                         if w and w not in existing_words:
                             merged.append(e)
-                            added_entries.append(e)
+                            added.append(e)
+
+                    if not added:
+                        _dbg(f"AI color-table: nothing new to add for deck '{deck_name}'")
+                        return
 
                     set_color_table_entries(merged)
 
-                    # ---- LOG WHAT WAS ADDED ----
-                    if added_entries:
-                        _dbg(f"AI color-table: added {len(added_entries)} entries to deck '{deck_name}'")
-                        for e in added_entries:
-                            _dbg(
-                                f"  + {e.get('word')} "
-                                f"(group={e.get('group','')}, color={e.get('color','')})"
-                            )
-                    else:
-                        _dbg(f"AI color-table: no new entries added for deck '{deck_name}'")
+                    # ✅ Clear logging (like before)
+                    _dbg(
+                        f"AI color-table: added {len(added)} entries to deck '{deck_name}'"
+                    )
+                    for e in added:
+                        _dbg(
+                            f"  + {e.get('word')} "
+                            f"(group={e.get('group','')}, color={e.get('color','')})"
+                        )
 
                 except Exception as e:
                     _dbg("AI color-table extension failed: " + repr(e))

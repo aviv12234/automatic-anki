@@ -152,6 +152,79 @@ If no suitable cloze facts exist, return:
 { "cards": [] }
 """.strip()
 
+def generate_color_table_revision(
+    source_text: str,
+    existing_entries: list,
+    deck_hint: str,
+    api_key: str,
+    max_new_terms: int = 160,
+):
+    """
+    Return a FULL, reorganized color table:
+    - Reassigns groups
+    - Creates new groups
+    - Assigns one pastel color per group
+    - Adds very specific domain terms
+    """
+    system_prompt = f"""
+You maintain a color-coding dictionary for Anki study decks.
+
+TASK:
+- Return a FULL list of entries {{word, group, color}}.
+- You MAY reorganize existing entries freely.
+- You MAY create new groups and assign new colors.
+- You MAY add very specific domain terms (receptor subtypes, ions, Greek letters).
+- All words in the same group MUST share the same color.
+- Use soft, readable pastel HEX colors suitable for dark mode.
+
+RULES:
+- Canonical singular words.
+- Avoid duplicates (case-insensitive).
+- Keep output concise and high-yield.
+- Add up to {max_new_terms} new words.
+
+OUTPUT (JSON ONLY):
+{{ "entries": [{{"word":"","group":"","color":""}}] }}
+""".strip()
+
+    user_prompt = f"""
+Deck: {deck_hint}
+
+Existing table (you may reorganize freely):
+{existing_entries}
+
+Study text:
+\"\"\"
+{source_text}
+\"\"\"
+"""
+
+    import requests, json
+    resp = requests.post(
+        "https://api.openai.com/v1/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": "gpt-4o-mini",
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": 0.2,
+            "response_format": {"type": "json_object"},
+        },
+        timeout=120,
+    )
+    resp.raise_for_status()
+
+    try:
+        raw = resp.json()["choices"][0]["message"]["content"]
+        obj = json.loads(raw)
+        return obj.get("entries", [])
+    except Exception:
+        return []
 
 def generate_color_table_entries(
     source_text: str,
@@ -168,11 +241,33 @@ TASK:
 - Group them semantically.
 - Assign soft, readable HEX colors (pastel, dark-mode friendly).
 
-RULES:
-- Do NOT repeat existing words.
-- Prefer canonical singular forms.
-- Group names should be concise and consistent.
-- Output JSON only.
+PRIORITY RULES (VERY IMPORTANT):
+
+1. STRONGLY PREFER SPECIFIC TERMINOLOGY.
+   Add highly specific, domain-level terms such as:
+   - receptor subtypes (e.g., α7 nAChR, KvA, KvD)
+   - ion channels (e.g., AQP4, cyclic nucleotide–gated channels)
+   - signaling molecules (e.g., cAMP, IP₃, Ca²⁺)
+   - named systems, pathways, proteins, or cell types
+   - anatomical or physiological structures with concrete names
+
+2. DEPRIORITIZE OR SKIP GENERIC TERMS unless already present.
+   Avoid adding vague or high-level words such as:
+   - stimulus, process, system, activity, response, energy
+   - general verbs or abstract nouns
+
+3. IF A SPECIFIC TERM EXISTS, DO NOT ADD ITS GENERIC PARENT.
+   Example:
+   - Prefer “α7 nicotinic acetylcholine receptor”
+   - Do NOT add “nicotinic receptor” or “receptor” unless missing and essential
+
+4. Canonicalize terms:
+   - Use standard scientific naming
+   - Keep Greek letters (α, β, γ) when appropriate
+   - Singular form unless plural is standard
+
+5. Output ONLY new entries that are not already present
+   (case-insensitive comparison).
 
 FORMAT:
 {
