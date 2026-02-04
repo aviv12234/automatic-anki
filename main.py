@@ -1301,11 +1301,52 @@ class OptionsDialog(QDialog):
         h.addWidget(QLabel("Max:")); h.addWidget(self.spin_max)
         v.addLayout(h)
 
+        # --------------------------------
+        # Auto-coloring option
+        # --------------------------------
+        self.chk_color_after = QCheckBox("Color deck after generation")
+        self.chk_color_after.setChecked(
+            bool(self.cfg.get("color_after_generation", True))
+        )
+
+
+        # --------------------------------
+        # Color table (existing)
+        # --------------------------------
+        btn_color_table = QPushButton("Color table…")
+        btn_color_table.setToolTip("Edit the word → color mapping table")
+
+        def _open_color_table():
+            from .colorizer import on_edit_color_table
+            on_edit_color_table()
+
+        v.addWidget(btn_color_table)
+        btn_color_table.clicked.connect(_open_color_table)
+
+        # --------------------------------
+        # Coloration settings (NEW)
+        # --------------------------------
+        btn_color_settings = QPushButton("Coloration settings…")
+
+        def _open_color_settings():
+            from .colorizer import open_coloration_settings_dialog
+            open_coloration_settings_dialog()
+
+        v.addWidget(btn_color_settings)
+        btn_color_settings.clicked.connect(_open_color_settings)
+
+
+
+        v.addSpacing(10)
+        v.addWidget(self.chk_color_after)
+
         btns = QHBoxLayout()
         ok = QPushButton("OK"); cancel = QPushButton("Cancel")
         ok.clicked.connect(self.accept); cancel.clicked.connect(self.reject)
         btns.addStretch(1); btns.addWidget(cancel); btns.addWidget(ok)
         v.addLayout(btns)
+
+        
 
         self.rb_all.toggled.connect(self._sync_enabled)
         self.rb_range.toggled.connect(self._sync_enabled)
@@ -1329,6 +1370,10 @@ class OptionsDialog(QDialog):
         c["per_slide_mode"] = mode
         c["per_slide_min"] = minv
         c["per_slide_max"] = maxv
+        _save_config(c)
+
+        c = _get_config()
+        c["color_after_generation"] = self.chk_color_after.isChecked()
         _save_config(c)
 
         return {
@@ -1539,6 +1584,40 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
     finally:
         mw.progress.finish()
         col.save()
+
+    # ======================================================
+    # Auto-color newly generated deck (SAFE TASKMAN VERSION)
+    # ======================================================
+    try:
+        cfg = _get_config()
+        if cfg.get("color_after_generation", True):
+
+            def _collect_nids():
+                # BACKGROUND THREAD (read-only)
+                from aqt import mw
+                cids = mw.col.find_cards(f"deck:{deck_name}")
+                return list({mw.col.get_card(cid).nid for cid in cids})
+
+            def _apply_color(nids):
+                # MAIN THREAD (write)
+                try:
+                    from .colorizer import apply_to_deck_ids
+                    apply_to_deck_ids([deck_id])  # include_children defaults to False, skip_cloze read from settings
+                except Exception as e:
+                    _dbg("Auto-color failed: " + repr(e))
+
+            def _on_collected(fut):
+                try:
+                    fut.result()
+                    mw.taskman.run_on_main(lambda: _apply_color([]))
+                except Exception as e:
+                    _dbg("Auto-color failed: " + repr(e))
+
+            # Let Anki fully settle, then collect in background
+            mw.taskman.run_in_background(_collect_nids, on_done=_on_collected)
+
+    except Exception as e:
+        _dbg("Auto-color scheduling failed: " + repr(e))
 
 # -------------------------------
 # Main entry (spawns background task)
