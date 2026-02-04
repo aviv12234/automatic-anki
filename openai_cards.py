@@ -153,6 +153,74 @@ If no suitable cloze facts exist, return:
 """.strip()
 
 
+def generate_color_table_entries(
+    source_text: str,
+    existing_entries: list,
+    deck_hint: str,
+    api_key: str,
+):
+    system_prompt = """
+You are helping maintain a color-coding dictionary for Anki study decks.
+
+TASK:
+- Analyze the provided study text.
+- Propose NEW vocabulary terms that deserve consistent coloring.
+- Group them semantically.
+- Assign soft, readable HEX colors (pastel, dark-mode friendly).
+
+RULES:
+- Do NOT repeat existing words.
+- Prefer canonical singular forms.
+- Group names should be concise and consistent.
+- Output JSON only.
+
+FORMAT:
+{
+  "entries": [
+    { "word": "...", "group": "...", "color": "#RRGGBB" }
+  ]
+}
+""".strip()
+
+    user_prompt = f"""
+Deck: {deck_hint}
+
+Existing entries:
+{json.dumps(existing_entries, ensure_ascii=False)}
+
+Study text:
+\"\"\"
+{source_text}
+\"\"\"
+"""
+
+    resp = requests.post(
+        OPENAI_API_URL,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": OPENAI_MODEL,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt},
+            ],
+            "temperature": 0.2,
+            "response_format": {"type": "json_object"},
+        },
+        timeout=120,
+    )
+    resp.raise_for_status()
+
+    try:
+        data = json.loads(
+            resp.json()["choices"][0]["message"]["content"]
+        )
+        return data.get("entries", [])
+    except Exception:
+        return []
+
 def build_user_prompt_basic(text: str) -> str:
     return f"""
 Create Anki **Basic** (Q→A) flashcards from the lecture text below.

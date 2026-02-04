@@ -749,6 +749,7 @@ def get_api_key():
     _save_config(config)
     return api_key.strip()
 
+
 # -------------------------------
 # Optional image masking demo (Basic cards)
 # -------------------------------
@@ -1310,6 +1311,13 @@ class OptionsDialog(QDialog):
             bool(self.cfg.get("color_after_generation", True))
         )
 
+        self.chk_ai_extend_colors = QCheckBox(
+            "Let AI extend & normalize color table before coloring"
+        )
+        self.chk_ai_extend_colors.setChecked(
+            bool(self.cfg.get("ai_extend_color_table", True))
+        )
+        v.addWidget(self.chk_ai_extend_colors)
 
         # --------------------------------
         # Color table (existing)
@@ -1374,7 +1382,9 @@ class OptionsDialog(QDialog):
         _save_config(c)
 
         c = _get_config()
-        c["color_after_generation"] = self.chk_color_after.isChecked()
+        c["color_after_generation"] = self.chk_color_after.isChecked()   
+        c["ai_extend_color_table"] = self.chk_ai_extend_colors.isChecked()
+
         _save_config(c)
 
         return {
@@ -1599,24 +1609,92 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
                 cids = mw.col.find_cards(f"deck:{deck_name}")
                 return list({mw.col.get_card(cid).nid for cid in cids})
 
-            def _apply_color(nids):
+            def _extend_colors_bg(nids):
+                # BACKGROUND THREAD (API + pure Python only)
+                try:
+                    if not cfg.get("ai_extend_color_table", True):
+                        return
+
+                    from .colorizer import get_entries_for_editor, set_color_table_entries
+                    from .openai_cards import generate_color_table_entries
+
+                    api_key = cfg.get("openai_api_key", "").strip()
+                    if not api_key:
+                        return
+
+                    # Build study text from generated cards (already in memory)
+                    text_blob = []
+                    for front, back, _ in cards:
+                        text_blob.append(front)
+                        text_blob.append(back)
+
+                    source_text = "\n".join(text_blob)[:12000]
+
+                    existing = get_entries_for_editor()
+                    existing_words = {e["word"].lower() for e in existing}
+
+                    new_entries = generate_color_table_entries(
+                        source_text=source_text,
+                        existing_entries=existing,
+                        deck_hint=deck_name,
+                        api_key=api_key,
+                    )
+
+                    if not new_entries:
+                        return
+
+                    merged = existing[:]
+                    added_entries = []
+
+                    for e in new_entries:
+                        w = (e.get("word") or "").strip().lower()
+                        if w and w not in existing_words:
+                            merged.append(e)
+                            added_entries.append(e)
+
+                    set_color_table_entries(merged)
+
+                    # ---- LOG WHAT WAS ADDED ----
+                    if added_entries:
+                        _dbg(f"AI color-table: added {len(added_entries)} entries to deck '{deck_name}'")
+                        for e in added_entries:
+                            _dbg(
+                                f"  + {e.get('word')} "
+                                f"(group={e.get('group','')}, color={e.get('color','')})"
+                            )
+                    else:
+                        _dbg(f"AI color-table: no new entries added for deck '{deck_name}'")
+
+                except Exception as e:
+                    _dbg("AI color-table extension failed: " + repr(e))
+
+            def _apply_color():
                 # MAIN THREAD (write)
                 try:
                     from .colorizer import apply_to_deck_ids
-                    apply_to_deck_ids([deck_id])  # include_children defaults to False, skip_cloze read from settings
+                    apply_to_deck_ids([deck_id])
                 except Exception as e:
                     _dbg("Auto-color failed: " + repr(e))
 
             def _on_collected(fut):
                 try:
-                    fut.result()
-                    mw.taskman.run_on_main(lambda: _apply_color([]))
+                    nids = fut.result()
+
+                    # 1️⃣ Run AI extension in background
+                    def _after_ai(_):
+                        # 2️⃣ Apply coloring on main thread
+                        mw.taskman.run_on_main(_apply_color)
+
+                    mw.taskman.run_in_background(
+                        lambda: _extend_colors_bg(nids),
+                        on_done=_after_ai
+                    )
+
                 except Exception as e:
                     _dbg("Auto-color failed: " + repr(e))
 
-            # Let Anki fully settle, then collect in background
+            # Let Anki fully settle, then start pipeline
             mw.taskman.run_in_background(_collect_nids, on_done=_on_collected)
-
     except Exception as e:
         _dbg("Auto-color scheduling failed: " + repr(e))
 

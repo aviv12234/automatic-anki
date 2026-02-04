@@ -8508,5 +8508,210 @@
     "word": "ReticularActivating",
     "group": "neurophysiology",
     "color": "#C8DFF9"
+  },
+  {
+    "word": "sleep",
+    "group": "Sleep",
+    "color": "#B2E5F7"
+  },
+  {
+    "word": "consciousness",
+    "group": "Sleep",
+    "color": "#B2E5F7"
+  },
+  {
+    "word": "inhibited",
+    "group": "Sleep",
+    "color": "#B2E5F7"
+  },
+  {
+    "word": "energy conservation",
+    "group": "Sleep",
+    "color": "#B2E5F7"
+  },
+  {
+    "word": "metabolic rate",
+    "group": "Metabolism",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "glucose metabolism",
+    "group": "Metabolism",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "leptin",
+    "group": "Hormones",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "ghrelin",
+    "group": "Hormones",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "insulin sensitivity",
+    "group": "Hormones",
+    "color": "#D3F2FF"
+  },
+  {
+    "word": "body temperature",
+    "group": "Physiology",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "sympathetic tone",
+    "group": "Physiology",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "vascular stress",
+    "group": "Physiology",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "endothelial repair",
+    "group": "Physiology",
+    "color": "#FDEDCE"
+  },
+  {
+    "word": "glymphatic system",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "cognition",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "neurodegeneration risk",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "fluid exchange",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "cerebrospinal fluid",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "interstitial fluid",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "AQP4",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "β-amyloid",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "tau",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "neurotoxic metabolite",
+    "group": "Neurophysiology",
+    "color": "#F8E7A1"
+  },
+  {
+    "word": "neurotransmitter",
+    "group": "Neurotransmitters",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "vesicle",
+    "group": "Neurotransmitter Packaging",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "synaptic cleft",
+    "group": "Neurotransmitter Release",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "postsynaptic",
+    "group": "Neurotransmitter Binding",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "receptor",
+    "group": "Neurotransmitter Binding",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "signal transmission",
+    "group": "Neurophysiology",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "neuromuscular junction",
+    "group": "Acetylcholine Function",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "glucose",
+    "group": "Metabolism",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "pyruvate",
+    "group": "Metabolism",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "choline",
+    "group": "Acetylcholine Synthesis",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "exocytosis",
+    "group": "Neurotransmitter Release",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "acetylcholinesterase",
+    "group": "Neurotransmitter Degradation",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "catecholamines",
+    "group": "Neurotransmitters",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "tyrosine",
+    "group": "Neurotransmitter Synthesis",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "monoamine oxidase",
+    "group": "Neurotransmitter Degradation",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "autoreceptor",
+    "group": "Receptor Function",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "inhibitory feedback",
+    "group": "Receptor Function",
+    "color": "#FFB3BA"
+  },
+  {
+    "word": "Gi protein",
+    "group": "Receptor Function",
+    "color": "#FFB3BA"
   }
 ]
