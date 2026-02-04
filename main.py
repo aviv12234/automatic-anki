@@ -1623,17 +1623,47 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str
                     if not api_key:
                         return
 
-                    # Build study text from generated cards
+                    import re
+
                     text_blob = []
+                    cloze_terms = []
+
+                    CLOZE_RE = re.compile(r"\{\{c\d+::(.*?)(?:::[^}]*)?\}\}")
+
                     for front, back, _ in cards:
-                        if front:
-                            text_blob.append(front)
-                        if back:
-                            text_blob.append(back)
+                        for txt in (front, back):
+                            if not txt:
+                                continue
 
-                    source_text = "\n".join(text_blob)[:12000]  # safe & fast
+                            # 1️⃣ Always include full text
+                            text_blob.append(txt)
 
+                            # 2️⃣ Collect cloze terms as priority signals
+                            for m in CLOZE_RE.finditer(txt):
+                                term = m.group(1).strip()
+                                if not term:
+                                    continue
+                                for part in re.split(r"[;,]", term):
+                                    p = part.strip()
+                                    if p:
+                                        cloze_terms.append(p)
+
+                    # 3️⃣ Hybrid source text: full text + emphasized clozes
+                    source_text = (
+                        "\n".join(text_blob)
+                        + "\n\nIMPORTANT TERMS (high priority):\n"
+                        + "\n".join(cloze_terms)
+                    )[:8000]
+
+                    _dbg(
+                        f"AI color-table using HYBRID input "
+                        f"(full_text_chars={len(' '.join(text_blob))}, "
+                        f"cloze_terms={len(cloze_terms)})"
+                    )
+                    
                     existing = get_entries_for_editor()
+                    existing = existing[:200]  # ⬅️ ADD THIS LINE
+
                     existing_words = {
                         (e.get("word") or "").strip().lower()
                         for e in existing

@@ -5,6 +5,8 @@ import json
 import requests
 from typing import Dict
 
+from .main import _dbg
+
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 OPENAI_MODEL   = "gpt-4o-mini"
 TEMPERATURE    = 0.2
@@ -213,7 +215,6 @@ Study text:
                 {"role": "user", "content": user_prompt},
             ],
             "temperature": 0.2,
-            "response_format": {"type": "json_object"},
         },
         timeout=120,
     )
@@ -289,21 +290,42 @@ Study text:
 \"\"\"
 """
 
+
+    # ===============================
+    # DEBUG: log exact OpenAI payload
+    # ===============================
+    payload = {
+        "model": OPENAI_MODEL,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt},
+        ],
+        "temperature": 0.2,
+    }
+
+    _dbg("=== AI COLOR TABLE REQUEST DEBUG ===")
+    _dbg(f"OPENAI_API_URL={OPENAI_API_URL}")
+    _dbg(f"model={payload['model']}")
+    _dbg(f"temperature={payload['temperature']}")
+    _dbg(f"messages_len={len(payload['messages'])}")
+
+    for i, m in enumerate(payload["messages"]):
+        _dbg(f"message[{i}].role={m.get('role')}")
+        _dbg(f"message[{i}].content_type={type(m.get('content'))}")
+        if isinstance(m.get("content"), str):
+            _dbg(f"message[{i}].content_len={len(m['content'])}")
+        else:
+            _dbg(f"message[{i}].content_repr={repr(m.get('content'))}")
+
+    _dbg("=== END AI COLOR TABLE REQUEST DEBUG ===")
+
     resp = requests.post(
         OPENAI_API_URL,
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
         },
-        json={
-            "model": OPENAI_MODEL,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            "temperature": 0.2,
-            "response_format": {"type": "json_object"},
-        },
+        json=payload,
         timeout=120,
     )
     resp.raise_for_status()
