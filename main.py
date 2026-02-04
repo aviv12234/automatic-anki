@@ -165,11 +165,12 @@ def ensure_basic_with_slideimage(model_name: str = "Basic + Slide") -> dict:
 
     # Force EXACT Back template string
     desired_afmt = (
-        "{{FrontSide}}\n\n"
+
         "<hr id=answer>\n\n"
         "{{Back}}\n\n"
         "<br><br>\n\n"
-        "<img src={{SlideImage}}>"
+        "{{SlideImage}}"
+
     )
     changed = False
     for t in (m.get("tmpls") or []):
@@ -1078,7 +1079,7 @@ def ensure_cloze_with_slideimage(model_name: str = "Cloze + Slide") -> dict:
     desired_afmt = (
         "{{cloze:Text}}\n\n"
         "{{Back Extra}}\n\n"
-        "<img src={{SlideImage}}>"
+        "{{SlideImage}}"
     )
     changed = False
     for t in (m.get("tmpls") or []):
