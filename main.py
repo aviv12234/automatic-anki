@@ -37,12 +37,13 @@ from io import BytesIO
 from typing import List, Dict, Optional, Tuple
 
 from aqt import mw
-from aqt.utils import showWarning, showInfo, tooltip
+
 from aqt.qt import (
-    QAction, QFileDialog, QInputDialog, QMessageBox,
-    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox,
-    QRadioButton, QSpinBox, QPushButton
+    QAction, QFileDialog, QInputDialog, QMessageBox, QDialog,
+    QVBoxLayout, QHBoxLayout, QLabel, QCheckBox, QRadioButton,
+    QSpinBox, QPushButton, QButtonGroup  # ← add this
 )
+
 from aqt.gui_hooks import add_cards_did_init
 from aqt.addcards import AddCards
 
@@ -1264,7 +1265,7 @@ def render_page_blob(pdf_path: str, page_number: int, dpi: int = 200, max_width:
     return blob, ext
 
 # -------------------------------
-# Options dialog (types + per-slide count control)
+# Options dialog (types + per-slide count + page selection)
 # -------------------------------
 class OptionsDialog(QDialog):
     def __init__(self, parent=None):
@@ -1274,6 +1275,10 @@ class OptionsDialog(QDialog):
         self.cfg = _get_config()
 
         v = QVBoxLayout(self)
+
+        # -----------------------
+        # Card types
+        # -----------------------
         v.addWidget(QLabel("<b>Card types</b>"))
         self.chk_basic = QCheckBox("Basic")
         self.chk_cloze = QCheckBox("Cloze (only if AI returns cloze markup)")
@@ -1282,30 +1287,92 @@ class OptionsDialog(QDialog):
         v.addWidget(self.chk_basic)
         v.addWidget(self.chk_cloze)
 
+        # -----------------------
+        # Cards per slide
+        # -----------------------
         v.addSpacing(8)
         v.addWidget(QLabel("<b>Cards per slide</b>"))
+
         self.rb_all = QRadioButton("AI decides (use all returned)")
         self.rb_range = QRadioButton("Range (random n per slide)")
+
+        self.group_cards_per_slide = QButtonGroup(self)
+        self.group_cards_per_slide.addButton(self.rb_all)
+        self.group_cards_per_slide.addButton(self.rb_range)
+
         mode = self.cfg.get("per_slide_mode", "ai")
         self.rb_all.setChecked(mode == "ai")
         self.rb_range.setChecked(mode == "range")
+
         v.addWidget(self.rb_all)
         v.addWidget(self.rb_range)
 
-        h = QHBoxLayout()
+        h_cards = QHBoxLayout()
         self.spin_min = QSpinBox()
         self.spin_max = QSpinBox()
         self.spin_min.setRange(1, 50)
         self.spin_max.setRange(1, 50)
         self.spin_min.setValue(int(self.cfg.get("per_slide_min", 1)))
         self.spin_max.setValue(int(self.cfg.get("per_slide_max", 3)))
-        h.addWidget(QLabel("Min:")); h.addWidget(self.spin_min)
-        h.addWidget(QLabel("Max:")); h.addWidget(self.spin_max)
-        v.addLayout(h)
+        h_cards.addWidget(QLabel("Min:"))
+        h_cards.addWidget(self.spin_min)
+        h_cards.addWidget(QLabel("Max:"))
+        h_cards.addWidget(self.spin_max)
+        v.addLayout(h_cards)
 
-        # --------------------------------
-        # Auto-coloring option
-        # --------------------------------
+        def _sync_cards_enabled():
+            enabled = self.rb_range.isChecked()
+            self.spin_min.setEnabled(enabled)
+            self.spin_max.setEnabled(enabled)
+
+        self.rb_all.toggled.connect(_sync_cards_enabled)
+        self.rb_range.toggled.connect(_sync_cards_enabled)
+        _sync_cards_enabled()
+
+        # -----------------------
+        # Page selection
+        # -----------------------
+        v.addSpacing(10)
+        v.addWidget(QLabel("<b>Pages(applies to each selected pdf)</b>"))
+
+        self.rb_pages_all = QRadioButton("All pages (default)")
+        self.rb_pages_range = QRadioButton("Page range")
+
+        self.group_pages = QButtonGroup(self)
+        self.group_pages.addButton(self.rb_pages_all)
+        self.group_pages.addButton(self.rb_pages_range)
+
+        self.rb_pages_all.setChecked(True)
+
+        v.addWidget(self.rb_pages_all)
+        v.addWidget(self.rb_pages_range)
+
+        h_pages = QHBoxLayout()
+        self.spin_page_from = QSpinBox()
+        self.spin_page_to = QSpinBox()
+        self.spin_page_from.setRange(1, 100000)
+        self.spin_page_to.setRange(1, 100000)
+        self.spin_page_from.setValue(1)
+        self.spin_page_to.setValue(99999)
+
+        h_pages.addWidget(QLabel("From:"))
+        h_pages.addWidget(self.spin_page_from)
+        h_pages.addWidget(QLabel("To:"))
+        h_pages.addWidget(self.spin_page_to)
+        v.addLayout(h_pages)
+
+        def _sync_pages_enabled():
+            enabled = self.rb_pages_range.isChecked()
+            self.spin_page_from.setEnabled(enabled)
+            self.spin_page_to.setEnabled(enabled)
+
+        self.rb_pages_all.toggled.connect(_sync_pages_enabled)
+        self.rb_pages_range.toggled.connect(_sync_pages_enabled)
+        _sync_pages_enabled()
+
+        # -----------------------
+        # Auto-coloring
+        # -----------------------
         self.chk_color_after = QCheckBox("Color deck after generation")
         self.chk_color_after.setChecked(
             bool(self.cfg.get("color_after_generation", True))
@@ -1319,9 +1386,6 @@ class OptionsDialog(QDialog):
         )
         v.addWidget(self.chk_ai_extend_colors)
 
-        # --------------------------------
-        # Color table (existing)
-        # --------------------------------
         btn_color_table = QPushButton("Color table…")
         btn_color_table.setToolTip("Edit the word → color mapping table")
 
@@ -1329,42 +1393,30 @@ class OptionsDialog(QDialog):
             from .colorizer import on_edit_color_table
             on_edit_color_table()
 
-        v.addWidget(btn_color_table)
         btn_color_table.clicked.connect(_open_color_table)
+        v.addWidget(btn_color_table)
 
-        # --------------------------------
-        # Coloration settings (NEW)
-        # --------------------------------
         btn_color_settings = QPushButton("Coloration settings…")
 
         def _open_color_settings():
             from .colorizer import open_coloration_settings_dialog
             open_coloration_settings_dialog()
 
-        v.addWidget(btn_color_settings)
         btn_color_settings.clicked.connect(_open_color_settings)
-
-
+        v.addWidget(btn_color_settings)
 
         v.addSpacing(10)
         v.addWidget(self.chk_color_after)
 
         btns = QHBoxLayout()
-        ok = QPushButton("OK"); cancel = QPushButton("Cancel")
-        ok.clicked.connect(self.accept); cancel.clicked.connect(self.reject)
-        btns.addStretch(1); btns.addWidget(cancel); btns.addWidget(ok)
+        ok = QPushButton("OK")
+        cancel = QPushButton("Cancel")
+        ok.clicked.connect(self.accept)
+        cancel.clicked.connect(self.reject)
+        btns.addStretch(1)
+        btns.addWidget(cancel)
+        btns.addWidget(ok)
         v.addLayout(btns)
-
-        
-
-        self.rb_all.toggled.connect(self._sync_enabled)
-        self.rb_range.toggled.connect(self._sync_enabled)
-        self._sync_enabled()
-
-    def _sync_enabled(self):
-        enabled = self.rb_range.isChecked()
-        self.spin_min.setEnabled(enabled)
-        self.spin_max.setEnabled(enabled)
 
     def options(self) -> dict:
         mode = "range" if self.rb_range.isChecked() else "ai"
@@ -1373,18 +1425,18 @@ class OptionsDialog(QDialog):
         if maxv < minv:
             minv, maxv = maxv, minv
 
+        page_mode = "range" if self.rb_pages_range.isChecked() else "all"
+        page_from = int(self.spin_page_from.value())
+        page_to = int(self.spin_page_to.value())
+
         c = _get_config()
         c["types_basic"] = self.chk_basic.isChecked()
         c["types_cloze"] = self.chk_cloze.isChecked()
         c["per_slide_mode"] = mode
         c["per_slide_min"] = minv
         c["per_slide_max"] = maxv
-        _save_config(c)
-
-        c = _get_config()
-        c["color_after_generation"] = self.chk_color_after.isChecked()   
+        c["color_after_generation"] = self.chk_color_after.isChecked()
         c["ai_extend_color_table"] = self.chk_ai_extend_colors.isChecked()
-
         _save_config(c)
 
         return {
@@ -1393,8 +1445,10 @@ class OptionsDialog(QDialog):
             "per_slide_mode": mode,
             "per_slide_min": minv,
             "per_slide_max": maxv,
+            "page_mode": page_mode,
+            "page_from": page_from,
+            "page_to": page_to,
         }
-
 # -------------------------------
 # Background worker for PDF → Cards
 # -------------------------------
@@ -1406,7 +1460,26 @@ def _worker_generate_cards(pdf_path: str, api_key: str, opts: dict) -> Dict:
             pass
 
     try:
-        pages = extract_text_from_pdf(pdf_path)
+        page_mode = opts.get("page_mode", "all")
+
+        if page_mode == "range":
+            page_from = max(1, int(opts.get("page_from", 1)))
+            page_to = int(opts.get("page_to", 10**9))
+
+            # Safety: swap if user reversed them
+            if page_to < page_from:
+                page_from, page_to = page_to, page_from
+
+            max_pages = page_to - page_from + 1
+
+            pages = extract_text_from_pdf(
+                pdf_path,
+                page_start=page_from,
+                max_pages=max_pages
+            )
+        else:
+            pages = extract_text_from_pdf(pdf_path)
+
         total_pages = len(pages)
         results: List[Tuple[str, str, int]] = []
         page_errors: List[str] = []
