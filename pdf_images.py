@@ -3,6 +3,9 @@
 from typing import Optional
 from io import BytesIO
 
+
+from typing import List, Dict, Tuple, Optional
+
 # Pillow is available in Anki's Python environment
 from PIL import Image
 
@@ -96,3 +99,70 @@ def render_page_as_png(pdf_path: str, page_number: int, dpi: int = 200, max_widt
     if png:
         return _resize_to_max_width(png, max_width=max_width)
     return None
+
+
+# add to imports
+from typing import List, Dict, Tuple, Optional
+
+def render_page_as_png_with_highlights(
+    pdf_path: str,
+    page_number: int,
+    rects_points: List[Dict],   # [{"x":..,"y":..,"w":..,"h":..}] in PDF points
+    dpi: int = 200,
+    max_width: int = 1600,
+    fill_rgba: Optional[Tuple[int, int, int, int]] = None,
+    outline_rgba: Optional[Tuple[int, int, int, int]] = None,
+    outline_width: int = 2,
+) -> Optional[bytes]:
+    """Render the given page and paint translucent rectangles over it. Returns PNG bytes (or None if rendering fails)."""
+    try:
+        import fitz  # PyMuPDF
+    except Exception:
+        # No fitz; fall back to plain render (no highlights)
+        return render_page_as_png(pdf_path, page_number, dpi=dpi, max_width=max_width)
+
+    # default colors (keep your current pink as default)
+    if fill_rgba is None:
+        fill_rgba = (255, 105, 180, 55)     # light translucent
+    if outline_rgba is None:
+        outline_rgba = (255, 80, 150, 180)  # stronger outline
+
+    try:
+        # 1) Render page to PNG
+        doc = fitz.open(pdf_path)
+        page = doc[page_number - 1]
+        zoom = dpi / 72.0
+        mat = fitz.Matrix(zoom, zoom)
+        pix = page.get_pixmap(matrix=mat, alpha=False)
+        png_bytes = pix.tobytes("png")
+
+        # 2) Draw overlays with Pillow
+        from PIL import Image, ImageDraw
+        im = Image.open(BytesIO(png_bytes)).convert("RGBA")
+        draw = ImageDraw.Draw(im, "RGBA")
+
+        for r in rects_points or []:
+            x = int((r["x"]) * zoom)
+            y = int((r["y"]) * zoom)
+            w = int(max(1, r["w"] * zoom))
+            h = int(max(1, r["h"] * zoom))
+
+            # draw translucent fill on separate layer to preserve alpha
+            overlay = Image.new("RGBA", im.size, (0, 0, 0, 0))
+            odraw = ImageDraw.Draw(overlay, "RGBA")
+            odraw.rectangle([x, y, x + w, y + h], fill=fill_rgba)
+
+            # crisp outline directly on base image
+            draw.rectangle([x, y, x + w, y + h], outline=outline_rgba, width=outline_width)
+
+            # composite overlay onto image
+            im = Image.alpha_composite(im, overlay)
+            draw = ImageDraw.Draw(im, "RGBA")
+
+        out = BytesIO()
+        im.save(out, format="PNG", optimize=True)
+        data = out.getvalue()
+        return _resize_to_max_width(data, max_width=max_width)
+    except Exception:
+        # If anything fails, return plain page image
+        return render_page_as_png(pdf_path, page_number, dpi=dpi, max_width=max_width)

@@ -28,6 +28,8 @@
 #
 # Compatible with Anki 2.1.x / Python 3.9. Pillow is OPTIONAL.
 
+from aqt.qt import QColorDialog
+
 import os
 import re
 import sys
@@ -37,6 +39,11 @@ from io import BytesIO
 from typing import List, Dict, Optional, Tuple
 
 from aqt import mw
+from .pdf_parser import extract_words_with_boxes, boxes_for_phrase, sentence_rects_for_phrase
+from aqt.utils import showWarning
+
+from .pdf_images import render_page_as_png   # or render_page_blob
+from .pdf_images import render_page_as_png_with_highlights
 
 from aqt.qt import (
     QAction, QFileDialog, QInputDialog, QMessageBox, QDialog,
@@ -90,6 +97,12 @@ ADDON_ID = os.path.basename(os.path.dirname(__file__))
 # -------------------------------
 def _get_config() -> dict:
     c = mw.addonManager.getConfig(ADDON_ID) or {}
+
+    c.setdefault("highlight_span_sentences", 1)
+    
+    c.setdefault("highlight_enabled", True)          # ✅ new
+    c.setdefault("highlight_color_hex", "#FF69B4")   # ✅ new 
+
     c.setdefault("openai_api_key", "")
     c.setdefault("types_basic", True)
     c.setdefault("types_cloze", False)
@@ -115,73 +128,102 @@ def get_or_create_deck(deck_name: str) -> int:
         return did
     return col.decks.id(deck_name, create=True)
 
+def _rgba_from_hex(hex_str: str, alpha: int = 55):
+    """
+    Convert "#RRGGBB" to (R,G,B,A). Alpha default is ~22% opacity (55/255).
+    """
+    s = (hex_str or "").strip()
+    if not s.startswith("#") or len(s) != 7:
+        s = "#FF69B4"  # fallback pink
+    r = int(s[1:3], 16); g = int(s[3:5], 16); b = int(s[5:7], 16)
+    return (r, g, b, int(alpha))
+
 # -------------------------------
-# Notetypes (build fresh; do NOT copy+add)
+# -------------------------------
+# Ensure Basic + Slide model
 # -------------------------------
 def ensure_basic_with_slideimage(model_name: str = "Basic + Slide") -> dict:
     """
-    Ensure a Basic-like notetype whose Back template is EXACTLY:
-
-      {{FrontSide}}
-
-      <hr id=answer>
-
-      {{Back}}
-
-      <br><br>
-
-      <img src={{SlideImage}}>
+    Ensure a Basic-like notetype.
+    Back template ALWAYS shows:
+      - the question ({{FrontSide}})
+      - a divider
+      - the answer
+      - the slide image
+    This function intentionally FIXES existing broken templates.
     """
     col = mw.col
     m = col.models.byName(model_name)
+    created = False
 
     if not m:
-        # Fresh Basic-like notetype
-        m = col.models.new(model_name)     # id==0 (safe to add)
-        f_front = col.models.newField("Front")
-        f_back  = col.models.newField("Back")
-        col.models.addField(m, f_front)
-        col.models.addField(m, f_back)
-        t = col.models.newTemplate("Card 1")
-        t["qfmt"] = "{{Front}}"
-        t["afmt"] = (
-            "{{FrontSide}}\n\n"
-            "<hr id=answer>\n\n"
-            "{{Back}}\n\n"
-            "<br><br>\n\n"
-            "<img src={{SlideImage}}>"
-        )
-        col.models.addTemplate(m, t)
-        col.models.add(m)
+        m = col.models.new(model_name)
+        created = True
 
-    # Ensure SlideImage field
-    names = [f.get("name") for f in (m.get("flds") or [])]
-    if "SlideImage" not in names:
-        fld = col.models.newField("SlideImage")
-        try:
-            idx_back = names.index("Back")
-            m["flds"] = m["flds"][:idx_back] + [fld] + m["flds"][idx_back:]
-        except ValueError:
+    # -------------------------------
+    # Fields
+    # -------------------------------
+    want_fields = ["Front", "Back", "SlideImage"]
+    have_names = [f.get("name") for f in (m.get("flds") or [])]
+
+    for name in want_fields:
+        if name not in have_names:
+            fld = col.models.newField(name)
             col.models.addField(m, fld)
 
-    # Force EXACT Back template string
-    desired_afmt = (
-
-        "<hr id=answer>\n\n"
+    # -------------------------------
+    # Template (FORCE FIX)
+    # -------------------------------
+    qfmt = "{{Front}}"
+    afmt = (
+        "{{FrontSide}}\n\n"
+        "<hr id=answer>\n"
         "{{Back}}\n\n"
-        "<br><br>\n\n"
         "{{SlideImage}}"
-
     )
-    changed = False
-    for t in (m.get("tmpls") or []):
-        if t.get("afmt", "") != desired_afmt:
-            t["afmt"] = desired_afmt
-            changed = True
-    if changed:
+
+    tmpls = m.get("tmpls") or []
+    if not tmpls:
+        t = col.models.newTemplate("Card 1")
+        t["qfmt"] = qfmt
+        t["afmt"] = afmt
+        col.models.addTemplate(m, t)
+    else:
+        # FORCE overwrite to fix old broken templates
+        t = tmpls[0]
+        t["qfmt"] = qfmt
+        t["afmt"] = afmt
+        m["tmpls"][0] = t
+
+    # -------------------------------
+    # CSS (light, safe default)
+    # -------------------------------
+    css = """
+.card {
+    font-family: arial;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    background-color: white;
+}
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+""".strip()
+
+    m["css"] = css
+
+    # -------------------------------
+    # Save
+    # -------------------------------
+    if created:
+        col.models.add(m)
+    else:
         col.models.save(m)
 
-    return m
+    return col.models.byName(model_name)
+
 
 # ---------------------------------------------------------------------------
 # IO editor: Get the current image bytes (original, DOM, or Fabric snapshot)
@@ -951,26 +993,35 @@ def auto_image_occlusion_ai():
     showInfo(f"Created {created} AI occlusion cards.", title="Auto Image Occlusion (AI)")
 
 # -------------------------------
-# Ensure Cloze + Slide model
+# Ensure Image Occlusion (AI) model
 # -------------------------------
 def ensure_image_occlusion_ai(model_name: str = "Image Occlusion (AI)") -> dict:
     col = mw.col
     m = col.models.byName(model_name)
     created = False
+
     if not m:
         m = col.models.new(model_name)
         created = True
 
+    # Force CLOZE type (Image Occlusion requires this)
     if m.get("type", 0) != 1:
         m["type"] = 1  # CLOZE
 
+    # -------------------------------
+    # Fields
+    # -------------------------------
     want_fields = ["Header", "Image", "Occlusion", "Back Extra"]
     have_names = [f.get("name") for f in (m.get("flds") or [])]
+
     for name in want_fields:
         if name not in have_names:
             fld = col.models.newField(name)
             col.models.addField(m, fld)
 
+    # -------------------------------
+    # Templates (ONLY create if missing)
+    # -------------------------------
     front = """
 {{#Header}}<div>{{Header}}</div>{{/Header}}
 <div style="display: none">{{cloze:Occlusion}}</div>
@@ -985,7 +1036,8 @@ def ensure_image_occlusion_ai(model_name: str = "Image Occlusion (AI)") -> dict:
 try {
     anki.imageOcclusion.setup();
 } catch (exc) {
-    document.getElementById("err").innerHTML = `Error loading image occlusion.<br><br>${exc}`;
+    document.getElementById("err").innerHTML =
+        `Error loading image occlusion.<br><br>${exc}`;
 }
 </script>
 """.strip()
@@ -1004,7 +1056,8 @@ try {
 try {
     anki.imageOcclusion.setup();
 } catch (exc) {
-    document.getElementById("err").innerHTML = `Error loading image occlusion.<br><br>${exc}`;
+    document.getElementById("err").innerHTML =
+        `Error loading image occlusion.<br><br>${exc}`;
 }
 </script>
 
@@ -1012,6 +1065,16 @@ try {
 {{#Back Extra}}<div>{{Back Extra}}</div>{{/Back Extra}}
 """.strip()
 
+    tmpls = m.get("tmpls") or []
+    if not tmpls:
+        t = col.models.newTemplate("Card 1")
+        t["qfmt"] = front
+        t["afmt"] = back
+        col.models.addTemplate(m, t)
+
+    # -------------------------------
+    # CSS (apply ONLY if new or empty)
+    # -------------------------------
     css = """
 #image-occlusion-canvas {
     --inactive-shape-color: #ffeba2;
@@ -1021,39 +1084,36 @@ try {
     --highlight-shape-color: #ff8e8e00;
     --highlight-shape-border: 1px #ff8e8e;
 }
-.card { font-family: arial; font-size: 20px; text-align: center; color: black; background-color: white; }
-.card img { max-width: 100%; height: auto; }
+.card {
+    font-family: arial;
+    font-size: 20px;
+    text-align: center;
+    color: black;
+    background-color: white;
+}
+.card img {
+    max-width: 100%;
+    height: auto;
+}
 """.strip()
 
-    tmpls = m.get("tmpls") or []
-    if not tmpls:
-        t = col.models.newTemplate("Card 1")
-        t["qfmt"] = front
-        t["afmt"] = back
-        col.models.addTemplate(m, t)
-    else:
-        t = tmpls[0]
-        changed = False
-        if t.get("qfmt") != front:
-            t["qfmt"] = front; changed = True
-        if t.get("afmt") != back:
-            t["afmt"] = back; changed = True
-        if changed:
-            m["tmpls"][0] = t
-
-    if m.get("css") != css:
+    if created or not (m.get("css") or "").strip():
         m["css"] = css
 
+    # -------------------------------
+    # Save
+    # -------------------------------
     if created:
         col.models.add(m)
     else:
         col.models.save(m)
+
     return col.models.byName(model_name)
+
 
 def ensure_cloze_with_slideimage(model_name: str = "Cloze + Slide") -> dict:
     col = mw.col
     m = col.models.byName(model_name)
-
     if not m:
         m = col.models.new(model_name)
         m["type"] = 1  # CLOZE
@@ -1063,37 +1123,47 @@ def ensure_cloze_with_slideimage(model_name: str = "Cloze + Slide") -> dict:
         col.models.addField(m, f_back)
 
         t = col.models.newTemplate("Cloze")
+        # Front shows the clozed text (with blanks)
         t["qfmt"] = "{{cloze:Text}}"
+        # Back reveals the cloze, shows Back Extra and the slide image
         t["afmt"] = (
             "{{cloze:Text}}\n\n"
-            "{{Back Extra}}\n\n"
-            "<img src={{SlideImage}}>"
+            "{{#Back Extra}}{{Back Extra}}{{/Back Extra}}\n\n"
+            "{{SlideImage}}"
         )
         col.models.addTemplate(m, t)
         col.models.add(m)
 
+    # Ensure SlideImage field exists
     names = [f.get("name") for f in (m.get("flds") or [])]
     if "SlideImage" not in names:
         fld = col.models.newField("SlideImage")
         col.models.addField(m, fld)
 
-    desired_qfmt = "{{cloze:Text}}"
-    desired_afmt = (
-        "{{cloze:Text}}\n\n"
-        "{{Back Extra}}\n\n"
-        "{{SlideImage}}"
-    )
-    changed = False
-    for t in (m.get("tmpls") or []):
-        if t.get("qfmt", "") != desired_qfmt:
-            t["qfmt"] = desired_qfmt; changed = True
-        if t.get("afmt", "") != desired_afmt:
-            t["afmt"] = desired_afmt; changed = True
-    if changed:
-        col.models.save(m)
+    # Only fill missing templates; do not overwrite existing ones
+    tmpls = m.get("tmpls") or []
+    if not tmpls:
+        t = col.models.newTemplate("Cloze")
+        t["qfmt"] = "{{cloze:Text}}"
+        t["afmt"] = (
+            "{{cloze:Text}}\n\n"
+            "{{#Back Extra}}{{Back Extra}}{{/Back Extra}}\n\n"
+            "{{SlideImage}}"
+        )
+        col.models.addTemplate(m, t)
+    else:
+        t = tmpls[0]
+        if not (t.get("qfmt") or "").strip():
+            t["qfmt"] = "{{cloze:Text}}"
+        if not (t.get("afmt") or "").strip():
+            t["afmt"] = (
+                "{{cloze:Text}}\n\n"
+                "{{#Back Extra}}{{Back Extra}}{{/Back Extra}}\n\n"
+                "{{SlideImage}}"
+            )
 
+    col.models.save(m)
     return m
-
 # -------------------------------
 # Card move
 # -------------------------------
@@ -1370,6 +1440,36 @@ class OptionsDialog(QDialog):
         self.rb_pages_range.toggled.connect(_sync_pages_enabled)
         _sync_pages_enabled()
 
+        # ---- Highlighting options (image on back) ----
+        self.cfg = _get_config()
+
+        self.chk_highlight = QCheckBox("Highlight used text on back image")
+        self.chk_highlight.setChecked(bool(self.cfg.get("highlight_enabled", True)))
+        v.addWidget(self.chk_highlight)
+
+        self.btn_pick_color = QPushButton("Highlight color…")
+        self._color_hex = str(self.cfg.get("highlight_color_hex", "#FF69B4")).strip() or "#FF69B4"
+        self._color_swatch = QLabel(f"Current: {self._color_hex}")
+        self._color_swatch.setStyleSheet(f"padding:2px 6px; border:1px solid #aaa; background:{self._color_hex}; color:black;")
+
+        from PyQt6.QtGui import QColor
+        # ...
+        def _pick_color():
+            col = QColorDialog.getColor(QColor(self._color_hex))  # seed current value
+            if col.isValid():
+                self._color_hex = col.name()  # "#RRGGBB"
+                self._color_swatch.setText(f"Current: {self._color_hex}")
+                self._color_swatch.setStyleSheet(
+                    f"padding:2px 6px; border:1px solid #aaa; background:{self._color_hex}; color:black;"
+                )
+
+        row_hl = QHBoxLayout()
+        row_hl.addWidget(self.btn_pick_color)
+        row_hl.addWidget(self._color_swatch)
+        row_hl.addStretch(1)
+        v.addLayout(row_hl)
+        self.btn_pick_color.clicked.connect(_pick_color)
+
         # -----------------------
         # Auto-coloring
         # -----------------------
@@ -1429,7 +1529,9 @@ class OptionsDialog(QDialog):
         page_from = int(self.spin_page_from.value())
         page_to = int(self.spin_page_to.value())
 
-        c = _get_config()
+        c = _get_config() 
+        c["highlight_enabled"]   = self.chk_highlight.isChecked()
+        c["highlight_color_hex"] = self._color_hex
         c["types_basic"] = self.chk_basic.isChecked()
         c["types_cloze"] = self.chk_cloze.isChecked()
         c["per_slide_mode"] = mode
@@ -1439,7 +1541,12 @@ class OptionsDialog(QDialog):
         c["ai_extend_color_table"] = self.chk_ai_extend_colors.isChecked()
         _save_config(c)
 
+        
+
         return {
+            
+            "highlight_enabled": self.chk_highlight.isChecked(),
+            "highlight_color_hex": self._color_hex,
             "types_basic": self.chk_basic.isChecked(),
             "types_cloze": self.chk_cloze.isChecked(),
             "per_slide_mode": mode,
@@ -1481,7 +1588,7 @@ def _worker_generate_cards(pdf_path: str, api_key: str, opts: dict) -> Dict:
             pages = extract_text_from_pdf(pdf_path)
 
         total_pages = len(pages)
-        results: List[Tuple[str, str, int]] = []
+        results: List[dict] = []
         page_errors: List[str] = []
 
         if not pages:
@@ -1529,11 +1636,42 @@ def _worker_generate_cards(pdf_path: str, api_key: str, opts: dict) -> Dict:
                 else:
                     cards = []
 
+            # ✅ extract word boxes ONCE per page
+            try:
+                page_words = extract_words_with_boxes(pdf_path, page["page"])
+            except Exception:
+                page_words = []
+
             for card in cards:
                 front = (card.get("front", "") or "").strip()
                 back  = (card.get("back",  "") or "").strip()
                 if (front and back) or ("{{c" in front) or ("{{c" in back):
-                    results.append((front, back, page["page"]))
+                    # ✅ choose phrase to highlight
+                    import re
+                    CLOZE_RE = re.compile(r"\{\{c\d+::(.*?)(?:::[^}]*)?\}\}")
+
+                    m = CLOZE_RE.search(front) or CLOZE_RE.search(back)
+                    if m:
+                        phrase = m.group(1).strip()   # ✅ full cloze phrase
+                    else:
+                        phrase = back or front        # ✅ basic card fallback
+                    hl_enabled = bool(opts.get("highlight_enabled", True))
+                    if hl_enabled:
+                        # Always highlight at least one full sentence (default behavior)
+                        span = 1  # keep to 1 sentence by default, no user option
+                        hi_rects = sentence_rects_for_phrase(page_words, phrase, max_sentences=span)
+                        # If sentence detection didn't find anything (rare), fall back to phrase-only boxes
+                        if not hi_rects:
+                            hi_rects = boxes_for_phrase(page_words, phrase)
+                    else:
+                        hi_rects = []
+
+                    results.append({
+                        "front": front,
+                        "back": back,
+                        "page": page["page"],
+                        "hi": hi_rects,   # ← this already exists in your worker
+                    })
 
         return {"ok": True, "cards": results, "pages": total_pages, "errors": page_errors, "meta": {"pdf_path": pdf_path}}
 
@@ -1542,276 +1680,208 @@ def _worker_generate_cards(pdf_path: str, api_key: str, opts: dict) -> Dict:
         return {"ok": False, "cards": [], "pages": 0, "errors": [], "error": str(e), "traceback": tb}
 
 # -------------------------------
-# After worker completes: insert notes and embed slide images
+# After worker completes: insert notes, render images, apply coloring
 # -------------------------------
-def _on_worker_done(result: Dict, deck_id: int, deck_name: str, models: Dict[str, dict], opts: dict) -> None:
-    mw.progress.finish()
+def _on_worker_done(
+    result: Dict,
+    deck_id: int,
+    deck_name: str,
+    models: Dict[str, dict],
+    opts: dict,
+) -> None:
 
+    # -------------------------------
+    # Validate worker result
+    # -------------------------------
     if not isinstance(result, dict) or not result.get("ok", False):
         tb = result.get("traceback", "") if isinstance(result, dict) else ""
         tb_snippet = (tb[:1200] + "\n…(truncated)…") if tb and len(tb) > 1200 else tb
+        mw.progress.finish()
         showWarning(
             "Generation failed.\n\n"
-            f"Error: { (result.get('error') if isinstance(result, dict) else 'unknown') }\n\n"
+            f"Error: {(result.get('error') if isinstance(result, dict) else 'unknown')}\n\n"
             f"{tb_snippet}"
         )
         return
 
-    cards: List[Tuple[str, str, int]] = result.get("cards", [])
+    cards = result.get("cards", [])
     meta = result.get("meta", {}) if isinstance(result.get("meta"), dict) else {}
-    pdf_path = meta.get("pdf_path", None)
+    pdf_path = meta.get("pdf_path")
+
     if not cards:
+        mw.progress.finish()
         return
 
-    # ---- Render one image per unique page ----
-    page_to_media: Dict[int, Optional[str]] = {}
-    if pdf_path:
-        unique_pages = sorted({p for _, _, p in cards})
-        mw.progress.start(label=f"Preparing slide images (0/{len(unique_pages)})…", immediate=True)
-        try:
-            for i, p in enumerate(unique_pages, start=1):
-                try:
-                    res = render_page_blob(pdf_path, p, dpi=200, max_width=1600)
-                    if res:
-                        data, ext = res
-                        base = os.path.splitext(os.path.basename(pdf_path))[0]
-                        safe_deck = re.sub(r"[^A-Za-z0-9_-]+", "_", deck_name)
-                        suggested = f"{safe_deck}_{base}_p{p}.png"
-
-                        stored = _write_media_file(suggested, data)
-                        page_to_media[p] = stored   # ✅ USE WHAT ANKI ACTUALLY STORED
-                    else:
-                        page_to_media[p] = None
-                except Exception:
-                    page_to_media[p] = None
-                if i % 2 == 0 or i == len(unique_pages):
-                    mw.progress.update(label=f"Preparing slide images ({i}/{len(unique_pages)})…")
-        finally:
-            mw.progress.finish()
-
-    # ---- Insert notes (Basic and/or Cloze) ----
     col = mw.col
     col.decks.select(deck_id)
 
     want_basic = bool(opts.get("types_basic", True))
     want_cloze = bool(opts.get("types_cloze", False))
     if not (want_basic or want_cloze):
+        mw.progress.finish()
         showWarning("No card types selected. Aborting.")
         return
 
     if want_basic:
-        models["basic"] = ensure_basic_with_slideimage(models.get("basic", {}).get("name", "Basic + Slide"))
+        models["basic"] = ensure_basic_with_slideimage(
+            models.get("basic", {}).get("name", "Basic + Slide")
+        )
     if want_cloze:
-        models["cloze"] = ensure_cloze_with_slideimage(models.get("cloze", {}).get("name", "Cloze + Slide"))
+        models["cloze"] = ensure_cloze_with_slideimage(
+            models.get("cloze", {}).get("name", "Cloze + Slide")
+        )
 
     mw.progress.start(label=f"Inserting {len(cards)} card(s)…", immediate=True)
-    try:
-        from os.path import basename
-        for idx, (front, back, page_no) in enumerate(cards, start=1):
-            media_name = page_to_media.get(page_no)
-            fname = basename(media_name) if media_name else ""
 
-            is_cloze_front = "{{c" in front
-            is_cloze_back  = "{{c" in back
-            _dbg(
-                f"card#{idx} page={page_no} "
-                f"is_cloze_front={is_cloze_front} is_cloze_back={is_cloze_back} "
-                f"front='{(front or '')[:80]}' back='{(back or '')[:80]}'"
-            )
+    # -------------------------------
+    # Main-thread work: insert notes + render images
+    # -------------------------------
+    def _insert_and_render():
+        try:
+            import os, re
+            from os.path import basename
 
-            is_cloze = is_cloze_front or is_cloze_back
-            if is_cloze and want_cloze:
-                model = models["cloze"]
-                col.models.set_current(model)
-                note = col.newNote()
-                note.did = deck_id
-                if is_cloze_front:
-                    text_val, back_extra = front, back
-                else:
-                    text_val, back_extra = back, front
-                if not text_val.strip():
-                    _dbg("SKIP: empty cloze Text")
-                    continue
-                _dbg(f"CLOZE CHOSEN text_len={len(text_val)} back_extra_len={len(back_extra)} preview='{text_val[:120]}'")
-                note["Text"] = text_val
-                note["Back Extra"] = back_extra
-                if "SlideImage" in note:
-                    note["SlideImage"] = f'<img src="{fname}">'
-                note.tags.append("pdf2cards:ai_cloze")
-                col.addNote(note)
-                try:
-                    cids = [c.id for c in note.cards()]
-                    force_move_cards_to_deck(cids, deck_id)
-                except Exception:
-                    pass
-                continue
+            total = len(cards)
 
-            if want_basic:
-                model = models["basic"]
-                col.models.set_current(model)
-                note = col.newNote()
-                note.did = deck_id
-                note["Front"] = front
-                note["Back"]  = back
-                if "SlideImage" in note:
-                    note["SlideImage"] = f'<img src="{fname}">'
-                note.tags.append("pdf2cards:basic")
-                col.addNote(note)
-                try:
-                    cids = [c.id for c in note.cards()]
-                    force_move_cards_to_deck(cids, deck_id)
-                except Exception:
-                    pass
+            for idx, card in enumerate(cards, start=1):
+                mw.taskman.run_on_main(
+                    lambda i=idx, t=total:
+                        mw.progress.update(label=f"Rendering cards… ({i}/{t})")
+                )
 
-            if idx % 5 == 0:
-                mw.progress.update(label=f"Inserting {idx}/{len(cards)}…")
-    finally:
-        mw.progress.finish()
-        col.save()
 
-    # ======================================================
-    # Auto-color newly generated deck (SAFE TASKMAN VERSION)
-    # ======================================================
-    try:
-        cfg = _get_config()
-        if cfg.get("color_after_generation", True):
+                front = card.get("front", "")
+                back = card.get("back", "")
+                page_no = card.get("page")
+                hi_rects = card.get("hi", []) or []
 
-            def _collect_nids():
-                # BACKGROUND THREAD (read-only)
-                from aqt import mw
-                cids = mw.col.find_cards(f"deck:{deck_name}")
-                return list({mw.col.get_card(cid).nid for cid in cids})
+                fname = ""
 
-            def _extend_colors_bg(nids):
-                # BACKGROUND THREAD (API + pure Python only)
-                try:
-                    cfg = _get_config()
-                    if not cfg.get("ai_extend_color_table", True):
-                        return
+                # ---- render slide image ----
+                hl_enabled = bool(opts.get("highlight_enabled", True))
+                hl_hex = str(opts.get("highlight_color_hex", "#FF69B4"))
 
-                    from .colorizer import get_entries_for_editor, set_color_table_entries
-                    from .openai_cards import generate_color_table_entries
+                if pdf_path and page_no:
+                    try:
+                        if hl_enabled:
+                            fill_rgba = _rgba_from_hex(hl_hex, alpha=55)
+                            outline_rgba = _rgba_from_hex(hl_hex, alpha=200)
 
-                    api_key = cfg.get("openai_api_key", "").strip()
-                    if not api_key:
-                        return
+                            png_bytes = render_page_as_png_with_highlights(
+                                pdf_path,
+                                page_no,
+                                hi_rects,
+                                dpi=200,
+                                max_width=1600,
+                                fill_rgba=fill_rgba,
+                                outline_rgba=outline_rgba,
+                                outline_width=2,
+                            )
+                        else:
+                            res = render_page_blob(
+                                pdf_path, page_no, dpi=200, max_width=1600
+                            )
+                            png_bytes = res[0] if res else None
 
-                    import re
+                        if png_bytes:
+                            base = os.path.splitext(os.path.basename(pdf_path))[0]
+                            safe_deck = re.sub(r"[^A-Za-z0-9_-]+", "_", deck_name)
+                            suggested = f"{safe_deck}_{base}_p{page_no}_c{idx}.png"
+                            stored = _write_media_file(suggested, png_bytes)
+                            fname = basename(stored) if stored else ""
+                    except Exception as e:
+                        _dbg(f"Image render failed: {e}")
 
-                    text_blob = []
-                    cloze_terms = []
+                is_cloze = "{{c" in front or "{{c" in back
 
-                    CLOZE_RE = re.compile(r"\{\{c\d+::(.*?)(?:::[^}]*)?\}\}")
+                # ---- Cloze note ----
+                if is_cloze and want_cloze:
+                    model = models["cloze"]
+                    col.models.set_current(model)
+                    note = col.newNote()
+                    note.did = deck_id
 
-                    for front, back, _ in cards:
-                        for txt in (front, back):
-                            if not txt:
-                                continue
+                    if "{{c" in front:
+                        note["Text"] = front
+                        note["Back Extra"] = back
+                    else:
+                        note["Text"] = back
+                        note["Back Extra"] = front
 
-                            # 1️⃣ Always include full text
-                            text_blob.append(txt)
+                    if "SlideImage" in note and fname:
+                        note["SlideImage"] = f'<img src="{fname}">'
 
-                            # 2️⃣ Collect cloze terms as priority signals
-                            for m in CLOZE_RE.finditer(txt):
-                                term = m.group(1).strip()
-                                if not term:
-                                    continue
-                                for part in re.split(r"[;,]", term):
-                                    p = part.strip()
-                                    if p:
-                                        cloze_terms.append(p)
+                    note.tags.append("pdf2cards:ai_cloze")
+                    col.addNote(note)
 
-                    # 3️⃣ Hybrid source text: full text + emphasized clozes
-                    source_text = (
-                        "\n".join(text_blob)
-                        + "\n\nIMPORTANT TERMS (high priority):\n"
-                        + "\n".join(cloze_terms)
-                    )[:8000]
-
-                    _dbg(
-                        f"AI color-table using HYBRID input "
-                        f"(full_text_chars={len(' '.join(text_blob))}, "
-                        f"cloze_terms={len(cloze_terms)})"
-                    )
-                    
-                    existing = get_entries_for_editor()
-                    existing = existing[:200]  # ⬅️ ADD THIS LINE
-
-                    existing_words = {
-                        (e.get("word") or "").strip().lower()
-                        for e in existing
-                    }
-
-                    # ✅ Append-only AI call
-                    new_entries = generate_color_table_entries(
-                        source_text=source_text,
-                        existing_entries=existing,
-                        deck_hint=deck_name,
-                        api_key=api_key,
-                    )
-
-                    if not new_entries:
-                        _dbg(f"AI color-table: no new entries for deck '{deck_name}'")
-                        return
-
-                    merged = existing[:]
-                    added = []
-
-                    for e in new_entries:
-                        w = (e.get("word") or "").strip().lower()
-                        if w and w not in existing_words:
-                            merged.append(e)
-                            added.append(e)
-
-                    if not added:
-                        _dbg(f"AI color-table: nothing new to add for deck '{deck_name}'")
-                        return
-
-                    set_color_table_entries(merged)
-
-                    # ✅ Clear logging (like before)
-                    _dbg(
-                        f"AI color-table: added {len(added)} entries to deck '{deck_name}'"
-                    )
-                    for e in added:
-                        _dbg(
-                            f"  + {e.get('word')} "
-                            f"(group={e.get('group','')}, color={e.get('color','')})"
+                    try:
+                        force_move_cards_to_deck(
+                            [c.id for c in note.cards()], deck_id
                         )
+                    except Exception:
+                        pass
+                    continue
 
-                except Exception as e:
-                    _dbg("AI color-table extension failed: " + repr(e))
+                # ---- Basic note ----
+                if want_basic:
+                    model = models["basic"]
+                    col.models.set_current(model)
+                    note = col.newNote()
+                    note.did = deck_id
+                    note["Front"] = front
+                    note["Back"] = back
 
-            def _apply_color():
-                # MAIN THREAD (write)
+                    if "SlideImage" in note and fname:
+                        note["SlideImage"] = f'<img src="{fname}">'
+
+                    note.tags.append("pdf2cards:basic")
+                    col.addNote(note)
+
+                    try:
+                        force_move_cards_to_deck(
+                            [c.id for c in note.cards()], deck_id
+                        )
+                    except Exception:
+                        pass
+
+            col.save()
+
+        except Exception as e:
+            _dbg("Insert/render error: " + repr(e))
+
+        # -------------------------------
+        # After rendering → coloring phase (run on MAIN thread)
+        # -------------------------------
+        def _apply_color_on_main():
+            try:
+                mw.progress.update(label="Applying color coding…")
+
                 try:
                     from .colorizer import apply_to_deck_ids
-                    apply_to_deck_ids([deck_id])
                 except Exception as e:
-                    _dbg("Auto-color failed: " + repr(e))
+                    _dbg("Colorizer module not available: " + repr(e))
+                    return
 
-            def _on_collected(fut):
                 try:
-                    nids = fut.result()
-
-                    # 1️⃣ Run AI extension in background
-                    def _after_ai(_):
-                        # 2️⃣ Apply coloring on main thread
-                        mw.taskman.run_on_main(_apply_color)
-
-                    mw.taskman.run_in_background(
-                        lambda: _extend_colors_bg(nids),
-                        on_done=_after_ai
-                    )
-
+                    apply_to_deck_ids([deck_id])  # must run on main thread
                 except Exception as e:
-                    _dbg("Auto-color failed: " + repr(e))
+                    import traceback as _tb
+                    _dbg("Auto-color failed: " + repr(e) + "\n" + _tb.format_exc())
 
-            # Let Anki fully settle, then start pipeline
-            mw.taskman.run_in_background(_collect_nids, on_done=_on_collected)
-    except Exception as e:
-        _dbg("Auto-color scheduling failed: " + repr(e))
+            finally:
+                # Always close progress on main
+                try:
+                    mw.progress.finish()
+                except Exception:
+                    pass
 
+        # schedule on main thread
+        mw.taskman.run_on_main(_apply_color_on_main)
+    # Run UI-sensitive work on main thread
+    mw.taskman.run_in_background(
+    _insert_and_render,
+    on_done=lambda _: mw.taskman.run_on_main(mw.progress.finish)
+    )
 # -------------------------------
 # Main entry (spawns background task)
 # -------------------------------
