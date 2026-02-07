@@ -317,3 +317,28 @@ def boxes_for_phrase(words: List[Dict], phrase: str) -> List[Dict]:
         "w": (x1 - x0),
         "h": (y1 - y0),
     }]
+
+# --- NEW: image boxes per page (PDF points) -------------------------------
+from typing import List, Dict
+
+def extract_image_boxes(pdf_path: str, page_number: int) -> List[Dict]:
+    """
+    Return [{ "x":..., "y":..., "w":..., "h":... }, ...] for each image block
+    on the page, using PyMuPDF rawdict ("type": 1 or "image"). Coordinates are
+    in PDF points (1/72 inch).
+    """
+    doc = _open_doc_with_pymupdf(pdf_path)
+    page = doc[page_number - 1]
+    try:
+        raw = page.get_text("rawdict")
+    except Exception:
+        return []
+    out = []
+    for block in (raw.get("blocks") or []):
+        t = block.get("type", None)
+        if t == 1 or t == "image":
+            bbox = block.get("bbox")
+            if isinstance(bbox, (list, tuple)) and len(bbox) >= 4:
+                x0, y0, x1, y1 = bbox[0], bbox[1], bbox[2], bbox[3]
+                out.append({"x": float(x0), "y": float(y0), "w": float(x1 - x0), "h": float(y1 - y0)})
+    return out

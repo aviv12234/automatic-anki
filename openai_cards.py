@@ -5,7 +5,20 @@ import json
 import requests
 from typing import Dict
 
-from .main import _dbg
+
+# local no-op/debug logger to avoid circular import
+def _dbg(msg: str) -> None:
+    try:
+        from aqt import mw
+        import os, time
+        path = os.path.join(mw.pm.profileFolder(), "pdf2cards_debug.log")
+        ts = time.strftime("%Y-%m-%d %H:%M:%S")
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"[{ts}] {msg}\n")
+    except Exception:
+        # Fall back to a silent no-op if we can't log
+        pass
+
 
 OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 OPENAI_MODEL   = "gpt-4o-mini"
