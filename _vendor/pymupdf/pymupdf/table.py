@@ -79,7 +79,6 @@ import html
 from collections.abc import Sequence
 from dataclasses import dataclass
 from operator import itemgetter
-import weakref
 
 # -------------------------------------------------------------------
 # Start of PyMuPDF interface code
@@ -88,130 +87,17 @@ from . import (
     Rect,
     Matrix,
     TEXTFLAGS_TEXT,
-    TEXT_FONT_BOLD,
-    TEXT_FONT_ITALIC,
-    TEXT_FONT_MONOSPACED,
-    TEXT_FONT_SUPERSCRIPT,
-    TEXT_COLLECT_STYLES,
     TOOLS,
     EMPTY_RECT,
     sRGB_to_pdf,
     Point,
     message,
-    mupdf,
 )
 
 EDGES = []  # vector graphics from PyMuPDF
 CHARS = []  # text characters from PyMuPDF
 TEXTPAGE = None
-TEXT_BOLD = mupdf.FZ_STEXT_BOLD
-TEXT_STRIKEOUT = mupdf.FZ_STEXT_STRIKEOUT
-FLAGS = TEXTFLAGS_TEXT | TEXT_COLLECT_STYLES
-
 white_spaces = set(string.whitespace)  # for checking white space only cells
-
-
-def extract_cells(textpage, cell, markdown=False):
-    """Extract text from a rect-like 'cell' as plain or MD style text.
-
-    This function should ultimately be used to extract text from a table cell.
-    Markdown output will only work correctly if extraction flag bit
-    TEXT_COLLECT_STYLES is set.
-
-    Args:
-        textpage: A PyMuPDF TextPage object. Must have been created with
-            TEXTFLAGS_TEXT | TEXT_COLLECT_STYLES.
-        cell: A tuple (x0, y0, x1, y1) defining the cell's bbox.
-        markdown: If True, return text formatted for Markdown.
-
-    Returns:
-        A string with the text extracted from the cell.
-    """
-    text = ""
-    for block in textpage.extractRAWDICT()["blocks"]:
-        if block["type"] != 0:
-            continue
-        block_bbox = block["bbox"]
-        if (
-            0
-            or block_bbox[0] > cell[2]
-            or block_bbox[2] < cell[0]
-            or block_bbox[1] > cell[3]
-            or block_bbox[3] < cell[1]
-        ):
-            continue  # skip block outside cell
-        for line in block["lines"]:
-            lbbox = line["bbox"]
-            if (
-                0
-                or lbbox[0] > cell[2]
-                or lbbox[2] < cell[0]
-                or lbbox[1] > cell[3]
-                or lbbox[3] < cell[1]
-            ):
-                continue  # skip line outside cell
-
-            if text:  # must be a new line in the cell
-                text += "<br>" if markdown else "\n"
-
-            # strikeout detection only works with horizontal text
-            horizontal = line["dir"] == (0, 1) or line["dir"] == (1, 0)
-
-            for span in line["spans"]:
-                sbbox = span["bbox"]
-                if (
-                    0
-                    or sbbox[0] > cell[2]
-                    or sbbox[2] < cell[0]
-                    or sbbox[1] > cell[3]
-                    or sbbox[3] < cell[1]
-                ):
-                    continue  # skip spans outside cell
-
-                # only include chars with more than 50% bbox overlap
-                span_text = ""
-                for char in span["chars"]:
-                    bbox = Rect(char["bbox"])
-                    if abs(bbox & cell) > 0.5 * abs(bbox):
-                        span_text += char["c"]
-
-                if not span_text:
-                    continue  # skip empty span
-
-                if not markdown:  # no MD styling
-                    text += span_text
-                    continue
-
-                prefix = ""
-                suffix = ""
-                if horizontal and span["char_flags"] & TEXT_STRIKEOUT:
-                    prefix += "~~"
-                    suffix = "~~" + suffix
-                if span["char_flags"] & TEXT_BOLD:
-                    prefix += "**"
-                    suffix = "**" + suffix
-                if span["flags"] & TEXT_FONT_ITALIC:
-                    prefix += "_"
-                    suffix = "_" + suffix
-                if span["flags"] & TEXT_FONT_MONOSPACED:
-                    prefix += "`"
-                    suffix = "`" + suffix
-
-                if len(span["chars"]) > 2:
-                    span_text = span_text.rstrip()
-
-                # if span continues previous styling: extend cell text
-                if (ls := len(suffix)) and text.endswith(suffix):
-                    text = text[:-ls] + span_text + suffix
-                else:  # append the span with new styling
-                    if not span_text.strip():
-                        text += " "
-                    else:
-                        text += prefix + span_text + suffix
-
-    return text.strip()
-
-
 # -------------------------------------------------------------------
 # End of PyMuPDF interface code
 # -------------------------------------------------------------------
@@ -1175,7 +1061,7 @@ def words_to_edges_v(words, word_threshold: int = DEFAULT_MIN_WORDS_VERTICAL):
         if not overlap:
             condensed_bboxes.append(bbox)
 
-    if not condensed_bboxes:
+    if len(condensed_bboxes) == 0:
         return []
 
     condensed_rects = map(bbox_to_rect, condensed_bboxes)
@@ -1481,69 +1367,33 @@ class Table:
 
         return table_arr
 
-    def to_markdown(self, clean=False, fill_empty=True):
+    def to_markdown(self, clean=True):
         """Output table content as a string in Github-markdown format.
 
-        If "clean" then markdown syntax is removed from cell content.
-        If "fill_empty" then cell content None is replaced by the values
-        above (columns) or left (rows) in an effort to approximate row and
-        columns spans.
-
-        """
+        If clean is true, markdown syntax is removed from cell content."""
         output = "|"
-        rows = self.row_count
-        cols = self.col_count
 
-        # cell coordinates
-        cell_boxes = [[c for c in r.cells] for r in self.rows]
-
-        # cell text strings
-        cells = [[None for i in range(cols)] for j in range(rows)]
-        for i, row in enumerate(cell_boxes):
-            for j, cell in enumerate(row):
-                if cell is not None:
-                    cells[i][j] = extract_cells(
-                        TEXTPAGE, cell_boxes[i][j], markdown=True
-                    )
-
-        if fill_empty:  # fill "None" cells where possible
-
-            # for rows, copy content from left to right
-            for j in range(rows):
-                for i in range(cols - 1):
-                    if cells[j][i + 1] is None:
-                        cells[j][i + 1] = cells[j][i]
-
-            # for columns, copy top to bottom
-            for i in range(cols):
-                for j in range(rows - 1):
-                    if cells[j + 1][i] is None:
-                        cells[j + 1][i] = cells[j][i]
-
-        # generate header string and MD separator
+        # generate header string and MD underline
         for i, name in enumerate(self.header.names):
-            if not name:  # generate a name if empty
+            if name is None or name == "":  # generate a name if empty
                 name = f"Col{i+1}"
-            name = name.replace("\n", "<br>")  # use HTML line breaks
+            name = name.replace("\n", " ")  # remove any line breaks
             if clean:  # remove sensitive syntax
                 name = html.escape(name.replace("-", "&#45;"))
             output += name + "|"
 
         output += "\n"
-        # insert GitHub header line separator
         output += "|" + "|".join("---" for i in range(self.col_count)) + "|\n"
 
         # skip first row in details if header is part of the table
         j = 0 if self.header.external else 1
 
         # iterate over detail rows
-        for row in cells[j:]:
+        for row in self.extract()[j:]:
             line = "|"
             for i, cell in enumerate(row):
-                # replace None cells with empty string
-                # use HTML line break tag
-                if cell is None:
-                    cell = ""
+                # output None cells with empty string
+                cell = "" if cell is None else cell.replace("\n", " ")
                 if clean:  # remove sensitive syntax
                     cell = html.escape(cell.replace("-", "&#45;"))
                 line += cell + "|"
@@ -1612,34 +1462,22 @@ class Table:
         page = self.page
         y_delta = y_tolerance
 
-        def top_row_bg_color(self):
+        def top_row_is_bold(bbox):
+            """Check if row 0 has bold text anywhere.
+
+            If this is true, then any non-bold text in lines above disqualify
+            these lines as header.
+
+            bbox is the (potentially repaired) row 0 bbox.
+
+            Returns True or False
             """
-            Compare top row background color with color of same-sized bbox
-            above. If different, return True indicating that the original
-            table top row is already the header.
-            """
-            bbox0 = Rect(self.rows[0].bbox)
-            bboxt = bbox0 + (0, -bbox0.height, 0, -bbox0.height)  # area above
-            top_color0 = page.get_pixmap(clip=bbox0).color_topusage()[1]
-            top_colort = page.get_pixmap(clip=bboxt).color_topusage()[1]
-            if top_color0 != top_colort:
-                return True  # top row is header
+            for b in page.get_text("dict", flags=TEXTFLAGS_TEXT, clip=bbox)["blocks"]:
+                for l in b["lines"]:
+                    for s in l["spans"]:
+                        if s["flags"] & 16:
+                            return True
             return False
-
-        def row_has_bold(bbox):
-            """Check if a row contains some bold text.
-
-            If e.g. true for the top row, then it will be used as (internal)
-            column header row if any of the following is true:
-            * the previous (above) text line has no bold span
-            * the second table row text has no bold span
-
-            Returns True if any spans are bold else False.
-            """
-            blocks = page.get_text("dict", flags=TEXTFLAGS_TEXT, clip=bbox)["blocks"]
-            spans = [s for b in blocks for l in b["lines"] for s in l["spans"]]
-
-            return any(s["flags"] & TEXT_FONT_BOLD for s in spans)
 
         try:
             row = self.rows[0]
@@ -1651,68 +1489,50 @@ class Table:
         # return this if we determine that the top row is the header
         header_top_row = TableHeader(bbox, cells, self.extract()[0], False)
 
-        # 1-line tables have no extra header
+        # one-line tables have no extra header
         if len(self.rows) < 2:
             return header_top_row
 
-        # 1-column tables have no extra header
+        # x-ccordinates of columns between x0 and x1 of the table
         if len(cells) < 2:
             return header_top_row
 
-        # assume top row is the header if second row is empty
-        row2 = self.rows[1]  # second row
-        if all(c is None for c in row2.cells):  # no valid cell bboxes in row2
-            return header_top_row
+        col_x = [
+            c[2] if c is not None else None for c in cells[:-1]
+        ]  # column (x) coordinates
 
         # Special check: is top row bold?
-        top_row_bold = row_has_bold(bbox)
+        # If first line above table is not bold, but top-left table cell is bold,
+        # we take first table row as header
+        top_row_bold = top_row_is_bold(bbox)
 
-        # assume top row is header if it is bold and any cell
-        # of 2nd row is non-bold
-        if top_row_bold and not row_has_bold(row2.bbox):
-            return header_top_row
-
-        if top_row_bg_color(self):
-            # if area above top row has a different background color,
-            # then top row is already the header
-            return header_top_row
-
-        # column coordinates (x1 values) in top row
-        col_x = [c[2] if c is not None else None for c in cells[:-1]]
-
-        # clip = page area above the table
+        # clip = area above table
         # We will inspect this area for text qualifying as column header.
         clip = +bbox  # take row 0 bbox
         clip.y0 = 0  # start at top of page
         clip.y1 = bbox.y0  # end at top of table
 
-        blocks = page.get_text("dict", clip=clip, flags=TEXTFLAGS_TEXT)["blocks"]
-        # non-empty, non-superscript spans above table, sorted descending by y1
-        spans = sorted(
-            [
-                s
-                for b in blocks
-                for l in b["lines"]
-                for s in l["spans"]
-                if not (
-                    white_spaces.issuperset(s["text"])
-                    or s["flags"] & TEXT_FONT_SUPERSCRIPT
-                )
-            ],
-            key=lambda s: s["bbox"][3],
-            reverse=True,
-        )
+        spans = []  # the text spans inside clip
+        for b in page.get_text("dict", clip=clip, flags=TEXTFLAGS_TEXT)["blocks"]:
+            for l in b["lines"]:
+                for s in l["spans"]:
+                    if (
+                        not s["flags"] & 1 and s["text"].strip()
+                    ):  # ignore superscripts and empty text
+                        spans.append(s)
 
         select = []  # y1 coordinates above, sorted descending
         line_heights = []  # line heights above, sorted descending
         line_bolds = []  # bold indicator per line above, same sorting
 
+        # spans sorted descending
+        spans.sort(key=lambda s: s["bbox"][3], reverse=True)
         # walk through the spans and fill above 3 lists
         for i in range(len(spans)):
             s = spans[i]
             y1 = s["bbox"][3]  # span bottom
             h = y1 - s["bbox"][1]  # span bbox height
-            bold = s["flags"] & TEXT_FONT_BOLD
+            bold = s["flags"] & 16
 
             # use first item to start the lists
             if i == 0:
@@ -1721,7 +1541,7 @@ class Table:
                 line_bolds.append(bold)
                 continue
 
-            # get previous items from the 3 lists
+            # get last items from the 3 lists
             y0 = select[-1]
             h0 = line_heights[-1]
             bold0 = line_bolds[-1]
@@ -1745,13 +1565,13 @@ class Table:
         if select == []:  # nothing above the table?
             return header_top_row
 
-        select = select[:5]  # accept up to 5 lines for an external header
+        select = select[:5]  # only accept up to 5 lines in any header
 
-        # assume top row as header if text above is too far away
+        # take top row as header if text above table is too far apart
         if bbox.y0 - select[0] >= line_heights[0]:
             return header_top_row
 
-        # accept top row as header if bold, but line above is not
+        # if top table row is bold, but line above is not:
         if top_row_bold and not line_bolds[0]:
             return header_top_row
 
@@ -1918,7 +1738,7 @@ class TableFinder:
     """
 
     def __init__(self, page, settings=None):
-        self.page = weakref.proxy(page)
+        self.page = page
         self.settings = TableSettings.resolve(settings)
         self.edges = self.get_edges()
         self.intersections = edges_to_intersections(
@@ -2063,11 +1883,11 @@ page information themselves.
 # -----------------------------------------------------------------------------
 def make_chars(page, clip=None):
     """Extract text as "rawdict" to fill CHARS."""
-    global TEXTPAGE
+    global CHARS, TEXTPAGE
     page_number = page.number + 1
     page_height = page.rect.height
     ctm = page.transformation_matrix
-    TEXTPAGE = page.get_textpage(clip=clip, flags=FLAGS)
+    TEXTPAGE = page.get_textpage(clip=clip, flags=TEXTFLAGS_TEXT)
     blocks = page.get_text("rawdict", textpage=TEXTPAGE)["blocks"]
     doctop_base = page_height * page.number
     for block in blocks:
@@ -2122,7 +1942,8 @@ def make_chars(page, clip=None):
 # We are ignoring Bézier curves completely and are converting everything
 # else to lines.
 # ------------------------------------------------------------------------
-def make_edges(page, clip=None, tset=None, paths=None, add_lines=None, add_boxes=None):
+def make_edges(page, clip=None, tset=None, add_lines=None):
+    global EDGES
     snap_x = tset.snap_x_tolerance
     snap_y = tset.snap_y_tolerance
     min_length = tset.edge_min_length
@@ -2174,19 +1995,16 @@ def make_edges(page, clip=None, tset=None, paths=None, add_lines=None, add_boxes
             return True
         return False
 
-    def clean_graphics(npaths=None):
+    def clean_graphics():
         """Detect and join rectangles of "connected" vector graphics."""
-        if npaths is None:
-            allpaths = page.get_drawings()
-        else:  # accept passed-in vector graphics
-            allpaths = npaths[:]  # paths relevant for table detection
-        paths = []
-        for p in allpaths:
-            # If only looking at lines, we ignore fill-only paths,
-            # except simulated lines (i.e. small width or height).
+
+        paths = []  # paths relevant for table detection
+        for p in page.get_drawings():
+            # ignore fill-only graphics if they do not simulate lines,
+            # which means one of width or height are small.
             if (
-                lines_strict
-                and p["type"] == "f"
+                p["type"] == "f"
+                and lines_strict
                 and p["rect"].width > snap_x
                 and p["rect"].height > snap_y
             ):
@@ -2221,7 +2039,7 @@ def make_edges(page, clip=None, tset=None, paths=None, add_lines=None, add_boxes
 
         return new_rects, paths
 
-    bboxes, paths = clean_graphics(npaths=paths)
+    bboxes, paths = clean_graphics()
 
     def is_parallel(p1, p2):
         """Check if line is roughly axis-parallel."""
@@ -2392,25 +2210,6 @@ def make_edges(page, clip=None, tset=None, paths=None, add_lines=None, add_boxes
         if line_dict:
             EDGES.append(line_to_edge(line_dict))
 
-    if add_boxes is not None:  # add user-specified rectangles
-        assert isinstance(add_boxes, (tuple, list))
-    else:
-        add_boxes = []
-    for box in add_boxes:
-        r = Rect(box)
-        line_dict = make_line(path, r.tl, r.bl, clip)
-        if line_dict:
-            EDGES.append(line_to_edge(line_dict))
-        line_dict = make_line(path, r.bl, r.br, clip)
-        if line_dict:
-            EDGES.append(line_to_edge(line_dict))
-        line_dict = make_line(path, r.br, r.tr, clip)
-        if line_dict:
-            EDGES.append(line_to_edge(line_dict))
-        line_dict = make_line(path, r.tr, r.tl, clip)
-        if line_dict:
-            EDGES.append(line_to_edge(line_dict))
-
 
 def page_rotation_set0(page):
     """Nullify page rotation.
@@ -2492,9 +2291,7 @@ def find_tables(
     text_x_tolerance=3,
     text_y_tolerance=3,
     strategy=None,  # offer abbreviation
-    add_lines=None,  # user-specified lines
-    add_boxes=None,  # user-specified rectangles
-    paths=None,  # accept vector graphics as parameter
+    add_lines=None,  # optional user-specified lines
 ):
     global CHARS, EDGES
     CHARS = []
@@ -2548,12 +2345,7 @@ def find_tables(
 
     make_chars(page, clip=clip)  # create character list of page
     make_edges(
-        page,
-        clip=clip,
-        tset=tset,
-        paths=paths,
-        add_lines=add_lines,
-        add_boxes=add_boxes,
+        page, clip=clip, tset=tset, add_lines=add_lines
     )  # create lines and curves
     tables = TableFinder(page, settings=tset)
 

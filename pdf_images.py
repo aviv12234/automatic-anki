@@ -1,55 +1,53 @@
+# pdf_images.py — robust import for PyMuPDF on Anki
+# - No venv, no pip
+# - Tries: pymupdf -> fitz -> optional _vendor fallback (wheel you provide)
+# - Qt PDF rendering disabled (use PyMuPDF only)
+# - Fast highlight drawing (render once, draw on same pixmap)
 
-# pdf_images.py
 from typing import Optional
-from io import BytesIO
 
-
-from typing import List, Dict, Tuple, Optional
-
-# Pillow is available in Anki's Python environment
-from PIL import Image
-
-def _resize_to_max_width(png_bytes: bytes, max_width: int = 1600) -> bytes:
-    """
-    Downscale wide images to keep media sizes reasonable; return PNG bytes.
-    """
+# --- debug logger ---
+def _dbg(msg: str) -> None:
     try:
-        with Image.open(BytesIO(png_bytes)) as im:
-            if im.width <= max_width:
-                return png_bytes
-            new_h = int(im.height * max_width / im.width)
-            im = im.convert("RGB").resize((max_width, new_h), Image.LANCZOS)
-            out = BytesIO()
-            im.save(out, format="PNG", optimize=True)
-            return out.getvalue()
+        from aqt import mw
+        import os, time
+        path = os.path.join(mw.pm.profileFolder(), "pdf2cards_debug.log")
+        ts = time.strftime("%Y-%m-%d %H:%M:%S")
+        with open(path, "a", encoding="utf-8") as f:
+            f.write(f"[{ts}] [pdf_images] {msg}\n")
+    except Exception:
+        pass
+
+
+# ------------------------------------------------------------------------
+# Minimal PNG resize (Qt only — safe)
+# ------------------------------------------------------------------------
+def _resize_png_qt(png_bytes: bytes, max_width: int = 1600) -> bytes:
+    try:
+        from PyQt6.QtGui import QImage
+        from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
     except Exception:
         return png_bytes
 
-def _render_with_pymupdf(pdf_path: str, page_number: int, dpi: int = 200) -> Optional[bytes]:
-    """
-    Render the full page to a PNG using PyMuPDF if present.
-    """
-    try:
-        import fitz  # PyMuPDF
-    except Exception:
-        return None
+    img = QImage.fromData(png_bytes)
+    if img.isNull() or img.width() <= max_width:
+        return png_bytes
 
-    try:
-        doc = fitz.open(pdf_path)
-        page = doc[page_number - 1]  # 1-based -> 0-based
-        zoom = dpi / 72.0
-        mat = fitz.Matrix(zoom, zoom)
-        pix = page.get_pixmap(matrix=mat, alpha=False)
-        png_bytes = pix.tobytes("png")
-        return _resize_to_max_width(png_bytes)
-    except Exception:
-        return None
+    new_h = max(1, int((img.height() * max_width) / img.width()))
+    scaled = img.scaled(max_width, new_h)
 
+    ba = QByteArray()
+    buf = QBuffer(ba)
+    buf.open(QIODevice.OpenModeFlag.WriteOnly)
+    scaled.save(buf, b"PNG")
+    buf.close()
+    return bytes(ba)
+
+
+# ------------------------------------------------------------------------
+# Embedded image fallback (pure Python via pypdf)
+# ------------------------------------------------------------------------
 def _extract_largest_embedded_image(pdf_path: str, page_number: int) -> Optional[bytes]:
-    """
-    Fallback: for PDFs exported as images-per-slide, take the largest embedded image.
-    Convert to PNG to ensure consistent <img> handling.
-    """
     try:
         from pypdf import PdfReader
     except Exception:
@@ -58,111 +56,198 @@ def _extract_largest_embedded_image(pdf_path: str, page_number: int) -> Optional
     try:
         reader = PdfReader(pdf_path)
         page = reader.pages[page_number - 1]
-
-        # pypdf >= 3.x exposes images via page.images (best case).
         images = getattr(page, "images", None)
-        candidates = []
-        if images:
-            for img in images:
-                # img.data: bytes, img.width, img.height may be available
-                data = getattr(img, "data", None)
-                w = getattr(img, "width", 0) or 0
-                h = getattr(img, "height", 0) or 0
-                if isinstance(data, (bytes, bytearray)) and w and h:
-                    candidates.append((w * h, bytes(data)))
-        # If the attribute is unavailable or empty, we stop here.
-        if not candidates:
+        if not images:
             return None
 
-        _, best = max(candidates, key=lambda x: x[0])
-        try:
-            with Image.open(BytesIO(best)) as im:
-                im = im.convert("RGB")
-                out = BytesIO()
-                im.save(out, format="PNG", optimize=True)
-                return _resize_to_max_width(out.getvalue())
-        except Exception:
-            # If Pillow can't decode, just return the raw bytes (not ideal).
-            return best
+        largest = None
+        max_px = 0
+        for img in images:
+            data = getattr(img, "data", None)
+            w = getattr(img, "width", 0)
+            h = getattr(img, "height", 0)
+            if isinstance(data, (bytes, bytearray)) and w and h:
+                px = w * h
+                if px > max_px:
+                    largest = bytes(data)
+                    max_px = px
+        return largest
     except Exception:
         return None
 
-def render_page_as_png(pdf_path: str, page_number: int, dpi: int = 200, max_width: int = 1600) -> Optional[bytes]:
-    """
-    Try full-page render with PyMuPDF first; otherwise, grab the largest embedded image.
-    Returns PNG bytes or None if unavailable.
-    """
-    png = _render_with_pymupdf(pdf_path, page_number, dpi=dpi)
-    if png:
-        return _resize_to_max_width(png, max_width=max_width)
-    png = _extract_largest_embedded_image(pdf_path, page_number)
-    if png:
-        return _resize_to_max_width(png, max_width=max_width)
-    return None
 
-
-# add to imports
-from typing import List, Dict, Tuple, Optional
-
-def render_page_as_png_with_highlights(
-    pdf_path: str,
-    page_number: int,
-    rects_points: List[Dict],   # [{"x":..,"y":..,"w":..,"h":..}] in PDF points
-    dpi: int = 200,
-    max_width: int = 1600,
-    fill_rgba: Optional[Tuple[int, int, int, int]] = None,
-    outline_rgba: Optional[Tuple[int, int, int, int]] = None,
-    outline_width: int = 2,
-) -> Optional[bytes]:
-    """Render the given page and paint translucent rectangles over it. Returns PNG bytes (or None if rendering fails)."""
+# ------------------------------------------------------------------------
+# Robust PyMuPDF import helper:
+#   1) import pymupdf as fitz
+#   2) import fitz
+#   3) load from _vendor/pymupdf (if a wheel was previously extracted)
+#      or if you placed a ready-made 'fitz' or 'pymupdf' package there.
+# ------------------------------------------------------------------------
+def _import_fitz():
     try:
-        import fitz  # PyMuPDF
+        import pymupdf as fitz  # new name
+        _dbg("Imported PyMuPDF via 'pymupdf'")
+        return fitz
     except Exception:
-        # No fitz; fall back to plain render (no highlights)
-        return render_page_as_png(pdf_path, page_number, dpi=dpi, max_width=max_width)
-
-    # default colors (keep your current pink as default)
-    if fill_rgba is None:
-        fill_rgba = (255, 105, 180, 55)     # light translucent
-    if outline_rgba is None:
-        outline_rgba = (255, 80, 150, 180)  # stronger outline
+        pass
 
     try:
-        # 1) Render page to PNG
+        import fitz  # legacy name
+        _dbg("Imported PyMuPDF via legacy 'fitz'")
+        return fitz
+    except Exception:
+        pass
+
+    # Try optional vendor path (_vendor/pymupdf or _vendor/fitz pre-extracted)
+    try:
+        import sys, os
+        base = os.path.dirname(__file__)
+        vendor_pkg_dir = os.path.join(base, "_vendor")
+        # Prefer a nested package dir if present (e.g., _vendor/pymupdf or _vendor/fitz)
+        # Add both to sys.path if they exist.
+        cand = []
+        for name in ("pymupdf", "fitz"):
+            p = os.path.join(vendor_pkg_dir, name)
+            if os.path.isdir(p):
+                cand.append(p)
+        if os.path.isdir(vendor_pkg_dir) and vendor_pkg_dir not in sys.path:
+            sys.path.insert(0, vendor_pkg_dir)
+        for p in cand:
+            if p not in sys.path:
+                sys.path.insert(0, p)
+
+        try:
+            import pymupdf as fitz
+            _dbg("Imported PyMuPDF from _vendor via 'pymupdf'")
+            return fitz
+        except Exception:
+            pass
+
+        import fitz
+        _dbg("Imported PyMuPDF from _vendor via 'fitz'")
+        return fitz
+    except Exception as e:
+        _dbg(f"PyMuPDF import failed (no pymupdf/fitz, no vendor): {repr(e)}")
+        raise ImportError(
+            "PyMuPDF not found. This Anki build exposes neither 'pymupdf' nor 'fitz'. "
+            "Either update Anki, or place a compatible PyMuPDF wheel/package under "
+            "automatic-anki/_vendor/ and restart Anki."
+        )
+
+
+# Grab the module (as 'fitz')
+fitz = _import_fitz()
+
+
+# ------------------------------------------------------------------------
+# PyMuPDF rendering
+# ------------------------------------------------------------------------
+def _render_with_pymupdf(pdf_path: str, page_number: int, dpi: int) -> Optional[bytes]:
+    try:
         doc = fitz.open(pdf_path)
         page = doc[page_number - 1]
         zoom = dpi / 72.0
         mat = fitz.Matrix(zoom, zoom)
         pix = page.get_pixmap(matrix=mat, alpha=False)
-        png_bytes = pix.tobytes("png")
+        out = pix.tobytes("png")
+        _dbg(f"PyMuPDF render OK ({pix.width}x{pix.height}@{dpi}dpi)")
+        return out
+    except Exception as e:
+        _dbg(f"PyMuPDF render failed: {repr(e)}")
+        return None
 
-        # 2) Draw overlays with Pillow
-        from PIL import Image, ImageDraw
-        im = Image.open(BytesIO(png_bytes)).convert("RGBA")
-        draw = ImageDraw.Draw(im, "RGBA")
 
-        for r in rects_points or []:
-            x = int((r["x"]) * zoom)
-            y = int((r["y"]) * zoom)
-            w = int(max(1, r["w"] * zoom))
-            h = int(max(1, r["h"] * zoom))
+# ------------------------------------------------------------------------
+# PUBLIC API: render_page_as_png
+# (Qt disabled; PyMuPDF + image fallback)
+# ------------------------------------------------------------------------
+def render_page_as_png(
+    pdf_path: str,
+    page_number: int,
+    dpi: int = 200,
+    max_width: int = 2000,
+) -> Optional[bytes]:
 
-            # draw translucent fill on separate layer to preserve alpha
-            overlay = Image.new("RGBA", im.size, (0, 0, 0, 0))
-            odraw = ImageDraw.Draw(overlay, "RGBA")
-            odraw.rectangle([x, y, x + w, y + h], fill=fill_rgba)
+    _dbg("Qt disabled — using PyMuPDF only")
 
-            # crisp outline directly on base image
-            draw.rectangle([x, y, x + w, y + h], outline=outline_rgba, width=outline_width)
+    # PyMuPDF (built-in or vendor)
+    png = _render_with_pymupdf(pdf_path, page_number, dpi)
+    if png:
+        return _resize_png_qt(png, max_width=max_width)
+    # Fallback to embedded images
+    blob = _extract_largest_embedded_image(pdf_path, page_number)
+    if blob:
+        _dbg("Using embedded image fallback")
+        return blob
 
-            # composite overlay onto image
-            im = Image.alpha_composite(im, overlay)
-            draw = ImageDraw.Draw(im, "RGBA")
+    _dbg("render_page_as_png: all paths failed")
+    return None
+def render_page_as_png_with_highlights(
+    pdf_path,
+    page_number,
+    rects,
+    dpi=200,
+    max_width=2000,
+    fill_rgba=(255, 255, 0, 80),
+    outline_rgba=(255, 0, 0, 200),
+    outline_width=2,
+):
+    import fitz  # PyMuPDF
 
-        out = BytesIO()
-        im.save(out, format="PNG", optimize=True)
-        data = out.getvalue()
-        return _resize_to_max_width(data, max_width=max_width)
-    except Exception:
-        # If anything fails, return plain page image
-        return render_page_as_png(pdf_path, page_number, dpi=dpi, max_width=max_width)
+    doc = fitz.open(pdf_path)
+    page = doc[page_number - 1]
+
+    # Normalize RGBA into 0..1
+    def _norm(rgba):
+        r, g, b, a = rgba
+        return (r/255.0, g/255.0, b/255.0, a/255.0)
+
+    fr, fg, fb, fa = _norm(fill_rgba)
+    or_, og, ob, oa = _norm(outline_rgba)
+
+    zoom = dpi / 72.0
+    mat = fitz.Matrix(zoom, zoom)
+
+    # ----- CREATE IN-MEMORY ANNOTATIONS -----
+    for r in rects:
+        if isinstance(r, dict):
+            x0 = r["x"]
+            y0 = r["y"]
+            x1 = x0 + r["w"]
+            y1 = y0 + r["h"]
+        else:
+            x0, y0, x1, y1 = r
+
+        rect_obj = fitz.Rect(x0, y0, x1, y1)
+
+        annot = page.add_rect_annot(rect_obj)
+        annot.set_colors(stroke=(or_, og, ob), fill=(fr, fg, fb))
+        annot.set_opacity(fa)  # fill opacity
+        annot.set_border(width=outline_width)
+        annot.update()
+
+    # ----- RENDER PAGE WITH ANNOTATIONS -----
+    pix = page.get_pixmap(matrix=mat, alpha=False)
+    png = pix.tobytes("png")
+
+    # ----- RESIZE (Qt) -----
+    try:
+        from PyQt6.QtGui import QImage
+        from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
+
+        img = QImage.fromData(png)
+        if img.width() > max_width:
+            nh = int(img.height() * (max_width / img.width()))
+            scaled = img.scaled(max_width, nh)
+
+            ba = QByteArray()
+            buf = QBuffer(ba)
+            buf.open(QIODevice.OpenModeFlag.WriteOnly)
+            scaled.save(buf, b"PNG")
+            buf.close()
+
+            return bytes(ba)
+    except:
+        pass
+
+    return png

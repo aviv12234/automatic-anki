@@ -1,11 +1,4 @@
 
-# openai_cards.py
-
-import json
-import requests
-from typing import Dict
-
-
 # local no-op/debug logger to avoid circular import
 def _dbg(msg: str) -> None:
     try:
@@ -18,11 +11,103 @@ def _dbg(msg: str) -> None:
     except Exception:
         # Fall back to a silent no-op if we can't log
         pass
+# openai_cards.py
+
+import json
+import requests
+from typing import Dict
 
 
-OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
+# --- OCR helper (OpenAI Vision) ---
+import base64
+import requests
+
+OPENAI_MODEL = "gpt-4o-mini"
+
+def _limit_png_size_for_vision(png_bytes: bytes, max_bytes: int = 3_500_000) -> bytes:
+    # If your PNG is too big, Vision sometimes returns empty output.
+    if len(png_bytes) <= max_bytes:
+        return png_bytes
+    try:
+        from PyQt6.QtGui import QImage
+        from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
+        img = QImage.fromData(png_bytes)
+        if img.isNull():
+            return png_bytes
+        # scale down by 0.75 until under max_bytes (simple loop)
+        scale = 0.85
+        w, h = img.width(), img.height()
+        for _ in range(6):
+            w = max(1, int(w * scale))
+            h = max(1, int(h * scale))
+            small = img.scaled(w, h)
+            ba = QByteArray()
+            buf = QBuffer(ba); buf.open(QIODevice.OpenModeFlag.WriteOnly)
+            small.save(buf, b"PNG")
+            buf.close()
+            out = bytes(ba)
+            if len(out) <= max_bytes:
+                return out
+            img = small
+        return out
+    except Exception:
+        return png_bytes
+    
+
+def ocr_page_image(image_bytes: bytes, api_key: str) -> str:
+    # Log: we want to see this in pdf2cards_debug.log
+    _dbg(f"OCR CALL: bytes={len(image_bytes) if image_bytes else 0}")
+
+    if not image_bytes or not api_key:
+        _dbg("OCR ABORT: missing image or API key")
+        return ""
+
+    import base64, requests
+    b64 = base64.b64encode(image_bytes).decode("ascii")
+
+    payload = {
+        "model": "gpt-4o-mini",
+        "input": [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "input_text", "text": "Extract all text. Plain text only."},
+                    {"type": "input_image", "image_url": f"data:image/png;base64,{b64}"},
+                ],
+            }
+        ],
+    }
+
+    try:
+        resp = requests.post(
+            "https://api.openai.com/v1/responses",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=60,
+        )
+        _dbg(f"OCR HTTP: status={resp.status_code}")
+        resp.raise_for_status()
+        data = resp.json()
+        text = (
+            data.get("output", [{}])[0]
+                .get("content", [{}])[0]
+                .get("text", "")
+                .strip()
+        )
+        _dbg(f"OCR OK: {len(text)} chars")
+        return text
+    except Exception as e:
+        _dbg(f"OCR ERROR: {repr(e)}")
+        return ""
+    
+
+
 OPENAI_MODEL   = "gpt-4o-mini"
 TEMPERATURE    = 0.2
+OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
 
 
 # --- Vision occlusion suggester (minimal, rectangles only) -------------------

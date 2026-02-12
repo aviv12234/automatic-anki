@@ -9,5 +9,3 @@ from pymupdf import _log_items_active
 from pymupdf import _log_items_clear
 from pymupdf import __version__
 from pymupdf import __doc__
-from pymupdf import _globals
-from pymupdf import _g_out_message
