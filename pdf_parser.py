@@ -1,29 +1,78 @@
+# pdf_parser.py — SEMANTIC HIGHLIGHTING + OCR (fixed)
 
-# pdf_parser.py
-# Extract text per page using PyMuPDF (vendored or system).
-# Keeps the original API: extract_text_from_pdf(pdf_path, page_start=1, max_pages=None)
-# Returns: List[{"page": int, "text": str}]
-from typing import List, Dict, Optional
-from .pdf_images import render_page_as_png
-from .openai_cards import ocr_page_image
-
-from typing import List, Dict, Optional
-import os
-import sys
+from typing import List, Dict, Optional, Tuple
 import re
-# pdf_parser.py
-from typing import List, Dict, Optional, Tuple   # <-- add Tuple here
+import math
+import requests
 
-def _clean_text(txt: str) -> str:
-    # De-hyphenate line breaks, normalize whitespace a bit
-    txt = re.sub(r"(\w)-\n(\w)", r"\1\2", txt)
-    txt = txt.replace("\r", "\n")
-    txt = re.sub(r"[ \t]+", " ", txt)
-    txt = re.sub(r"\n{2,}", "\n\n", txt)
-    return txt.strip()
+from .pdf_images import render_page_as_png
+from .openai_cards import ocr_page_image, _limit_png_size_for_vision
 
+# -------------------------------------------------------------------
+# CONFIG
+# -------------------------------------------------------------------
 
+HIGHLIGHT_MAX_SENTENCES = 2
+HIGHLIGHT_PAGE_AREA_LIMIT = 0.70
 
+TITLE_FONT_SCALE = 1.35
+TITLE_TOP_FRACTION = 0.20
+CAPTION_PREFIXES = r"^(fig(ure)?\.?|table|diagram|schematic)\b"
+
+# -------------------------------------------------------------------
+# Utility: cosine similarity
+# -------------------------------------------------------------------
+
+def _cosine(a, b):
+    return sum(x * y for x, y in zip(a, b)) / (
+        math.sqrt(sum(x * x for x in a)) * math.sqrt(sum(y * y for y in b)) + 1e-9
+    )
+
+def embed_texts(texts, api_key):
+    """
+    Uses the correct OpenAI endpoint for gpt-4o-mini-embed:
+    POST /v1/responses with type=input_text.
+    """
+    import requests
+    url = "https://api.openai.com/v1/responses"
+
+    payload = {
+        "model": "gpt-4o-mini-embed",
+        "input": [
+            {
+                "type": "input_text",
+                "text": txt
+            }
+            for txt in texts
+        ],
+        "encoding_format": "float"
+    }
+
+    resp = requests.post(
+        url,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json"
+        },
+        json=payload,
+        timeout=45
+    )
+
+    resp.raise_for_status()
+    data = resp.json()
+
+    # Extract embeddings
+    embeddings = []
+    for item in data.get("output", []):
+        emb = item.get("embedding")
+        if emb:
+            embeddings.append(emb)
+
+    return embeddings
+
+# -------------------------------------------------------------------
+# OCR TEXT EXTRACTION (restored)
+# -------------------------------------------------------------------
 def extract_text_from_pdf(
     pdf_path: str,
     api_key: str,
@@ -31,28 +80,22 @@ def extract_text_from_pdf(
     max_pages: Optional[int] = None,
 ) -> List[Dict[str, str]]:
     """
-    OCR-first extractor: for each page, render PNG and send to OpenAI Vision.
-    Returns: [{"page": int, "text": str}, ...]
-    This avoids all native dependencies and works on any PDF (slides, scans, etc.).
+    Return [{"page": int, "text": str}, ...] using page PNG + OCR.
+    Uses QtPdf/pypdf for page count when possible; otherwise scans until failure.
     """
-    # Determine how many pages we have
     total_pages = 0
 
-    # Try QtPdf to get pageCount
+    # QtPdf (preferred)
     try:
-        # pdf_parser.py  --- replace the QtPdf pageCount block with this
-        try:
-            from PyQt6.QtPdf import QPdfDocument
-            qdoc = QPdfDocument()
-            qdoc.load(pdf_path)  # load() returns None; check status() after
-            if qdoc.status() == QPdfDocument.Status.Ready:
-                total_pages = int(qdoc.pageCount())
-        except Exception:
-            pass
+        from PyQt6.QtPdf import QPdfDocument
+        qdoc = QPdfDocument()
+        qdoc.load(pdf_path)
+        if qdoc.status() == QPdfDocument.Status.Ready:
+            total_pages = int(qdoc.pageCount())
     except Exception:
         pass
 
-    # Fallback: pypdf just for counting pages (optional, pure python)
+    # pypdf fallback
     if total_pages <= 0:
         try:
             from pypdf import PdfReader
@@ -63,280 +106,344 @@ def extract_text_from_pdf(
 
     results: List[Dict[str, str]] = []
 
+    # Unknown count: iterate until render fails
     if total_pages <= 0:
         cap = 500
         idx = max(1, int(page_start))
         remaining = int(max_pages or cap)
-
         while remaining > 0 and idx <= cap:
             png = render_page_as_png(pdf_path, idx, dpi=300, max_width=4000)
-
             if not png:
-                # No more valid pages → stop the loop
                 break
-
-            # Valid PNG → OCR it
+            png = _limit_png_size_for_vision(png, max_bytes=3_500_000)
             text = ocr_page_image(png, api_key) or ""
             results.append({"page": idx, "text": text})
-
             idx += 1
             remaining -= 1
-
         return results
 
-    # We know the total page count
+    # Known count path
     start = max(1, int(page_start))
     end = total_pages if max_pages is None else min(total_pages, start + int(max_pages) - 1)
-
     for p in range(start, end + 1):
         png = render_page_as_png(pdf_path, p, dpi=300, max_width=4000)
+        if not png:
+            results.append({"page": p, "text": ""})
+            continue
+        png = _limit_png_size_for_vision(png, max_bytes=3_500_000)
+        text = ocr_page_image(png, api_key) or ""
+        results.append({"page": p, "text": text})
 
-        # NEW debug line:
+    return results
+
+# -------------------------------------------------------------------
+# Line layout indexing
+# -------------------------------------------------------------------
+
+def _index_line_layout(page):
+    """
+    Extract (block,line) → avg font size, y-position, text.
+    """
+    info = {}
+    try:
+        data = page.get_text("dict")
+        b_idx = -1
+        for b in data.get("blocks", []):
+            b_idx += 1
+            if b.get("type", 0) != 0:
+                continue
+            lines = b.get("lines", [])
+            for l_idx, ln in enumerate(lines):
+                spans = ln.get("spans", [])
+                if not spans:
+                    continue
+                sizes = [float(s.get("size", 0.0)) for s in spans if s.get("text")]
+                line_text = "".join(s.get("text", "") for s in spans).strip()
+                x0, y0, x1, y1 = ln.get("bbox", [0, 0, 0, 0])
+                size_avg = sum(sizes) / max(1, len(sizes))
+                info[(b_idx, l_idx)] = {
+                    "size_avg": size_avg,
+                    "y0": float(y0),
+                    "text": line_text,
+                }
+    except Exception:
+        pass
+    return info
+
+# -------------------------------------------------------------------
+# Word extraction WITH layout metadata (title/caption detection)
+# -------------------------------------------------------------------
+
+def extract_words_with_boxes(pdf_path: str, page_number: int) -> List[Dict]:
+    try:
+        try:
+            import pymupdf as fitz
+        except Exception:
+            import fitz
+    except Exception:
+        return []
+
+    try:
+        doc = fitz.open(pdf_path)
+        page = doc[page_number - 1]
+    except Exception:
+        return []
+
+    line_info = _index_line_layout(page)
+
+    # words: (x0,y0,x1,y1, "text", block, line, word_no)
+    try:
+        words_raw = page.get_text("words")
+    except Exception:
+        return []
+
+    # median font size
+    sizes = [v["size_avg"] for v in line_info.values() if v.get("size_avg")]
+    median_size = sorted(sizes)[len(sizes)//2] if sizes else 0.0
+
+    page_h = float(page.rect.height or 1.0)
+    caption_re = re.compile(CAPTION_PREFIXES, flags=re.I)
+
+    out = []
+    for w in words_raw:
+        if len(w) < 8:
+            continue
+        x0, y0, x1, y1, text, block, line, word_no = w[:8]
+        li = line_info.get((int(block), int(line)), {})
+
+        line_size = float(li.get("size_avg", median_size))
+        line_y0 = float(li.get("y0", y0))
+        line_text = li.get("text", "")
+
+        # Title?
+        is_title = False
+        if median_size > 0:
+            if line_y0 <= page_h * TITLE_TOP_FRACTION and line_size >= median_size * TITLE_FONT_SCALE:
+                if len(line_text.split()) <= 12:
+                    is_title = True
+
+        # Caption?
+        is_caption = bool(caption_re.match(line_text.strip()))
+
+        ends = bool(re.search(r"[.!?;:]\s*$", str(text or "")))
+
+        out.append({
+            "text": str(text or ""),
+            "x0": float(x0), "y0": float(y0),
+            "x1": float(x1), "y1": float(y1),
+            "block": int(block), "line": int(line),
+            "word_no": int(word_no),
+            "ends_sent": ends,
+
+            # layout metadata
+            "line_size": line_size,
+            "line_y0": line_y0,
+            "line_text": line_text,
+            "is_title_line": is_title,
+            "is_caption_line": is_caption,
+        })
+
+    return out
+
+# -------------------------------------------------------------------
+# SEMANTIC SENTENCE → RECTANGLES
+# -------------------------------------------------------------------
+def semantic_sentence_rects(
+    words,
+    answer_text,
+    api_key,
+    max_sentences=1,
+    min_sim=0.20,
+    pad=0.3,
+):
+    """
+    Robust semantic highlighter:
+    - Uses embeddings to match answer_text to PDF sentences
+    - Returns ONLY ONE rectangle
+    - Rejects rectangles that are too large (>35% of the page)
+    - If best match is huge, tries the next-best candidate
+    """
+
+    # ------------------------
+    # SAFE LOCAL DEBUG LOGGER
+    # ------------------------
+    def _dbg_local(msg: str) -> None:
         try:
             from aqt import mw
             import os, time
             path = os.path.join(mw.pm.profileFolder(), "pdf2cards_debug.log")
             ts = time.strftime("%Y-%m-%d %H:%M:%S")
             with open(path, "a", encoding="utf-8") as f:
-                f.write(f"[{ts}] RENDER page {p}: png={('None' if not png else len(png))} bytes\n")
-        except:
-            pass
-
-        if not png:
-            results.append({"page": p, "text": ""})
-            continue
-        
-        from .openai_cards import _limit_png_size_for_vision
-        png = _limit_png_size_for_vision(png, max_bytes=3_500_000)
-        text = ocr_page_image(png, api_key) or ""
-        try:
-            # Use main.py’s logger path/format for consistency
-            from aqt import mw
-            import time, os
-            path = os.path.join(mw.pm.profileFolder(), "pdf2cards_debug.log")
-            ts = time.strftime("%Y-%m-%d %H:%M:%S")
-            with open(path, "a", encoding="utf-8") as f:
-                f.write(f"[{ts}] OCR page {p}: {len(text)} chars\n")
+                f.write(f"[{ts}] [semantic_hi] {msg}\n")
         except Exception:
             pass
 
-        results.append({"page": p, "text": text})
-
-    return results
-
-# pdf_parser.py
-from typing import List, Dict
-import re
-
-def extract_words_with_boxes(pdf_path: str, page_number: int) -> List[Dict]:
-    """
-    Return a list of word dicts for the given page, in PDF points:
-    [
-      { "text": "...", "x0": float, "y0": float, "x1": float, "y1": float,
-        "block": int, "line": int, "word_no": int, "ends_sent": bool },
-      ...
-    ]
-    """
     try:
-        try:
-            import pymupdf as fitz
-        except Exception:
-            import fitz  # legacy
-    except Exception:
-        return []
+        # DEBUG
+        _dbg_local(f"DEBUG answer_text='{(answer_text or '')[:120]}'")
+        _dbg_local(f"DEBUG words_count={len(words or [])}")
 
-    try:
-        doc = fitz.open(pdf_path)
-        page = doc[page_number - 1]              # 1-based -> 0-based
-        words = page.get_text("words")           # (x0,y0,x1,y1, "w", block, line, word_no)
-    except Exception:
-        return []
+        # --------------------------------------------------------------------
+        # 1. If title/caption filtering deletes everything, restore all words
+        # --------------------------------------------------------------------
+        usable = [
+            w for w in (words or [])
+            if not (w.get("is_title_line") or w.get("is_caption_line"))
+        ]
+        if not usable:
+            usable = list(words or [])
+            _dbg_local("DEBUG usable was empty after filtering → restored all words")
 
-    out: List[Dict] = []
-    for w in words:
-        if len(w) < 8:
-            continue
-        x0, y0, x1, y1, text, block, line, word_no = w[:8]
-        text_s = str(text or "")
-        ends = bool(re.search(r"[.!?;:]\s*$", text_s))
-        out.append({
-            "text": text_s, "x0": float(x0), "y0": float(y0),
-            "x1": float(x1), "y1": float(y1),
-            "block": int(block), "line": int(line), "word_no": int(word_no),
-            "ends_sent": ends,
-        })
-    return out
-
-
-def _merge_rects(rects: List[Tuple[float, float, float, float]],
-                 pad: float = 0.5) -> Tuple[float, float, float, float]:
-    """Return a single bounding rectangle (x0,y0,x1,y1) that encloses rects."""
-    if not rects:
-        return (0.0, 0.0, 0.0, 0.0)
-    x0 = min(r[0] for r in rects) - pad
-    y0 = min(r[1] for r in rects) - pad
-    x1 = max(r[2] for r in rects) + pad
-    y1 = max(r[3] for r in rects) + pad
-    return (x0, y0, x1, y1)
-
-def _normalize_token(t: str) -> str:
-    return re.sub(r"[^\wα-ωΑ-Ωµ²³⁺⁻]+", "", t.lower())
-
-def sentence_rects_for_phrase(
-    words: List[Dict],
-    phrase: str,
-    max_sentences: int = 1,
-    pad: float = 0.5,
-) -> List[Dict]:
-    """
-    Find the phrase, then expand to sentence boundary(ies) and return line-tight rectangles.
-    Returns: [{"x":..., "y":..., "w":..., "h":...}, ...] in PDF points.
-    - max_sentences: include at least 1 (default) and at most this many sentences (1..3 recommended).
-    - Multiple rectangles are returned if the sentence wraps across lines.
-    """
-    phrase = (phrase or "").strip()
-    if not phrase or not words:
-        return []
-
-    # Build normalized sequences for matching
-    raw_tokens = [w["text"] for w in words]
-    norm_words = [_normalize_token(t) for t in raw_tokens]
-    tokens = [t for t in re.split(r"\s+", phrase) if _normalize_token(t)]
-    norm_tokens = [_normalize_token(t) for t in tokens]
-    if not norm_tokens:
-        return []
-
-    # Exact contiguous match first
-    hits: List[Tuple[int, int]] = []
-    L = len(norm_tokens)
-    for i in range(0, max(0, len(norm_words) - L + 1)):
-        if norm_words[i:i + L] == norm_tokens:
-            hits.append((i, i + L - 1))
-
-    # Choose the span we will expand
-    if hits:
-        i0, i1 = hits[0]
-    else:
-        # Fallback: cover min..max indices of distinctive tokens found
-        key = sorted(set(norm_tokens), key=lambda t: (-len(t), t))
-        idxs = [j for j, wnorm in enumerate(norm_words) if wnorm in key]
-        if not idxs:
+        if not usable:
+            _dbg_local("No usable words or empty page → return []")
             return []
-        i0, i1 = min(idxs), max(idxs)
 
-    # Keep expansion inside the same block for stability
-    base_block = words[i0].get("block", 0)
+        if not (answer_text or "").strip():
+            _dbg_local("Answer text empty → return []")
+            return []
 
-    # Expand LEFT to previous sentence ending within the same block
-    s = i0
-    j = i0 - 1
-    while j >= 0 and words[j].get("block", 0) == base_block:
-        if words[j].get("ends_sent", False):
-            s = j + 1
-            break
-        s = j
-        j -= 1
+        # --------------------------------------------------------------------
+        # 2. GROUP WORDS INTO SENTENCES (fallback to lines)
+        # --------------------------------------------------------------------
+        sentences = []
+        current = []
 
-    # Expand RIGHT across up to max_sentences endings (at least 1 sentence)
-    e = i1
-    sentences_taken = 0
-    k = i1
-    while k < len(words) and words[k].get("block", 0) == base_block:
-        e = k
-        if words[k].get("ends_sent", False):
-            sentences_taken += 1
-            if sentences_taken >= max(1, int(max_sentences or 1)):
-                break
-        k += 1
+        for idx, w in enumerate(usable):
+            current.append(idx)
+            if w.get("ends_sent"):
+                text = " ".join(usable[j]["text"] for j in current).strip()
+                if text:
+                    sentences.append({"text": text, "idxs": current[:]})
+                current = []
 
-    # Merge words into rectangles per (block,line) for tight, line-wrapped boxes
-    rects_by_line: Dict[Tuple[int, int], List[Tuple[float, float, float, float]]] = {}
-    for idx in range(s, e + 1):
-        w = words[idx]
-        key = (w.get("block", 0), w.get("line", 0))
-        rects_by_line.setdefault(key, []).append((w["x0"], w["y0"], w["x1"], w["y1"]))
+        if not sentences:
+            # fallback to line groups
+            line_groups = {}
+            for i, w in enumerate(usable):
+                line_groups.setdefault((w["block"], w["line"]), []).append(i)
+            for _, idxs in line_groups.items():
+                text = " ".join(usable[j]["text"] for j in idxs).strip()
+                if text:
+                    sentences.append({"text": text, "idxs": idxs[:]})
 
-    out_rects: List[Dict] = []
-    for _, rects in sorted(rects_by_line.items(), key=lambda kv: (kv[0][0], kv[0][1])):
-        x0 = min(r[0] for r in rects) - pad
-        y0 = min(r[1] for r in rects) - pad
-        x1 = max(r[2] for r in rects) + pad
-        y1 = max(r[3] for r in rects) + pad
-        out_rects.append({"x": x0, "y": y0, "w": (x1 - x0), "h": (y1 - y0)})
+        if not sentences:
+            _dbg_local("Sentence extraction produced 0 sentences → return []")
+            return []
 
-    return out_rects
+        _dbg_local(f"DEBUG sentences_count={len(sentences)}")
 
-def boxes_for_phrase(words: List[Dict], phrase: str) -> List[Dict]:
-    """
-    Locate 'phrase' on the page and return a list of rectangles (one per occurrence)
-    in PDF points: [{"x":..., "y":..., "w":..., "h":...}, ...].
+        # --------------------------------------------------------------------
+        # 3. Embed answer + sentences
+        # --------------------------------------------------------------------
+        combined = [answer_text] + [s["text"] for s in sentences]
+        try:
+            embs = embed_texts(combined, api_key)
+        except Exception as e:
+            _dbg_local(f"Embedding error: {e}")
+            embs = None
 
-    Strategy:
-      - Case-insensitive, punctuation-light tokenization on both phrase and page words.
-      - Exact sequence match -> one tight rectangle per hit.
-      - If no exact sequence is found, fall back to highlighting a few distinctive tokens.
-    """
-    phrase = (phrase or "").strip()
-    if not phrase:
+        # rank candidates
+        if embs and len(embs) == len(combined):
+            ans_emb = embs[0]
+            sims = []
+
+            for i, se in enumerate(embs[1:]):
+                try:
+                    sims.append((_cosine(ans_emb, se), i))
+                except:
+                    sims.append((-1.0, i))
+
+            sims.sort(reverse=True, key=lambda x: x[0])
+            ranked_idx = [idx for _, idx in sims]
+            _dbg_local(f"DEBUG ranked_idx (embeddings)={ranked_idx}")
+
+        else:
+            # lexical fallback
+            _dbg_local("Embeddings unavailable → fallback lexical matcher")
+            atoks = set(re.findall(r"\w+", answer_text.lower()))
+            scores = []
+
+            for i, s in enumerate(sentences):
+                stoks = set(re.findall(r"\w+", s["text"].lower()))
+                overlap = len(atoks & stoks)
+                scores.append((overlap, i))
+
+            scores.sort(reverse=True, key=lambda x: x[0])
+            ranked_idx = [idx for _, idx in scores]
+            _dbg_local(f"DEBUG ranked_idx (lexical)={ranked_idx}")
+
+        if not ranked_idx:
+            _dbg_local("No ranked candidates → return []")
+            return []
+
+        # --------------------------------------------------------------------
+        # 4. Try candidates IN ORDER, rejecting oversized rectangles.
+        # --------------------------------------------------------------------
+        # compute "page" bounds from usable words
+        page_x0 = min(w["x0"] for w in usable)
+        page_y0 = min(w["y0"] for w in usable)
+        page_x1 = max(w["x1"] for w in usable)
+        page_y1 = max(w["y1"] for w in usable)
+        page_area = max(1e-6, (page_x1 - page_x0) * (page_y1 - page_y0))
+
+        for idx in ranked_idx:
+            sent = sentences[idx]
+
+            xs, ys, xe, ye = [], [], [], []
+            for wi in sent["idxs"]:
+                w = usable[wi]
+                xs.append(w["x0"]); ys.append(w["y0"])
+                xe.append(w["x1"]); ye.append(w["y1"])
+
+            if not xs:
+                continue
+
+            x0, y0 = min(xs), min(ys)
+            x1, y1 = max(xe), max(ye)
+
+            # tight rect
+            rect = {
+                "x": x0 - pad,
+                "y": y0 - pad,
+                "w": (x1 - x0) + 2 * pad,
+                "h": (y1 - y0) + 2 * pad,
+            }
+
+            # compute rectangle area
+            rect_area = (x1 - x0) * (y1 - y0)
+            ratio = rect_area / page_area
+
+            _dbg_local(f"DEBUG candidate idx={idx} rect_ratio={ratio:.3f}")
+
+            # reject if too large
+            if ratio > 0.35:
+                _dbg_local("DEBUG → oversized rect rejected; trying next candidate")
+                continue
+
+            # ACCEPTED rectangle!
+            _dbg_local("DEBUG → accepted rectangle")
+            return [rect]
+
+        # If we reach here, ALL rects were too large
+        _dbg_local("All candidates were oversized → return []")
         return []
 
-    tokens = [t for t in re.split(r"\s+", phrase) if _normalize_token(t)]
-    norm_tokens = [_normalize_token(t) for t in tokens]
-    if not norm_tokens:
+    except Exception as e:
+        _dbg_local(f"FATAL semantic_sentence_rects: {e}")
         return []
+# -------------------------------------------------------------------
+# Compatibility stubs expected by main.py (kept minimal)
+# -------------------------------------------------------------------
 
-    norm_words = [_normalize_token(w["text"]) for w in words]
+def boxes_for_phrase(words, phrase):
+    return []
 
-    hits: List[Tuple[int, int]] = []
-    L = len(norm_tokens)
-    for i in range(0, max(0, len(norm_words) - L + 1)):
-        if norm_words[i:i+L] == norm_tokens:
-            hits.append((i, i+L-1))
-
-    rects: List[Dict] = []
-    if hits:
-        # Return ONE rectangle PER occurrence (tight around the whole phrase)
-        for (i0, i1) in hits:
-            xs = [words[k]["x0"] for k in range(i0, i1+1)]
-            ys = [words[k]["y0"] for k in range(i0, i1+1)]
-            xe = [words[k]["x1"] for k in range(i0, i1+1)]
-            ye = [words[k]["y1"] for k in range(i0, i1+1)]
-            x0, y0, x1, y1 = min(xs), min(ys), max(xe), max(ye)
-            rects.append({"x": x0, "y": y0, "w": (x1 - x0), "h": (y1 - y0)})
-        return rects
-
-    # ✅ Fallback: merge all matching tokens into ONE phrase rectangle
-    key_tokens = sorted(set(norm_tokens), key=lambda t: (-len(t), t))
-
-    matched_boxes = []
-    for j, wnorm in enumerate(norm_words):
-        if wnorm in key_tokens:
-            w = words[j]
-            matched_boxes.append(w)
-
-    if not matched_boxes:
-        return []
-
-    x0 = min(w["x0"] for w in matched_boxes)
-    y0 = min(w["y0"] for w in matched_boxes)
-    x1 = max(w["x1"] for w in matched_boxes)
-    y1 = max(w["y1"] for w in matched_boxes)
-
-    return [{
-        "x": x0,
-        "y": y0,
-        "w": (x1 - x0),
-        "h": (y1 - y0),
-    }]
-
-# --- NEW: image boxes per page (PDF points) -------------------------------
-from typing import List, Dict
+def sentence_rects_for_phrase(words, phrase, max_sentences=1, pad=0.3):
+    return []
 
 def extract_image_boxes(pdf_path: str, page_number: int) -> List[Dict]:
     """
-    Return [{ "x":..., "y":..., "w":..., "h":... }, ...] for each image block
-    on the page, using PyMuPDF rawdict ("type": 1 or "image"). Coordinates are
-    in PDF points (1/72 inch).
+    Placeholder preserved for compatibility with main.py.
+    The semantic highlighter does not use image boxes yet.
     """
-
     return []

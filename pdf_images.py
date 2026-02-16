@@ -192,62 +192,126 @@ def render_page_as_png_with_highlights(
     outline_rgba=(255, 0, 0, 200),
     outline_width=2,
 ):
+    """
+    Render a PDF page to PNG and paint highlight rectangles on top.
+    The input rects may be:
+      • PDF points (72 dpi)  -> used as-is
+      • pixel units (at 'dpi')-> scaled by 72/dpi
+      • relative fractions [0..1] -> scaled by page width/height
+    Also clamps and filters suspicious rects to avoid page-wide floods.
+    """
     import fitz  # PyMuPDF
 
     doc = fitz.open(pdf_path)
-    page = doc[page_number - 1]
-
-    # Normalize RGBA into 0..1
-    def _norm(rgba):
-        r, g, b, a = rgba
-        return (r/255.0, g/255.0, b/255.0, a/255.0)
-
-    fr, fg, fb, fa = _norm(fill_rgba)
-    or_, og, ob, oa = _norm(outline_rgba)
-
-    zoom = dpi / 72.0
-    mat = fitz.Matrix(zoom, zoom)
-
-    # ----- CREATE IN-MEMORY ANNOTATIONS -----
-    for r in rects:
-        if isinstance(r, dict):
-            x0 = r["x"]
-            y0 = r["y"]
-            x1 = x0 + r["w"]
-            y1 = y0 + r["h"]
-        else:
-            x0, y0, x1, y1 = r
-
-        rect_obj = fitz.Rect(x0, y0, x1, y1)
-
-        annot = page.add_rect_annot(rect_obj)
-        annot.set_colors(stroke=(or_, og, ob), fill=(fr, fg, fb))
-        annot.set_opacity(fa)  # fill opacity
-        annot.set_border(width=outline_width)
-        annot.update()
-
-    # ----- RENDER PAGE WITH ANNOTATIONS -----
-    pix = page.get_pixmap(matrix=mat, alpha=False)
-    png = pix.tobytes("png")
-
-    # ----- RESIZE (Qt) -----
     try:
-        from PyQt6.QtGui import QImage
-        from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
+        page = doc[page_number - 1]
+        page_rect = page.rect
 
-        img = QImage.fromData(png)
-        if img.width() > max_width:
-            nh = int(img.height() * (max_width / img.width()))
-            scaled = img.scaled(max_width, nh)
+        # Normalize RGBA into 0..1
+        def _norm(rgba):
+            r, g, b, a = rgba
+            return (r / 255.0, g / 255.0, b / 255.0, a / 255.0)
 
-            ba = QByteArray()
-            buf = QBuffer(ba)
-            buf.open(QIODevice.OpenModeFlag.WriteOnly)
-            scaled.save(buf, b"PNG")
-            buf.close()
+        fr, fg, fb, fa = _norm(fill_rgba)
+        or_, og, ob, oa = _norm(outline_rgba)
 
-            return bytes(ba)
-    except:
-        pass
+        # Heuristic: convert various incoming rect formats into PDF points
+        def _as_points(r, rect_count):
+            if isinstance(r, dict):
+                x = float(r.get("x", 0.0))
+                y = float(r.get("y", 0.0))
+                w = float(r.get("w", 0.0))
+                h = float(r.get("h", 0.0))
+                x1, y1 = x + w, y + h
+            else:
+                x, y, x1, y1 = map(float, r)
+                w, h = x1 - x, y1 - y
 
-    return png
+            # Degenerate -> drop
+            if w <= 0 or h <= 0:
+                return None
+
+            # 1) Relative fractions 0..1 ?
+            is_rel = all(0.0 <= v <= 1.2 for v in (x, y, w, h))
+            # 2) Way bigger than page -> likely pixels at 'dpi'
+            is_px = (
+                x > page_rect.width * 1.5
+                or y > page_rect.height * 1.5
+                or w > page_rect.width * 1.5
+                or h > page_rect.height * 1.5
+            )
+
+            if is_rel:
+                x *= page_rect.width
+                y *= page_rect.height
+                w *= page_rect.width
+                h *= page_rect.height
+                x1, y1 = x + w, y + h
+            elif is_px:
+                scale = 72.0 / float(dpi or 72.0)
+                x *= scale; y *= scale; x1 *= scale; y1 *= scale
+
+            # Clamp to page bounds
+            x0 = max(page_rect.x0, min(x, x1))
+            y0 = max(page_rect.y0, min(y, y1))
+            x1 = min(page_rect.x1, max(x, x1))
+            y1 = min(page_rect.y1, max(y, y1))
+            if x1 - x0 < 1.0 or y1 - y0 < 1.0:
+                return None
+
+            # If a rect is ~full-page and there are other rects,
+            # treat it as suspicious and drop it.
+            page_area = page_rect.width * page_rect.height
+            area = (x1 - x0) * (y1 - y0)
+            if rect_count > 1 and area > 0.97 * page_area:
+                return None
+
+            return fitz.Rect(x0, y0, x1, y1)
+
+        rects = rects or []
+        norm_rects = []
+        for r in rects:
+            nr = _as_points(r, len(rects))
+            if nr is not None:
+                norm_rects.append(nr)
+
+        # Log what we ended up with
+        try:
+            _dbg(f"Highlights: in={len(rects)}, normalized={len(norm_rects)} @page={page_number}")
+        except Exception:
+            pass
+
+        # Create in-memory annotations
+        for rr in norm_rects:
+            annot = page.add_rect_annot(rr)
+            annot.set_colors(stroke=(or_, og, ob), fill=(fr, fg, fb))
+            annot.set_opacity(fa)  # overall opacity
+            annot.set_border(width=outline_width)
+            annot.update()
+
+        # Render
+        zoom = dpi / 72.0
+        mat = fitz.Matrix(zoom, zoom)
+        pix = page.get_pixmap(matrix=mat, alpha=False)
+        png = pix.tobytes("png")
+
+        # Optional resize with Qt (if available)
+        try:
+            from PyQt6.QtGui import QImage
+            from PyQt6.QtCore import QByteArray, QBuffer, QIODevice
+            img = QImage.fromData(png)
+            if img.width() > max_width:
+                nh = int(img.height() * (max_width / img.width()))
+                scaled = img.scaled(max_width, nh)
+                ba = QByteArray()
+                buf = QBuffer(ba)
+                buf.open(QIODevice.OpenModeFlag.WriteOnly)
+                scaled.save(buf, b"PNG")
+                buf.close()
+                return bytes(ba)
+        except Exception:
+            pass
+
+        return png
+    finally:
+        doc.close()

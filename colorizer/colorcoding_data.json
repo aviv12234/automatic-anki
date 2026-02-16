@@ -8713,5 +8713,995 @@
     "word": "Mitotan",
     "group": "Zytostatika",
     "color": "#97D8C8"
+  },
+  {
+    "word": "Insula",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "LateralFissure",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "InternalCapsule",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "Thalamus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "Pulvinar",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "LateralGeniculate",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "MedialGeniculate",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "PrimaryMotor",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "PrimarySomatosensory",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "PrimaryVisual",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "PrimaryAuditory",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SupplementalMotor",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AssociationCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "Parahippocampal",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "StriaTerminalis",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "SeptalNuclei",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "Habenula",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "PapezCircuit",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "ComputedTomography",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "MagneticResonance",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "T1Weighted",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "T2Weighted",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "DiffusionTensor",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "PositronEmission",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "Fluorodeoxyglucose",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "Hemianopsia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "BitemporalHemianopsia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "SplitBrain",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "ThalamicSyndrome",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "DejerineRoussy",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "IntraparietalSulcus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "OccipitalPole",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "Cuneus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "SuperiorTemporalSulcus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "InferiorTemporalSulcus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "ShortInsularGyri",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "LongInsularGyrus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "StraightGyrus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "OrbitalGyri",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "OlfactorySulcus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "RhinalSulcus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "MedialOccipitotemporalGyrus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "LateralOccipitotemporalGyrus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "FrontalPole",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "TemporalPole",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "GenuCorpusCallosum",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "RostrumCorpusCallosum",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "SpleniumCorpusCallosum",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "ForcepsMinor",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "ForcepsMajor",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "InterthalamicAdhesion",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "SuperiorColliculus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "InferiorColliculus",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "TemporalHorn",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "OccipitalHorn",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "PosteriorHorn",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "CollateralTrigone",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "CollateralEminence",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "CalcarAvis",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "InternalCerebralVein",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "HippocampalFormation",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "CornuAmmonis",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "EntorhinalCortex",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "PesHippocampus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "HippocampalSulcus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "IndusiumGriseum",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "StriaMedullaris",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "MedianForebrainBundle",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "InterpeduncularNucleus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "FasciculusRetroflexus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "OlfactoryBulb",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "OlfactoryTract",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "OlfactoryStria",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "MedialOlfactoryStria",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "LateralOlfactoryStria",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "ParaterminalGyrus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "SubcallosalArea",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "SeptalArea",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "LimbicSystem",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "MotorCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SomatosensoryCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SomatosensoryAssociation",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SecondarySomatosensory",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "MultisensoryAssociation",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AuditoryCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ExecutiveCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ExpressiveLanguage",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ReceptiveLanguage",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "LanguageDominance",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "CommissuralFibers",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AssociationFibers",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ProjectionFibers",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "DiffusionWeightedImaging",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "DiffusionAnisotropy",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "Tractography",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "Radiotracer",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "GlucoseMetabolism",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "TracerUptake",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "AxialTomogram",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "CoronalTomogram",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "SagittalTomogram",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "ThalamicPain",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Hyperpathia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "AnalgesiaDolorosa",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Hemiballismus",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Choreiform",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Athetoid",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "ExtremeCapsule",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "ExternalCapsule",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "Claustrum",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "FornicalCommissure",
+    "group": "anatomy",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "Fimbria",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "Alveus",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "SubiculumCortex",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "TemporalLobeMemory",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "OlfactoryCortex",
+    "group": "limbic",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "VisualCortex",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AuditoryAssociation",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "MotorPlanning",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SomaticIntegration",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "CognitiveControl",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "EmotionRegulation",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "MemoryEncoding",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SpatialNavigation",
+    "group": "functional",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AnisotropicDiffusion",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "EigenvectorMap",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "SignalIntensity",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "VoxelResolution",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "PartialVolume",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "ProtonDensity",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "IsotropicAcquisition",
+    "group": "imaging",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "SensoryDeficit",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "VisualAgnosia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "AuditoryAgnosia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "SpatialNeglect",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "DisconnectionSyndrome",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Prosopagnosia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "Alexia",
+    "group": "pathology",
+    "color": "#FFDAB9"
+  },
+  {
+    "word": "LunateSulcus",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "TransverseOccipitalSulcus",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "PreoccipitalNotch",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "SylvianFissure",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "OpercularCortex",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "FrontoparietalOperculum",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "TemporoparietalJunction",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "ParietalAssociationCortex",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "TemporalAssociationCortex",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "VisualAssociationArea",
+    "group": "neuro",
+    "color": "#FFB6C1"
+  },
+  {
+    "word": "PrimaryTrigeminalArea",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "TrigeminalCortex",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "SomatosensoryAssociationCortex",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ExecutivePrefrontalCortex",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "LimbicCortex",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "MedialFrontalCortex",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "ParietalLobeFunction",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "TemporalLobeFunction",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "OccipitalLobeFunction",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "VisualHemifield",
+    "group": "neuro",
+    "color": "#FFE4B5"
+  },
+  {
+    "word": "AnteriorPerforatedSubstance",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "PosteriorPerforatedSubstance",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "InterpeduncularFossa",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "BrachiumSuperiorColliculus",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "BrachiumInferiorColliculus",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "SuperiorMedullaryVelum",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "InferiorMedullaryVelum",
+    "group": "neuro",
+    "color": "#E6E6FA"
+  },
+  {
+    "word": "InterventricularForamen",
+    "group": "neuro",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "SubarachnoidCistern",
+    "group": "neuro",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "CisternaMagna",
+    "group": "neuro",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "ChoroidPlexusLateralVentricle",
+    "group": "neuro",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "GreatCerebralVein",
+    "group": "neuro",
+    "color": "#AFEEEE"
+  },
+  {
+    "word": "CallosalRadiations",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "InterhemisphericFibers",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "CallosalDisconnection",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "SplitBrainSyndrome",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "CommissuralPathways",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "WhiteMatterTracts",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "DiffusionTensorTractography",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "EigenvectorAnalysis",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "ColorCodedTracts",
+    "group": "neuro",
+    "color": "#F5DEB3"
+  },
+  {
+    "word": "AnteriorLimbInternalCapsule",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "PosteriorLimbInternalCapsule",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "GenuInternalCapsule",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "PosteriorThalamicRadiation",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "LentiformNucleus",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "BasalNucleiCircuit",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "MotorLoopBasalGanglia",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "ThalamocorticalRelay",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "CorticostriatalProjections",
+    "group": "neuro",
+    "color": "#C1FFC1"
+  },
+  {
+    "word": "AnteriorThalamicNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "MediodorsalThalamus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "LateralDorsalNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "LateralPosteriorNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "ThalamicRelayNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "ThalamicAssociationNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "ThalamicReticularNucleus",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "IntralaminarThalamicNuclei",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "ThalamogeniculateTerritory",
+    "group": "neuro",
+    "color": "#D8BFD8"
+  },
+  {
+    "word": "PosterolateralThalamus",
+    "group": "neuro",
+    "color": "#D8BFD8"
   }
 ]

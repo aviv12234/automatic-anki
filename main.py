@@ -15,6 +15,13 @@ from aqt.qt import (
     QColorDialog
 )
 
+from .pdf_parser import (
+    extract_words_with_boxes,
+    extract_image_boxes,
+    extract_text_from_pdf,
+    semantic_sentence_rects,   # <-- ADD THIS
+)
+
 # Colorizer entry points (used from the Options dialog buttons)
 from .colorizer import open_coloration_settings_dialog, on_edit_color_table
 
@@ -41,6 +48,13 @@ _MAX_MASKS_PER_CROP = 12
 ADDON_ID = os.path.basename(os.path.dirname(__file__))
 
 
+import math
+
+def _cosine(a, b):
+    return sum(x*y for x,y in zip(a,b)) / (
+        math.sqrt(sum(x*x for x in a)) * math.sqrt(sum(y*y for y in b)) + 1e-9
+    )
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Debug logger
 # ──────────────────────────────────────────────────────────────────────────────
@@ -54,6 +68,10 @@ def _dbg(msg: str) -> None:
             f.write(f"[{ts}] {msg}\n")
     except Exception:
         pass
+
+def _is_real_cloze(text: str) -> bool:
+    import re
+    return bool(re.search(r"\{\{c\d+::.+?\}\}", text or ""))
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -402,16 +420,31 @@ def _worker_generate_cards(pdf_path: str, api_key: str, opts: dict) -> Dict:
                     })
                     continue
 
+                
                 front = (card.get("front") or "").strip()
                 back  = (card.get("back")  or "").strip()
-                phrase = back or front
 
+                # Determine highlight text based on card type
+                is_cloze = _is_real_cloze(front) or _is_real_cloze(back)
+
+                if is_cloze:
+                    rect_text = front      # Cloze: highlight based on front-side cloze text
+                else:
+                    rect_text = back       # Basic: highlight based on back (actual answer)
+
+                # Compute highlight rects
                 hi_rects = []
                 if opts.get("highlight_enabled", True):
-                    rects = sentence_rects_for_phrase(page_words, phrase, max_sentences=1) or []
-                    if not rects:
-                        rects = boxes_for_phrase(page_words, phrase) or []
-                    hi_rects = rects
+                    try:
+                        hi_rects = semantic_sentence_rects(
+                            page_words,
+                            rect_text,   # <-- the correct source text depending on card type
+                            api_key,
+                            max_sentences=1
+                        )
+                    except Exception as e:
+                        _dbg(f"Semantic highlight error: {e}")
+                        hi_rects = []
 
                 results.append({ "front": front, "back": back, "page": page["page"], "hi": hi_rects })
 
@@ -472,9 +505,7 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
         try:
             total = len(cards)
 
-            def _is_real_cloze(text: str) -> bool:
-                import re
-                return bool(re.search(r"\{\{c\d+::.+?\}\}", text or ""))
+            
 
             for idx, card in enumerate(cards, start=1):
                 mw.taskman.run_on_main(lambda i=idx, t=total:
