@@ -529,6 +529,13 @@ class DeckPickerDialog(QDialog):
         self.colorize_cb = QCheckBox('Colorize words (turn off to decolor)', self)
         self.colorize_cb.setChecked(cfg.get("colorize_enabled", True))
 
+        self.color_inside_cloze_cb = QCheckBox("Color inside Cloze deletions", self)
+        # default from saved config (fallback True so users can immediately use it)
+        self.color_inside_cloze_cb.setChecked(_ensure_cfg_initialized().get("color_inside_cloze", True))
+        layout.addWidget(self.color_inside_cloze_cb)
+
+
+
         for cb in [
             self.include_children_cb,
             self.skip_cloze_cb,
@@ -580,6 +587,9 @@ class DeckPickerDialog(QDialog):
 
     def colorize_enabled(self) -> bool:
         return self.colorize_cb.isChecked()
+    
+    def color_inside_cloze_enabled(self) -> bool:
+        return self.color_inside_cloze_cb.isChecked()
 
 # -------------------------------------------------------------------
 # Core coloring helpers (PERMANENT multi-word fix + longest-first priority)
@@ -592,6 +602,7 @@ class ColoringOptions:
     italic: bool = False
     bold_plurals: bool = True  # "Match plural forms" toggle
     colorize: bool = True
+    color_inside_cloze: bool = False
 
 # --- Helpers for multi-word & plural support (no term lists) ---
 _CAMEL_TOKEN_RE = re.compile(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+")
@@ -695,13 +706,13 @@ def build_combined_regex(color_table: Dict[str, str], opts: ColoringOptions) -> 
 
     for tokens, key, color in explicit_entries:
         tmp.append((tokens, key, color, False))  # explicit row
-        
+
         # Derive single-token matches from multi-token entries,
         # but block short/common words to prevent unwanted coloring.
         MIN_DERIVED = 4
         STOPWORDS = {
             "of", "and", "the", "in", "to", "for", "as", "or", "on", "by",
-            "und", "der", "die", "das", "mit", "von", "im", "an", "zu"
+            "und", "der", "die", "das", "mit", "von", "im", "an", "zu", "no"
         }
 
         if len(tokens) > 1:
@@ -787,53 +798,183 @@ def apply_color_coding_to_html(
     if not html or not regex.pattern:
         return html, 0
 
-    # Normalize first: strip old wrappers so toggles reflect current state
+
+    # --- SAFETY: do not touch pure-image or occlusion fields ---
+    # If the HTML is only an <img> tag, or multiple <img> tags, or whitespace around them,
+    # we return it unchanged. This prevents ANY accidental corruption.
+    if re.fullmatch(r'\s*(<img[^>]+>\s*)+', html, flags=re.IGNORECASE):
+        return html, 0
+    
+
+
+    # --- Protect cloze deletions depending on option ---
+    cloze_placeholders: list[str] = []
+
+    def _cloze_protect(m: re.Match) -> str:
+        cloze_placeholders.append(m.group(0))
+        return f"__CLOZE_PLACEHOLDER_{len(cloze_placeholders)-1}__"
+
+    def _restore_clozes(s: str) -> str:
+        for i, original in enumerate(cloze_placeholders):
+            s = s.replace(f"__CLOZE_PLACEHOLDER_{i}__", original)
+        return s
+
+    if not getattr(opts, "color_inside_cloze", False):
+        # default (safe): do NOT color inside cloze
+        html = re.sub(r'\{\{c\d+::.*?\}\}', _cloze_protect, html, flags=re.DOTALL)
+
+
+
+    # --- SAFE STRIP: never use '\1', always use lambda ---
     html = re.sub(
         r'<span class="cc-color"[^>]*>(.*?)</span>',
-        r'\1',
+        lambda m: m.group(1),  # safest possible: always returns original text
         html,
         flags=re.DOTALL | re.IGNORECASE,
     )
+
+    # --- Remove all bold and italic markup (safe, minimal, preserves text) ---
+    html = re.sub(
+        r'</?(b|strong|i|em)[^>]*>',
+        '',
+        html,
+        flags=re.IGNORECASE
+    )
+
+    if not opts.colorize:
+        # Restore clozes BEFORE returning
+        return _restore_clozes(html), 0
+
 
     parts = re.split(r"(<[^>]+>)", html)  # split into text/tag chunks
     changed = False
     total = 0
 
-    def repl(m: re.Match) -> str:
-        nonlocal total
-        gname = m.lastgroup
-        if not gname:
-            return m.group(0)
-        color = group_to_color.get(gname)
-        if not color:
-            return m.group(0)
-
-        style_bits = []
-        if opts.colorize:
-            style_bits.append(f"color:{color};")
-        if opts.bold:
-            style_bits.append("font-weight:bold;")
-        if opts.italic:
-            style_bits.append("font-style:italic;")
-
-        if not style_bits:
-            return m.group(0)
-
-        total += 1
-        style = " ".join(style_bits)
-        return f'<span class="cc-color" style="{style}">{m.group(0)}</span>'
-
     for i, chunk in enumerate(parts):
-        if i % 2 == 0 and chunk and "cc-color" not in chunk:
-            new_chunk, n = regex.subn(repl, chunk)
-            if n:
-                parts[i] = new_chunk
-                changed = True
+        if i % 2 != 0 or not chunk or "cc-color" in chunk:
+            continue  # skip tags and already-colored chunks
 
-    if not changed:
-        return html, 0
-    return "".join(parts), total
+        # --- NEW: protect placeholder islands inside this text chunk ---
+        segments = re.split(r'(__CLOZE_PLACEHOLDER_\d+__)', chunk)
+        if len(segments) == 1:
+            # No placeholders → process as one block
+            text_blocks = [(False, segments[0])]
+        else:
+            # Mark True for placeholders, False for normal text
+            text_blocks = [(j % 2 == 1, seg) for j, seg in enumerate(segments)]
 
+        new_chunk_pieces = []
+
+        for is_placeholder, sub in text_blocks:
+            if is_placeholder or not sub:
+                # Keep placeholders untouched
+                new_chunk_pieces.append(sub)
+                continue
+
+            # --- Your unified-run matching/coloring on this sub-text ---
+            matches = list(regex.finditer(sub))
+            if not matches:
+                new_chunk_pieces.append(sub)
+                continue
+
+            mdata = [(m.start(), m.end(), m) for m in matches]
+
+
+            groups = []
+            cur = [mdata[0]]
+            for prev, curr in zip(mdata, mdata[1:]):
+                # Text between matches
+                between = sub[prev[1]:curr[0]]
+
+                # If ONLY whitespace is between → same group
+                if between.strip() == "":
+                    cur.append(curr)
+                else:
+                    groups.append(cur)
+                    cur = [curr]
+            groups.append(cur)
+
+
+            sub_out = []
+            last_idx = 0
+
+            for group in groups:
+                gstart, gend = group[0][0], group[-1][1]
+                if last_idx < gstart:
+                    sub_out.append(sub[last_idx:gstart])
+
+                # Collect colors and choose unified color (C → D → B)
+                # --- NEW unified-color logic ---
+                # We choose the color that covers the largest total number of characters matched.
+                # If tie → first color encountered in the run.
+
+                color_lengths: dict[str, int] = {}   # color → total characters
+                color_order: list[str] = []          # remember color encounter order
+
+                for (s, e, m) in group:
+                    gname = m.lastgroup
+                    color = group_to_color.get(gname)
+                    text = m.group(0)
+
+                    if not color:
+                        continue
+
+                    # Count letters
+                    color_lengths[color] = color_lengths.get(color, 0) + len(text)
+
+                    # Remember order of appearance
+                    if color not in color_order:
+                        color_order.append(color)
+
+                # Choose color with maximum summed length
+                unified_color = None
+                if color_lengths:
+                    max_len = max(color_lengths.values())
+                    # candidates with equal max length
+                    candidates = [c for c, L in color_lengths.items() if L == max_len]
+
+                    if len(candidates) == 1:
+                        unified_color = candidates[0]
+                    else:
+                        # tie → choose the one that appeared first in the run
+                        for c in color_order:
+                            if c in candidates:
+                                unified_color = c
+                                break
+
+
+                run_text = sub[gstart:gend]
+                if unified_color:
+                    style_bits = []
+                    if opts.colorize:
+                        style_bits.append(f"color:{unified_color};")
+                    if opts.bold:
+                        style_bits.append("font-weight:bold;")
+                    if opts.italic:
+                        style_bits.append("font-style:italic;")
+                    style = " ".join(style_bits)
+                    sub_out.append(f'<span class="cc-color" style="{style}">{run_text}</span>')
+                    total += 1
+                else:
+                    sub_out.append(run_text)
+
+                last_idx = gend
+
+            if last_idx < len(sub):
+                sub_out.append(sub[last_idx:])
+
+            new_chunk_pieces.append("".join(sub_out))
+            changed = True
+
+        parts[i] = "".join(new_chunk_pieces)
+
+    # Build final string (either modified parts or the original html if nothing changed)
+    out_html = "".join(parts) if changed else html
+
+    # --- Always restore clozes before returning ---
+    out_html = _restore_clozes(out_html)
+    return out_html, total
+    
 # -------------------------------------------------------------------
 # Other helpers
 # -------------------------------------------------------------------
@@ -959,6 +1100,7 @@ def on_apply_to_selected_decks():
         italic=dlg.italic_enabled(),
         bold_plurals=dlg.bold_plurals_enabled(),
         colorize=dlg.colorize_enabled(),
+        color_inside_cloze=dlg.color_inside_cloze_enabled(),
     )
 
     # Remember preferences for next time
@@ -969,6 +1111,7 @@ def on_apply_to_selected_decks():
     cfg["colorize_enabled"] = dlg.colorize_enabled()
     cfg["whole_words"] = dlg.whole_words()
     cfg["case_insensitive"] = dlg.case_insensitive()
+    cfg["color_inside_cloze"] = dlg.color_inside_cloze_enabled()
     _write_cfg(cfg)
 
     try:
@@ -1149,6 +1292,7 @@ def apply_to_deck_ids(deck_ids, include_children=False, skip_cloze=None):
             italic=cfg.get("italic_enabled", False),
             bold_plurals=cfg.get("bold_plurals_enabled", True),
             colorize=cfg.get("colorize_enabled", True),
+            color_inside_cloze=cfg.get("color_inside_cloze", True),
         )
     except Exception as e:
         showWarning(f"Color coding failed (options): {e}")

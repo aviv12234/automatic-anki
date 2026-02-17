@@ -73,6 +73,136 @@ def _is_real_cloze(text: str) -> bool:
     import re
     return bool(re.search(r"\{\{c\d+::.+?\}\}", text or ""))
 
+import re
+
+_CLOZE_RE = re.compile(r"\{\{c(\d+)::(.*?)(?:(::)(.*?))?\}\}", re.DOTALL)
+
+def _style_from_colorizer_flags(color_hex: str, bold: bool, italic: bool) -> str:
+    """Build a CSS style string for the cloze wrapper."""
+    parts = [f"color:{color_hex};"]
+    if bold:
+        parts.append("font-weight:bold;")
+    if italic:
+        parts.append("font-style:italic;")
+    return "".join(parts)
+
+def _wrap_all_clozes_with_style(text: str, style_str: str) -> str:
+    """Wrap all cloze answers in a <span style="...">...</span>, preserving hints."""
+    if not text or not isinstance(text, str) or not style_str:
+        return text
+
+    def _one(m: re.Match) -> str:
+        num = m.group(1)
+        ans = m.group(2) or ""
+        has_hint = bool(m.group(3))
+        hint = m.group(4) or ""
+        # If already contains a span with color, keep it (avoid double wrap)
+        if "<span" in ans and "color:" in ans:
+            body = ans
+        else:
+            body = f'<span style="{style_str}">{ans}</span>'
+        if has_hint:
+            return f"{{{{c{num}::{body}::{hint}}}}}"
+        else:
+            return f"{{{{c{num}::{body}}}}}"
+
+    return _CLOZE_RE.sub(_one, text)
+
+def _colors_from_color_table_safe() -> list[str]:
+    """
+    Extract a deduped list of usable CSS colors from the colorizer table.
+    Accept #RRGGBB, #RGB, rgb()/rgba(), hsl()/hsla(), and CSS named colors.
+    Also understands common keys like 'color', 'colour', 'hex', 'fg', 'css'.
+    Falls back to a pleasant light palette if the table is empty.
+    """
+    def _is_css_color(s: str) -> bool:
+        if not isinstance(s, str):
+            return False
+        s = s.strip()
+        if not s:
+            return False
+        if s.startswith("#"):
+            # accept #RGB, #RRGGBB, #RRGGBBAA, etc. (we’ll pass it through)
+            return True
+        low = s.lower()
+        return (
+            low.startswith("rgb(") or low.startswith("rgba(") or
+            low.startswith("hsl(") or low.startswith("hsla(") or
+            # crude allow-list for named colors; allow any a–z string
+            (low[0].isalpha() and all(ch.isalpha() for ch in low.replace(" ", "")))
+        )
+
+    colors: list[str] = []
+    seen = set()
+    try:
+        from .colorizer import get_color_table
+        tbl = get_color_table() or []
+    except Exception:
+        tbl = []
+
+    # Accept multiple shapes: dict rows, (pattern, color), or custom
+    for row in tbl:
+        cand = None
+        if isinstance(row, dict):
+            # Try common keys in order
+            for k in ("color", "colour", "hex", "fg", "css"):
+                v = row.get(k)
+                if isinstance(v, str) and _is_css_color(v):
+                    cand = v.strip()
+                    break
+        elif isinstance(row, (list, tuple)) and len(row) >= 2 and isinstance(row[1], str):
+            v = row[1]
+            if _is_css_color(v):
+                cand = v.strip()
+
+        if cand and cand not in seen:
+            seen.add(cand)
+            colors.append(cand)
+
+    # Fallback palette (light tints that read well on dark backgrounds)
+    if not colors:
+        colors = [
+            "#8ad3ff",  # light sky
+            "#ffd280",  # light orange
+            "#a7ffb5",  # light green
+            "#ffb3c7",  # light pink
+            "#cdb3ff",  # light violet
+            "#ffe680",  # light yellow
+        ]
+
+    # Debug: log chosen palette once
+    try:
+        _dbg(f"Random cloze color pool (n={len(colors)}): {colors}")
+    except Exception:
+        pass
+
+    return colors
+
+
+def _wrap_one_cloze_answer(m: re.Match, color_hex: str) -> str:
+    """Rebuild a single cloze with the answer wrapped in a span color, preserving hint."""
+    num = m.group(1)
+    ans = m.group(2) or ""
+    has_hint = bool(m.group(3))
+    hint = m.group(4) or ""
+    # Avoid double-wrapping if answer already contains a span with a color.
+    if "<span" in ans and "color:" in ans:
+        body = ans
+    else:
+        body = f'<span style="color:{color_hex};">{ans}</span>'
+    if has_hint:
+        return f"{{{{c{num}::{body}::{hint}}}}}"
+    else:
+        return f"{{{{c{num}::{body}}}}}"
+
+def _wrap_all_clozes_with_color(text: str, color_hex: str) -> str:
+    """Wrap all cloze answers in the given text with a single color."""
+    if not text or not isinstance(text, str):
+        return text
+    if not (isinstance(color_hex, str) and color_hex.startswith("#")):
+        return text
+    return _CLOZE_RE.sub(lambda m: _wrap_one_cloze_answer(m, color_hex), text)
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Config I/O
@@ -95,6 +225,9 @@ def _get_config() -> dict:
     c.setdefault("color_after_generation", True)
     c.setdefault("ai_extend_color_table", True)
     c.setdefault("page_mode", "all")  # “all” or “range” (numeric range resets per PDF)
+    c.setdefault("cloze_color_mode", "per_word")      # per_word | random_table | custom
+    c.setdefault("cloze_custom_color_hex", "#FF69B4") # persisted like highlight color
+
     return c
 
 def _save_config(c: dict) -> None:
@@ -577,9 +710,36 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
 
                 if is_cloze and want_cloze:
                     try:
+                        # --- Cloze coloring: decide and apply before insertion ---
+                        mode = str(opts.get("cloze_color_mode", "per_word"))
+                        colored_front = raw_front
+                        if mode in ("random_table", "custom"):
+                            # Pick the single color
+                            if mode == "custom":
+                                color_hex = str(opts.get("cloze_custom_color_hex") or "#FF69B4")
+                            else:
+                                colors = _colors_from_color_table_safe()
+                                color_hex = random.choice(colors) if colors else str(opts.get("highlight_color_hex", "#FF69B4"))
+
+                            # Read colorizer style flags (bold/italic) so we can include them
+                            try:
+                                from .colorizer import _read_cfg as _cc_read_cfg
+                                cc = _cc_read_cfg() or {}
+                                bold_on = bool(cc.get("bold_enabled", True))
+                                italic_on = bool(cc.get("italic_enabled", False))
+                            except Exception:
+                                bold_on = True
+                                italic_on = False
+
+                            style_str = _style_from_colorizer_flags(color_hex, bold_on, italic_on)
+                            colored_front = _wrap_all_clozes_with_style(raw_front, style_str)
+
+
                         model = models["cloze"]; col.models.set_current(model)
                         note = col.newNote(); note.did = deck_id
-                        note["Text"] = raw_front; note["Back Extra"] = raw_back
+                        note["Text"] = colored_front
+                        note["Back Extra"] = raw_back
+
                         if "SlideImage" in note and fname:
                             note["SlideImage"] = f'<img src="{fname}">'
                         note.tags.append("pdf2cards:ai_cloze")
@@ -636,7 +796,9 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
                 _dbg("Colorizer: empty color table — skipping.")
                 mw.progress.finish(); return
 
+
             cc = _cc_read_cfg() or {}
+            cc_mode = str(_get_config().get("cloze_color_mode", "per_word")).strip()
             opts_local = ColoringOptions(
                 whole_words=cc.get("whole_words", True),
                 case_insensitive=cc.get("case_insensitive", True),
@@ -644,8 +806,12 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
                 italic=cc.get("italic_enabled", False),
                 bold_plurals=cc.get("bold_plurals_enabled", True),
                 colorize=cc.get("colorize_enabled", True),
+                # NEW: per-word mode → color inside cloze; random/custom → keep protected
+                color_inside_cloze=(cc_mode == "per_word"),
             )
             regex, group_to_color = build_combined_regex(color_table, opts_local)
+
+
             if not new_nids:
                 mw.progress.finish(); return
 
@@ -655,11 +821,57 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
                     note = mw.col.get_note(nid)
                     if not note: continue
                     modified = False
+                    cfg_gen = _get_config()  # already read above in this function
+                    cc_mode = str(cfg_gen.get("cloze_color_mode", "per_word")).strip()
+
                     for fname in note.keys():
-                        old = note[fname]
-                        new, _ = apply_color_coding_to_html(old, regex, group_to_color, opts_local)
-                        if new != old:
-                            note[fname] = new; modified = True
+                        try:
+                            old = note[fname]
+                            # If this is a cloze field and we used Random/Custom, preserve the single-color fill
+                            # Skip recoloring *inside* cloze spans, but still color the rest of the text
+                            if cc_mode in ("random_table", "custom") and fname.lower() in ("text",):
+                                if _is_real_cloze(old):
+                                    # Apply colorizer only OUTSIDE cloze answers
+                                    try:
+                                        # Split around cloze regions
+                                        parts = []
+                                        last_end = 0
+                                        for m in _CLOZE_RE.finditer(old):
+                                            # Part before the cloze → colorize normally
+                                            before = old[last_end:m.start()]
+                                            colored_before, _ = apply_color_coding_to_html(
+                                                before, regex, group_to_color, opts_local
+                                            )
+                                            parts.append(colored_before)
+
+                                            # Cloze itself → keep as-is (already wrapped with single color)
+                                            parts.append(m.group(0))
+                                            last_end = m.end()
+
+                                        # Remainder after last cloze
+                                        after = old[last_end:]
+                                        colored_after, _ = apply_color_coding_to_html(
+                                            after, regex, group_to_color, opts_local
+                                        )
+                                        parts.append(colored_after)
+
+                                        new = "".join(parts)
+
+                                        if new != old:
+                                            note[fname] = new
+                                            modified = True
+
+                                        continue
+                                    except Exception as e:
+                                        _dbg(f"Precise cloze skip failed: {e}")
+                                        # Fallback to full-skip (safe)
+                                        continue
+                            new, _ = apply_color_coding_to_html(old, regex, group_to_color, opts_local)
+                            if new != old:
+                                note[fname] = new; modified = True
+                        except Exception as e:
+                            _dbg(f"Colorize field '{fname}' note {nid} error: {e}")
+
                     if modified: note.flush()
                 except Exception as e:
                     _dbg(f"Colorize note {nid} error: {e}")
@@ -702,8 +914,63 @@ class OptionsDialog(QDialog):
         self.chk_cloze = QCheckBox("Cloze (requires OpenAI cloze output)"); self.chk_cloze.setChecked(bool(self.cfg.get("types_cloze", False)))
         v.addWidget(self.chk_basic); v.addWidget(self.chk_cloze)
 
+
+        # --- Cloze coloring (only applies when Cloze is enabled) ---
+        v.addSpacing(8); v.addWidget(QLabel("**Cloze coloring** (applies only if Cloze is selected)"))
+        self.rb_cloze_perword = QRadioButton("Per‑word colorizer (multiple colors inside cloze)")
+        self.rb_cloze_random  = QRadioButton("Random single color from color table")
+        self.rb_cloze_custom  = QRadioButton("Custom single color…")
+        cc_mode = str(self.cfg.get("cloze_color_mode", "per_word"))
+        self.rb_cloze_perword.setChecked(cc_mode == "per_word")
+        self.rb_cloze_random.setChecked(cc_mode == "random_table")
+        self.rb_cloze_custom.setChecked(cc_mode == "custom")
+
+        self.group_cloze_color = QButtonGroup(self)
+        for rb in (self.rb_cloze_perword, self.rb_cloze_random, self.rb_cloze_custom):
+            self.group_cloze_color.addButton(rb)
+            v.addWidget(rb)
+
+        # Custom color picker (persisted)
+        from PyQt6.QtGui import QColor
+        self.cloze_custom_hex = str(self.cfg.get("cloze_custom_color_hex", "#FF69B4"))
+        self.btn_cloze_color = QPushButton("Pick custom color…")
+        self.lbl_cloze_color = QLabel(f"Current: {self.cloze_custom_hex}")
+        self.lbl_cloze_color.setStyleSheet(
+            f"padding:2px 6px; border:1px solid #aaa; background:{self.cloze_custom_hex}; color:black;"
+        )
+        def pick_cloze_color():
+            col = QColorDialog.getColor(QColor(self.cloze_custom_hex))
+            if col.isValid():
+                self.cloze_custom_hex = col.name()
+                self.lbl_cloze_color.setText(f"Current: {self.cloze_custom_hex}")
+                self.lbl_cloze_color.setStyleSheet(
+                    f"padding:2px 6px; border:1px solid #aaa; background:{self.cloze_custom_hex}; color:black;"
+                )
+        h_ccolor = QHBoxLayout()
+        h_ccolor.addWidget(self.btn_cloze_color); h_ccolor.addWidget(self.lbl_cloze_color); h_ccolor.addStretch(1)
+        v.addLayout(h_ccolor)
+        self.btn_cloze_color.clicked.connect(pick_cloze_color)
+
+        # Enable/disable the cloze coloring section
+        def _sync_cloze_color_controls():
+            enabled = self.chk_cloze.isChecked()
+            for w in (self.rb_cloze_perword, self.rb_cloze_random, self.rb_cloze_custom,
+                    self.btn_cloze_color, self.lbl_cloze_color):
+                w.setEnabled(enabled)
+            # Only show color picker when "Custom" is chosen
+            custom = enabled and self.rb_cloze_custom.isChecked()
+            self.btn_cloze_color.setEnabled(custom)
+            self.lbl_cloze_color.setEnabled(custom)
+
+        self.chk_cloze.toggled.connect(_sync_cloze_color_controls)
+        self.rb_cloze_perword.toggled.connect(_sync_cloze_color_controls)
+        self.rb_cloze_random.toggled.connect(_sync_cloze_color_controls)
+        self.rb_cloze_custom.toggled.connect(_sync_cloze_color_controls)
+
+        _sync_cloze_color_controls()
+
         # Occlusion
-        self.chk_occl = QCheckBox("Auto-occlusion near images (AI)")
+        self.chk_occl = QCheckBox("Auto-occlusion near images (AI) (not working at the moment)")
         self.chk_occl.setChecked(bool(self.cfg.get("occlusion_enabled", True)))
         v.addWidget(self.chk_occl)
 
@@ -839,6 +1106,16 @@ class OptionsDialog(QDialog):
         c["page_mode"]      = "range" if self.rb_pages_range.isChecked() else "all"
         c["color_after_generation"] = self.chk_color_after.isChecked()
         c["ai_extend_color_table"]  = self.chk_ai_extend.isChecked()
+
+        
+        mode = "per_word"
+        if self.rb_cloze_random.isChecked():
+            mode = "random_table"
+        elif self.rb_cloze_custom.isChecked():
+            mode = "custom"
+        c["cloze_color_mode"] = mode
+        c["cloze_custom_color_hex"] = self.cloze_custom_hex
+
         _save_config(c)
 
         return {
@@ -855,6 +1132,10 @@ class OptionsDialog(QDialog):
             "page_from": int(self.spin_page_from.value()),
             "page_to":   int(self.spin_page_to.value()),
             "occlusion_enabled": c["occlusion_enabled"],
+            
+            "cloze_color_mode": c["cloze_color_mode"],
+            "cloze_custom_color_hex": c["cloze_custom_color_hex"],
+
         }
 
 
