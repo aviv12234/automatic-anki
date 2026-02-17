@@ -15,6 +15,12 @@ from aqt.qt import (
     QColorDialog
 )
 
+from aqt.qt import (
+    QAction, QFileDialog, QInputDialog, QDialog, QVBoxLayout, QHBoxLayout,
+    QLabel, QCheckBox, QRadioButton, QSpinBox, QPushButton, QButtonGroup,
+    QColorDialog, QDialogButtonBox, QScrollArea, QWidget
+)
+
 from .pdf_parser import (
     extract_words_with_boxes,
     extract_image_boxes,
@@ -899,27 +905,74 @@ def _on_worker_done(result: Dict, deck_id: int, deck_name: str,
 # Options dialog (per PDF), remembers toggles; resets numeric page range each time
 # ──────────────────────────────────────────────────────────────────────────────
 
+
+
+
 class OptionsDialog(QDialog):
-    def __init__(self, parent=None, max_pages=999):
+    def __init__(self, parent=None, max_pages=999, default_deck_name: str = ""):
         super().__init__(parent)
         self.setWindowTitle("PDF → Cards: Options")
         self.setModal(True)
         self.cfg = _get_config().copy()  # read last-used
+        self.default_deck_name = (default_deck_name or "").strip()
 
-        v = QVBoxLayout(self)
+        # --- Size hints (fit on small screens, still resizable)
+        try:
+            # Fit to ~80% of Anki's main window height (safer on laptops)
+            base_h = int(mw.size().height() * 0.8)
+            base_w = max(560, int(mw.size().width() * 0.5))
+        except Exception:
+            base_w, base_h = 720, 760  # safe defaults
 
+        self.setMinimumSize(560, 620)
+        self.resize(base_w, base_h)
+
+        # ---------------------------------------------------------------------
+        # OUTER LAYOUT: scroll area (content) + button box (fixed at bottom)
+        # ---------------------------------------------------------------------
+        outer_v = QVBoxLayout(self)
+
+        scroll = QScrollArea(self)
+        scroll.setWidgetResizable(True)
+        outer_v.addWidget(scroll, 1)
+
+        central = QWidget(scroll)
+        form_v = QVBoxLayout(central)
+        central.setLayout(form_v)
+        scroll.setWidget(central)
+
+        # ---------------------------------------------------------------------
+        # Deck name (top)
+        # ---------------------------------------------------------------------
+        from PyQt6.QtWidgets import QLineEdit
+        row_deck = QHBoxLayout()
+        row_deck.addWidget(QLabel("**Deck name**"))
+        self.deck_edit = QLineEdit(self.default_deck_name or "")
+        self.deck_edit.setPlaceholderText("e.g., Your deck name")
+        row_deck.addWidget(self.deck_edit)
+        form_v.addLayout(row_deck)
+
+        # ---------------------------------------------------------------------
         # Card types
-        v.addWidget(QLabel("**Card types**"))
-        self.chk_basic = QCheckBox("Basic"); self.chk_basic.setChecked(bool(self.cfg.get("types_basic", True)))
-        self.chk_cloze = QCheckBox("Cloze (requires OpenAI cloze output)"); self.chk_cloze.setChecked(bool(self.cfg.get("types_cloze", False)))
-        v.addWidget(self.chk_basic); v.addWidget(self.chk_cloze)
+        # ---------------------------------------------------------------------
+        form_v.addWidget(QLabel("**Card types**"))
+        self.chk_basic = QCheckBox("Basic")
+        self.chk_basic.setChecked(bool(self.cfg.get("types_basic", True)))
+        self.chk_cloze = QCheckBox("Cloze (requires OpenAI cloze output)")
+        self.chk_cloze.setChecked(bool(self.cfg.get("types_cloze", False)))
+        form_v.addWidget(self.chk_basic)
+        form_v.addWidget(self.chk_cloze)
 
+        # ---------------------------------------------------------------------
+        # Cloze coloring
+        # ---------------------------------------------------------------------
+        form_v.addSpacing(8)
+        form_v.addWidget(QLabel("**Cloze coloring** (applies only if Cloze is selected)"))
 
-        # --- Cloze coloring (only applies when Cloze is enabled) ---
-        v.addSpacing(8); v.addWidget(QLabel("**Cloze coloring** (applies only if Cloze is selected)"))
         self.rb_cloze_perword = QRadioButton("Per‑word colorizer (multiple colors inside cloze)")
         self.rb_cloze_random  = QRadioButton("Random single color from color table")
         self.rb_cloze_custom  = QRadioButton("Custom single color…")
+
         cc_mode = str(self.cfg.get("cloze_color_mode", "per_word"))
         self.rb_cloze_perword.setChecked(cc_mode == "per_word")
         self.rb_cloze_random.setChecked(cc_mode == "random_table")
@@ -928,7 +981,7 @@ class OptionsDialog(QDialog):
         self.group_cloze_color = QButtonGroup(self)
         for rb in (self.rb_cloze_perword, self.rb_cloze_random, self.rb_cloze_custom):
             self.group_cloze_color.addButton(rb)
-            v.addWidget(rb)
+            form_v.addWidget(rb)
 
         # Custom color picker (persisted)
         from PyQt6.QtGui import QColor
@@ -947,15 +1000,17 @@ class OptionsDialog(QDialog):
                     f"padding:2px 6px; border:1px solid #aaa; background:{self.cloze_custom_hex}; color:black;"
                 )
         h_ccolor = QHBoxLayout()
-        h_ccolor.addWidget(self.btn_cloze_color); h_ccolor.addWidget(self.lbl_cloze_color); h_ccolor.addStretch(1)
-        v.addLayout(h_ccolor)
+        h_ccolor.addWidget(self.btn_cloze_color)
+        h_ccolor.addWidget(self.lbl_cloze_color)
+        h_ccolor.addStretch(1)
+        form_v.addLayout(h_ccolor)
         self.btn_cloze_color.clicked.connect(pick_cloze_color)
 
         # Enable/disable the cloze coloring section
         def _sync_cloze_color_controls():
             enabled = self.chk_cloze.isChecked()
             for w in (self.rb_cloze_perword, self.rb_cloze_random, self.rb_cloze_custom,
-                    self.btn_cloze_color, self.lbl_cloze_color):
+                      self.btn_cloze_color, self.lbl_cloze_color):
                 w.setEnabled(enabled)
             # Only show color picker when "Custom" is chosen
             custom = enabled and self.rb_cloze_custom.isChecked()
@@ -966,78 +1021,112 @@ class OptionsDialog(QDialog):
         self.rb_cloze_perword.toggled.connect(_sync_cloze_color_controls)
         self.rb_cloze_random.toggled.connect(_sync_cloze_color_controls)
         self.rb_cloze_custom.toggled.connect(_sync_cloze_color_controls)
-
         _sync_cloze_color_controls()
 
+        # ---------------------------------------------------------------------
         # Occlusion
+        # ---------------------------------------------------------------------
         self.chk_occl = QCheckBox("Auto-occlusion near images (AI) (not working at the moment)")
         self.chk_occl.setChecked(bool(self.cfg.get("occlusion_enabled", True)))
-        v.addWidget(self.chk_occl)
+        form_v.addWidget(self.chk_occl)
 
+        # ---------------------------------------------------------------------
         # Cards per slide
-        v.addSpacing(8); v.addWidget(QLabel("**Cards per slide**"))
+        # ---------------------------------------------------------------------
+        form_v.addSpacing(8)
+        form_v.addWidget(QLabel("**Cards per slide**"))
+
         self.rb_all = QRadioButton("AI decides (all cards returned)")
         self.rb_range = QRadioButton("Range (random subset per slide)")
         mode = self.cfg.get("per_slide_mode", "ai")
-        self.rb_all.setChecked(mode == "ai"); self.rb_range.setChecked(mode == "range")
-        self.group_cards = QButtonGroup(self); self.group_cards.addButton(self.rb_all); self.group_cards.addButton(self.rb_range)
-        v.addWidget(self.rb_all); v.addWidget(self.rb_range)
+        self.rb_all.setChecked(mode == "ai")
+        self.rb_range.setChecked(mode == "range")
+        self.group_cards = QButtonGroup(self)
+        self.group_cards.addButton(self.rb_all)
+        self.group_cards.addButton(self.rb_range)
+        form_v.addWidget(self.rb_all)
+        form_v.addWidget(self.rb_range)
 
         h_per = QHBoxLayout()
-        self.spin_min = QSpinBox(); self.spin_max = QSpinBox()
-        self.spin_min.setRange(1, 50); self.spin_max.setRange(1, 50)
+        self.spin_min = QSpinBox()
+        self.spin_max = QSpinBox()
+        self.spin_min.setRange(1, 50)
+        self.spin_max.setRange(1, 50)
         self.spin_min.setValue(int(self.cfg.get("per_slide_min", 1)))
         self.spin_max.setValue(int(self.cfg.get("per_slide_max", 3)))
-        h_per.addWidget(QLabel("Min:")); h_per.addWidget(self.spin_min)
-        h_per.addWidget(QLabel("Max:")); h_per.addWidget(self.spin_max)
-        v.addLayout(h_per)
+        h_per.addWidget(QLabel("Min:"))
+        h_per.addWidget(self.spin_min)
+        h_per.addWidget(QLabel("Max:"))
+        h_per.addWidget(self.spin_max)
+        form_v.addLayout(h_per)
 
         def sync_per():
             enabled = self.rb_range.isChecked()
-            self.spin_min.setEnabled(enabled); self.spin_max.setEnabled(enabled)
-        self.rb_all.toggled.connect(sync_per); self.rb_range.toggled.connect(sync_per); sync_per()
+            self.spin_min.setEnabled(enabled)
+            self.spin_max.setEnabled(enabled)
+        self.rb_all.toggled.connect(sync_per)
+        self.rb_range.toggled.connect(sync_per)
+        sync_per()
 
+        # ---------------------------------------------------------------------
         # Page selection (numeric range resets every time)
-        v.addSpacing(10); v.addWidget(QLabel("**Pages (applies to the selected PDF)**"))
+        # ---------------------------------------------------------------------
+        form_v.addSpacing(10)
+        form_v.addWidget(QLabel("**Pages (applies to the selected PDF)**"))
         self.rb_pages_all = QRadioButton("All pages (default)")
         self.rb_pages_range = QRadioButton("Page range")
         self.rb_pages_all.setChecked(self.cfg.get("page_mode","all") == "all")
         self.rb_pages_range.setChecked(self.cfg.get("page_mode","all") == "range")
-        self.group_pages = QButtonGroup(self); self.group_pages.addButton(self.rb_pages_all); self.group_pages.addButton(self.rb_pages_range)
-        v.addWidget(self.rb_pages_all); v.addWidget(self.rb_pages_range)
+        self.group_pages = QButtonGroup(self)
+        self.group_pages.addButton(self.rb_pages_all)
+        self.group_pages.addButton(self.rb_pages_range)
+        form_v.addWidget(self.rb_pages_all)
+        form_v.addWidget(self.rb_pages_range)
 
         h_pages = QHBoxLayout()
-        self.spin_page_from = QSpinBox(); self.spin_page_to = QSpinBox()
-        self.spin_page_from.setRange(1, max_pages); self.spin_page_to.setRange(1, max_pages)
-        self.spin_page_from.setValue(1); self.spin_page_to.setValue(max_pages)
-        h_pages.addWidget(QLabel("From:")); h_pages.addWidget(self.spin_page_from)
-        h_pages.addWidget(QLabel("To:"));   h_pages.addWidget(self.spin_page_to)
-        v.addLayout(h_pages)
+        self.spin_page_from = QSpinBox()
+        self.spin_page_to   = QSpinBox()
+        self.spin_page_from.setRange(1, max_pages)
+        self.spin_page_to.setRange(1, max_pages)
+        self.spin_page_from.setValue(1)
+        self.spin_page_to.setValue(max_pages)
+        h_pages.addWidget(QLabel("From:"))
+        h_pages.addWidget(self.spin_page_from)
+        h_pages.addWidget(QLabel("To:"))
+        h_pages.addWidget(self.spin_page_to)
+        form_v.addLayout(h_pages)
 
         def sync_pages():
             enabled = self.rb_pages_range.isChecked()
-            self.spin_page_from.setEnabled(enabled); self.spin_page_to.setEnabled(enabled)
-        self.rb_pages_all.toggled.connect(sync_pages); self.rb_pages_range.toggled.connect(sync_pages); sync_pages()
+            self.spin_page_from.setEnabled(enabled)
+            self.spin_page_to.setEnabled(enabled)
+        self.rb_pages_all.toggled.connect(sync_pages)
+        self.rb_pages_range.toggled.connect(sync_pages)
+        sync_pages()
 
+        # ---------------------------------------------------------------------
         # Highlight options
+        # ---------------------------------------------------------------------
         self.chk_highlight = QCheckBox("Highlight used text on slide")
         self.chk_highlight.setChecked(bool(self.cfg.get("highlight_enabled", True)))
-        v.addWidget(self.chk_highlight)
+        form_v.addWidget(self.chk_highlight)
 
-        # NEW: Opacity sliders (persisted)
+        # Opacity sliders (persisted)
         op_row = QHBoxLayout()
         op_row.addWidget(QLabel("Fill opacity (0–255):"))
-        self.spin_fill = QSpinBox(); self.spin_fill.setRange(0, 255)
+        self.spin_fill = QSpinBox()
+        self.spin_fill.setRange(0, 255)
         self.spin_fill.setValue(int(self.cfg.get("highlight_fill_alpha", 140)))
         op_row.addWidget(self.spin_fill)
 
         op_row.addSpacing(12)
         op_row.addWidget(QLabel("Outline opacity (0–255):"))
-        self.spin_outline = QSpinBox(); self.spin_outline.setRange(0, 255)
+        self.spin_outline = QSpinBox()
+        self.spin_outline.setRange(0, 255)
         self.spin_outline.setValue(int(self.cfg.get("highlight_outline_alpha", 230)))
         op_row.addWidget(self.spin_outline)
         op_row.addStretch(1)
-        v.addLayout(op_row)
+        form_v.addLayout(op_row)
 
         # Color picker
         self.btn_color = QPushButton("Highlight color…")
@@ -1055,39 +1144,53 @@ class OptionsDialog(QDialog):
                 self.lbl_color.setStyleSheet(
                     f"padding:2px 6px; border:1px solid #aaa; background:{self.color_hex}; color:black;"
                 )
-        h_color = QHBoxLayout(); h_color.addWidget(self.btn_color); h_color.addWidget(self.lbl_color); h_color.addStretch(1)
-        v.addLayout(h_color); self.btn_color.clicked.connect(pick_color)
+        h_color = QHBoxLayout()
+        h_color.addWidget(self.btn_color)
+        h_color.addWidget(self.lbl_color)
+        h_color.addStretch(1)
+        form_v.addLayout(h_color)
+        self.btn_color.clicked.connect(pick_color)
 
         # Coloring shortcuts (open colorizer UIs from here)
-        v.addSpacing(8); v.addWidget(QLabel("**Coloring (deck/text highlighting)**"))
+        form_v.addSpacing(8)
+        form_v.addWidget(QLabel("**Coloring (deck/text highlighting)**"))
         row_col = QHBoxLayout()
         self.btn_color_table = QPushButton("Color Table…")
         self.btn_color_settings = QPushButton("Coloration Settings…")
-        row_col.addWidget(self.btn_color_table); row_col.addWidget(self.btn_color_settings); row_col.addStretch(1)
-        v.addLayout(row_col)
+        row_col.addWidget(self.btn_color_table)
+        row_col.addWidget(self.btn_color_settings)
+        row_col.addStretch(1)
+        form_v.addLayout(row_col)
         def _connect_colorizer():
             try:
+                # Imported earlier at top of file:
+                # from .colorizer import open_coloration_settings_dialog, on_edit_color_table
                 self.btn_color_table.clicked.connect(on_edit_color_table)
                 self.btn_color_settings.clicked.connect(open_coloration_settings_dialog)
             except Exception:
-                self.btn_color_table.setEnabled(False); self.btn_color_settings.setEnabled(False)
+                self.btn_color_table.setEnabled(False)
+                self.btn_color_settings.setEnabled(False)
         _connect_colorizer()
 
         # Post-generation coloring toggles (persist)
         self.chk_color_after = QCheckBox("Color deck after generation")
         self.chk_color_after.setChecked(bool(self.cfg.get("color_after_generation", True)))
-        v.addWidget(self.chk_color_after)
+        form_v.addWidget(self.chk_color_after)
 
         self.chk_ai_extend = QCheckBox("Let AI extend color table before coloring")
         self.chk_ai_extend.setChecked(bool(self.cfg.get("ai_extend_color_table", True)))
-        v.addWidget(self.chk_ai_extend)
+        form_v.addWidget(self.chk_ai_extend)
 
-        # Buttons
-        btns = QHBoxLayout()
-        btn_cancel = QPushButton("Cancel"); btn_ok = QPushButton("OK")
-        btns.addStretch(1); btns.addWidget(btn_cancel); btns.addWidget(btn_ok)
-        v.addLayout(btns)
-        btn_cancel.clicked.connect(self.reject); btn_ok.clicked.connect(self.accept)
+        # ---------------------------------------------------------------------
+        # Button box (ONLY thing that goes on outer_v below the scroll area)
+        # ---------------------------------------------------------------------
+        btn_box = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel,
+            self
+        )
+        btn_box.accepted.connect(self.accept)
+        btn_box.rejected.connect(self.reject)
+        outer_v.addWidget(btn_box, 0)
 
     def options(self) -> dict:
         """Persist everything except numeric page range, and return run options."""
@@ -1099,15 +1202,16 @@ class OptionsDialog(QDialog):
         c["highlight_fill_alpha"] = int(self.spin_fill.value())       # NEW
         c["highlight_outline_alpha"] = int(self.spin_outline.value()) # NEW
         c["occlusion_enabled"] = self.chk_occl.isChecked()
+
         mode = "range" if self.rb_range.isChecked() else "ai"
         c["per_slide_mode"] = mode
         c["per_slide_min"]  = int(self.spin_min.value())
         c["per_slide_max"]  = int(self.spin_max.value())
+
         c["page_mode"]      = "range" if self.rb_pages_range.isChecked() else "all"
         c["color_after_generation"] = self.chk_color_after.isChecked()
         c["ai_extend_color_table"]  = self.chk_ai_extend.isChecked()
 
-        
         mode = "per_word"
         if self.rb_cloze_random.isChecked():
             mode = "random_table"
@@ -1132,11 +1236,11 @@ class OptionsDialog(QDialog):
             "page_from": int(self.spin_page_from.value()),
             "page_to":   int(self.spin_page_to.value()),
             "occlusion_enabled": c["occlusion_enabled"],
-            
             "cloze_color_mode": c["cloze_color_mode"],
             "cloze_custom_color_hex": c["cloze_custom_color_hex"],
-
+            "deck_name": (self.deck_edit.text() or "").strip(),
         }
+
 
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -1169,26 +1273,47 @@ def generate_from_pdf():
     if not pdf_paths:
         return
 
+    # If user picked multiple PDFs, ask ONCE for a global deck name
+    global_deck_name = None
+    if len(pdf_paths) > 1:
+        from PyQt6.QtWidgets import QInputDialog
+        # Default from the first file's name
+        default_deck_name = deck_name_from_pdf_path(pdf_paths[0])
+        deck_name_text, ok = QInputDialog.getText(
+            mw,
+            "Deck name for all selected PDFs",
+            "Cards from ALL selected PDFs will be added to this deck:",
+            text=default_deck_name,
+        )
+        if not ok:
+            return
+        global_deck_name = (deck_name_text or default_deck_name).strip()
+
     for pdf_path in pdf_paths:
-        col = mw.col
-        deck_name = deck_name_from_pdf_path(pdf_path)
-        deck_id = get_or_create_deck(deck_name)
-        col.decks.select(deck_id)
+        # Compute defaults based on the file
+        pdf_name = os.path.basename(pdf_path)
+        default_deck_name = deck_name_from_pdf_path(pdf_path)  # e.g., file name without extension
 
         # Per-PDF page count: resets range to 1..last in dialog
         max_pages = _pdf_page_count(pdf_path) or 999
 
-        # Show Options dialog (persist toggles; numeric page range reset)
-        dlg = OptionsDialog(mw, max_pages=max_pages)
+        # Show Options dialog (still useful for per-file page ranges & toggles)
+        # We continue to show the deck field for single-file runs; it's ignored when global_deck_name is set.
+        dlg = OptionsDialog(mw, max_pages=max_pages, default_deck_name=default_deck_name)
         if dlg.exec() != QDialog.DialogCode.Accepted:
             continue
-        opts = dlg.options()
 
+        opts = dlg.options()
         if not (opts.get("types_basic") or opts.get("types_cloze")):
             showWarning("Select at least one card type (Basic or Cloze). Aborting.")
             continue
 
-        # Ensure models
+        # Use the global deck name if present; otherwise, fall back to the dialog or default
+        deck_name = (global_deck_name or opts.get("deck_name") or default_deck_name).strip()
+        deck_id = get_or_create_deck(deck_name)
+        mw.col.decks.select(deck_id)
+
+        # Ensure models based on chosen options
         models = {}
         if opts.get("types_basic"):
             models["basic"] = get_basic_model_fallback() or ensure_basic_with_slideimage("Basic + Slide")
@@ -1197,19 +1322,16 @@ def generate_from_pdf():
         else:
             models["cloze"] = mw.col.models.byName("Cloze + Slide") or ensure_cloze_with_slideimage("Cloze + Slide")
 
-        # ── Progress repaint: show a quick "Preparing..." before launching worker
-        pdf_name = os.path.basename(pdf_path)
+        # Quick “Preparing …” progress repaint
         mw.taskman.run_on_main(lambda: mw.progress.start(label=f"Preparing {pdf_name}…", immediate=True))
 
-        # Worker done wrapper
+        # Worker completion wrapper closes quick bar and continues
         def on_done_wrapper(deck_id=deck_id, deck_name=deck_name):
             def _on_done(fut):
-                # Close the quick "Preparing..." bar so _on_worker_done can open its detailed bar
                 try:
                     mw.taskman.run_on_main(lambda: mw.progress.finish())
                 except Exception:
                     pass
-
                 try:
                     res = fut.result()
                 except Exception as e:
@@ -1218,10 +1340,10 @@ def generate_from_pdf():
                     mw.progress.finish()
                     showWarning(f"Generation failed.\n\nError: {e}\n\n{tb_snip}")
                     return
-
                 _on_worker_done(res, deck_id, deck_name, models, opts)
             return _on_done
 
+        # Launch worker
         mw.taskman.run_in_background(
             lambda p=pdf_path, k=api_key, o=opts: _worker_generate_cards(p, k, o),
             on_done=on_done_wrapper(),
