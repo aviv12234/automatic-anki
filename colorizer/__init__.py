@@ -597,8 +597,13 @@ class ColoringOptions:
 _CAMEL_TOKEN_RE = re.compile(r"[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+")
 
 # Flexible separators allowed between tokens on cards:
-# space, &nbsp;, hyphen, slash, en dash, em dash, or a simple inline HTML tag
-_SEP_RE = r"(?:\s|&nbsp;|[-/]|–|—|<[^>]+?>)+"
+# - whitespace, hyphen, slash, en dash, em dash, or a simple inline HTML tag
+# - OPTIONAL possessive chunk just after a token:
+#     's / ’s      (bare)
+#     ('s) / (’s)  (parenthesized)
+_POSSESSIVE_CHUNK = r"(?:\(['’]s\)|['’]s)?"
+_SEP_CORE         = r"(?:\s+|[-/–—]|<[^>]+?>)+"
+_SEP_RE           = rf"{_POSSESSIVE_CHUNK}{_SEP_CORE}"
 
 def _tokenize_term(term: str) -> List[str]:
     """
@@ -659,53 +664,109 @@ def _plural_last_token_pattern(base: str, case_insensitive: bool) -> str:
 def build_combined_regex(color_table: Dict[str, str], opts: ColoringOptions) -> Tuple[re.Pattern, Dict[str, str]]:
     """
     Build one combined regex with named groups (k0, k1, ...) for each table key, supporting:
-      - multi-word (spaced) matching from CamelCase/snake_case/hyphenated/space keys,
-      - flexible separators on cards (spaces, &nbsp;, hyphen, slash, en/em dash, simple HTML tags),
-      - pluralization of the LAST token when enabled,
-      - whole-words behavior per token (when whole_words=True),
-      - LONGEST-FIRST PRIORITY so specific phrases beat generic tokens.
-    Returns: (compiled_regex, groupname_to_color)
+    - multi-word matching (CamelCase / snake_case / hyphen / spaces),
+    - flexible separators on cards (spaces, -, /, en/em dash, simple inline HTML tags),
+    - pluralization of the LAST token when enabled,
+    - whole-words behavior per token,
+    - LONGEST-FIRST priority (more tokens first),
+    - With a fallback: multi-token keys also provide *derived* single-token matches
+      (so BrocaArea colors 'broca'/'broca’s' and 'area/areas' even if singles are absent),
+      but explicit single-token entries override those derived ones.
     """
-    alts: List[str] = []
-    group_to_color: Dict[str, str] = {}
 
-    # --- Pre-tokenize and sort: longer/specific first ---
-    tmp: List[Tuple[List[str], str, str]] = []  # (tokens, key, color)
+    # ---------- Collect explicit entries ----------
+    explicit_entries: List[Tuple[List[str], str, str]] = []
+    explicit_single_tokens: set[str] = set()
+
     for key, color in color_table.items():
         tokens = _tokenize_term(key)
-        if tokens:
-            tmp.append((tokens, key, color))
-
-    # Sort by: (1) token count desc, (2) total chars desc
-    tmp.sort(key=lambda t: (len(t[0]), sum(len(tok) for tok in t[0])), reverse=True)
-    # -----------------------------------------------------
-
-    i = 0
-    for tokens, key, color in tmp:
-        def tok_piece(tok: str, is_last: bool) -> str:
-            if is_last and opts.bold_plurals:
-                last_core = _plural_last_token_pattern(tok, opts.case_insensitive)
-            else:
-                last_core = re.escape(tok)
-
-            if opts.whole_words:
-                if is_last:
-                    return rf"\b{last_core}\b"
-                else:
-                    return rf"\b{re.escape(tok)}\b"
-            else:
-                if is_last and not opts.bold_plurals and len(tokens) == 1:
-                    # avoid matching stem just before trivial plural "s"
-                    return rf"{re.escape(tok)}(?!s)"
-                if is_last:
-                    return last_core
-                return re.escape(tok)
-
+        if not tokens:
+            continue
+        explicit_entries.append((tokens, key, color))
         if len(tokens) == 1:
-            entry_pat = tok_piece(tokens[0], True)
+            # Remember explicit singles so we don't generate a derived duplicate
+            explicit_single_tokens.add(tokens[0])
+
+    # ---------- Add derived single-token fallbacks from multi-token keys ----------
+    # Each derived single token gets the same color as its parent multi-token key,
+    # but will be given LOWER priority than explicit singles in sorting.
+    # Structure: (tokens, key, color, is_derived)
+    tmp: List[Tuple[List[str], str, str, bool]] = []
+
+    for tokens, key, color in explicit_entries:
+        tmp.append((tokens, key, color, False))  # explicit row
+        
+        # Derive single-token matches from multi-token entries,
+        # but block short/common words to prevent unwanted coloring.
+        MIN_DERIVED = 4
+        STOPWORDS = {
+            "of", "and", "the", "in", "to", "for", "as", "or", "on", "by",
+            "und", "der", "die", "das", "mit", "von", "im", "an", "zu"
+        }
+
+        if len(tokens) > 1:
+            for t in tokens:
+                # Preserve explicit single-token entries, only derive new ones
+                if t in explicit_single_tokens:
+                    continue
+
+                # Block short tokens and stopwords
+                if len(t) < MIN_DERIVED:
+                    continue
+                if t.lower() in STOPWORDS:
+                    continue
+
+                # Create derived single-token entry (inherits parent color)
+                tmp.append(
+                    ([t], f"__DERIVED__:{key}:{t}", color, True)
+                )
+
+    # ---------- Sort by requested priority ----------
+    # 1) token count DESC (more specific first)
+    # 2) explicit before derived (False < True)
+    # 3) total chars ASC (least specific among equals)
+    def _tot_len(tok_list: List[str]) -> int:
+        return sum(len(tok) for tok in tok_list)
+
+    tmp.sort(
+        key=lambda row: (
+            -len(row[0]),            # more tokens first
+            row[3],                  # explicit(False) before derived(True)
+            _tot_len(row[0]),        # shorter comes earlier
+        )
+    )
+
+    # ---------- Build alternation ----------
+    alts: List[str] = []
+    group_to_color: Dict[str, str] = {}
+    i = 0
+
+    def tok_piece(tok: str, is_last: bool, tokens_for_entry: List[str]) -> str:
+        # pluralization only for LAST token if enabled
+        if is_last and opts.bold_plurals:
+            last_core = _plural_last_token_pattern(tok, opts.case_insensitive)
         else:
-            parts = [tok_piece(t, False) for t in tokens[:-1]]
-            parts.append(tok_piece(tokens[-1], True))
+            last_core = re.escape(tok)
+
+        if opts.whole_words:
+            if is_last:
+                return rf"\b{last_core}\b"
+            else:
+                return rf"\b{re.escape(tok)}\b"
+        else:
+            if is_last and not opts.bold_plurals and len(tokens_for_entry) == 1:
+                # avoid matching stem immediately before trivial plural 's'
+                return rf"{re.escape(tok)}(?!s)"
+            if is_last:
+                return last_core
+            return re.escape(tok)
+
+    for tokens, key, color, is_derived in tmp:
+        if len(tokens) == 1:
+            entry_pat = tok_piece(tokens[0], True, tokens)
+        else:
+            parts = [tok_piece(t, False, tokens) for t in tokens[:-1]]
+            parts.append(tok_piece(tokens[-1], True, tokens))
             entry_pat = _SEP_RE.join(parts)
 
         gname = f"k{i}"
